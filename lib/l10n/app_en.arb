@@ -1,0 +1,8 @@
+{
+    "language" : "English",
+    "@language" : {
+        "description" : "The current language"
+    },
+    "welcomeMessage" : "In the Dostbank app, we saw you very happy!",
+    "buttomText" : "Start"
+}

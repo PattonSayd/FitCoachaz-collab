@@ -1,0 +1,8 @@
+{
+    "language" : "Azərbaycan",
+    "@language" : {
+        "description" : "Cari dil"
+    },
+    "welcomeMessage" : "Salam",
+    "buttomText" : "Başla"
+    }

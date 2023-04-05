@@ -1,0 +1,8 @@
+{
+    "language" : "Русский",
+    "@language" : {
+        "description" : "Текущий язык"
+    },
+    "welcomeMessage" : "Добро пожаловать!",
+    "buttomText" : "Старт"
+}
