@@ -3,6 +3,9 @@
     "@language" : {
         "description" : "The current language"
     },
-    "welcomeMessage" : "In the Dostbank app, we saw you very happy!",
-    "buttomText" : "Start"
+    "welcomeMessage" : "Welcome!",
+    "startButtom" : "Start",
+    "initQestion" : "Have an account?",
+    "welcomeCaption" : "Distant və əyani məşqçilik platforması",
+    "signInButton" : "Sign in"
 }
