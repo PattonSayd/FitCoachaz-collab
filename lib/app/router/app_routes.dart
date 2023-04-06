@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../screen_factory.dart/screen_factory.dart';
 
-typedef AppRoutersType = Map<String, Widget Function(BuildContext)>;
-
 class AppRoutesName {
-  const AppRoutesName._();
+  AppRoutesName._();
 
-  static const main = '/';
-  static const signin = '/signin';
+  static const welcome = '/';
 }
 
 class AppRoutes {
-  const AppRoutes._();
+  AppRoutes._();
 
-  static final AppRoutersType routes = {
-    AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
+  static final routes = <String, Widget Function(BuildContext)>{
+    AppRoutesName.welcome: (_) => ScreenFactory.assembleWelcome(),
   };
 }

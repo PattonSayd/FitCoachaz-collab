@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../app.dart';
+import '../../ui/screens/welcome/welcome_screen.dart';
 
 class ScreenFactory {
-  const ScreenFactory._();
+  ScreenFactory._();
 
-  static Widget assembleMain() {
-    return const MainScreen();
+  static Widget assembleWelcome() {
+    return const WelcomeScreen();
   }
 }

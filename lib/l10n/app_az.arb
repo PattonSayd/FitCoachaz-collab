@@ -4,5 +4,8 @@
         "description" : "Cari dil"
     },
     "welcomeMessage" : "Salam",
-    "buttomText" : "Başla"
+    "startButtom" : "Başla",
+    "initQestion" : "Hesabın var?",
+    "welcomeCaption" : "Distant və əyani məşqçilik platforması",
+    "signInButton" : "Daxil ol"
     }

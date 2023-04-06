@@ -4,5 +4,8 @@
         "description" : "Текущий язык"
     },
     "welcomeMessage" : "Добро пожаловать!",
-    "buttomText" : "Старт"
+    "startButtom" : "Старт",
+    "initQestion" : "Есть аккаунт?",
+    "welcomeCaption" : "Платформа удаленного и личного коучинга",
+    "signInButton" : "Войти"
 }
