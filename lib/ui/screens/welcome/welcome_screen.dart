@@ -8,6 +8,8 @@ import '../../widgets/global_start_button.dart';
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
+  //comment
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
