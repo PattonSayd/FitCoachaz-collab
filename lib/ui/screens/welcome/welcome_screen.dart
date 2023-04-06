@@ -8,7 +8,7 @@ import '../../widgets/global_start_button.dart';
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
-  //comment added
+  //comment added, new Commit 06.04
 
   @override
   Widget build(BuildContext context) {
