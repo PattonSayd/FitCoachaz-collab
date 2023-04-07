@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
+  static const transparent = Colors.transparent;
   static const white = Colors.white;
   static const black = Colors.black;
   static const green = Color(0xFF049C6B);
