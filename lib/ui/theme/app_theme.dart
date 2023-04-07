@@ -6,7 +6,6 @@ class AppTheme {
   AppTheme._();
 
   static final light = ThemeData(
-    primarySwatch: Colors.blue,
     scaffoldBackgroundColor: AppColors.white,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.white,
