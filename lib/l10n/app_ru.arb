@@ -7,5 +7,7 @@
     "startButtom" : "Старт",
     "initQestion" : "Есть аккаунт?",
     "welcomeCaption" : "Платформа удаленного и личного коучинга",
-    "signInButton" : "Войти"
+    "signInButton" : "Войти",
+    "enterNumber":   "Введите номер мобильного телефона",
+    "confirmText":   "ПОДТВЕРЖДАТЬ"
 }

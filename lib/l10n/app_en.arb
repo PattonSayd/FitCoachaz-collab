@@ -6,6 +6,8 @@
     "welcomeMessage" : "Welcome!",
     "startButtom" : "Start",
     "initQestion" : "Have an account?",
-    "welcomeCaption" : "Distant və əyani məşqçilik platforması",
-    "signInButton" : "Sign in"
+    "welcomeCaption" : "Remote and face-to-face coaching platform",
+    "signInButton" : "Sign in",
+    "enterNumber":   "Enter the mobile number",
+    "confirmText":   "CONFIRM"
 }
