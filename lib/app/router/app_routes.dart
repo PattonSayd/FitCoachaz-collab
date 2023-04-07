@@ -6,6 +6,7 @@ class AppRoutesName {
   AppRoutesName._();
 
   static const welcome = '/';
+  static const main = '/main';
 }
 
 class AppRoutes {
@@ -13,5 +14,6 @@ class AppRoutes {
 
   static final routes = <String, Widget Function(BuildContext)>{
     AppRoutesName.welcome: (_) => ScreenFactory.assembleWelcome(),
+    AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
   };
 }
