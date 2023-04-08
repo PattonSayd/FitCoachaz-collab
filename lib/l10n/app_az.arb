@@ -17,6 +17,10 @@
     "password" :     "Şifrə",
     "repeatPassw" :  "Şifrə ( təkrar )",
     "checkPassw" :  " Şifrə eyni deyil!",
-    "nullPassw" :  " Şifrə boş ola bilməz!"
+    "nullPassw" :  " Şifrə boş ola bilməz!",
+    "userNameText" :  "Ad , soyad",
+    "idText"  :       "Şəxsiyyət vəsiqənizdə qeyd olunan şəkildə yazın",
+    "name" :         "Ad",
+    "surname" :      "Soyad"
     
     }

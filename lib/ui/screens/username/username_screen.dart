@@ -8,37 +8,37 @@ import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 import '../../widgets/global_passw_input.dart';
 
-class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
+class UsernameScreen extends StatefulWidget {
+  const UsernameScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  State<UsernameScreen> createState() => _UsernameScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
-  late final TextEditingController passwController;
-  late final TextEditingController rePasswController;
-  late final FocusNode passwFocus;
-  late final FocusNode rePasswFocus;
+class _UsernameScreenState extends State<UsernameScreen> {
+  late final TextEditingController nameController;
+  late final TextEditingController surnameController;
+  late final FocusNode nameFocus;
+  late final FocusNode surnameFocus;
   final _formKey = GlobalKey<FormState>();
-  late String number;
+  
 
   @override
   void initState() {
     super.initState();
-    passwController = TextEditingController();
-    rePasswController = TextEditingController();
-    passwFocus = FocusNode();
-    rePasswFocus = FocusNode();
+    nameController = TextEditingController();
+    surnameController = TextEditingController();
+    nameFocus = FocusNode();
+    surnameFocus = FocusNode();
   }
 
   @override
   void dispose() {
     super.dispose();
-    passwController.dispose();
-    rePasswController.dispose();
-    passwFocus.dispose();
-    rePasswFocus.dispose();
+    nameController.dispose();
+    surnameController.dispose();
+    nameFocus.dispose();
+    surnameFocus.dispose();
   }
 
   @override
@@ -62,23 +62,23 @@ class _PasswordScreenState extends State<PasswordScreen> {
            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                context.localizations.createPassw,
+                context.localizations.userNameText,
                 style: AppTextStyle.bigHeader,
               ),
               SizedBox(
                 height: 40.h,
               ),
-              Text(context.localizations.choosePassw,
+              Text(context.localizations.idText,
               style: AppTextStyle.choosePassw,
               textAlign: TextAlign.start,),
                SizedBox(
                 height: 20.h,
               ),
               GlobalPasswordInput(
-                controller: passwController,
-                obscureText: true,
-                focus: passwFocus,
-                labelText: context.localizations.password,
+                controller: nameController,
+                obscureText: false,
+                focus: nameFocus,
+                labelText: context.localizations.name,
                 onChanged: (value) {},
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -91,24 +91,21 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 height: 24.h,
               ),
                GlobalPasswordInput(
-                 controller: rePasswController,
-                 obscureText: true,
-                 focus: rePasswFocus,
+                 controller: surnameController,
+                 obscureText: false,
+                 focus: surnameFocus,
                  suffixIcon: GestureDetector(
                   onTap:(){
-                    rePasswController.clear();
+                    surnameController.clear();
                   },
                   child: const Icon(Icons.cancel)),
-                 labelText: context.localizations.repeatPassw,
+                 labelText: context.localizations.surname,
                  onChanged: (value) {},
                  validator: (value) {
                    if (value == null || value.isEmpty) {
                      return context.localizations.nullPassw;
                    }  
-                   if(value != passwController.text){
-                    return  context.localizations.checkPassw;
-                 }
-                   
+                
                  },
                ),
                SizedBox(
@@ -120,7 +117,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 text: context.localizations.confirmText,
                 onPress: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, AppRoutesName.user);
+                    Navigator.pushNamed(context, AppRoutesName.account);
                   }
                 },
               ),

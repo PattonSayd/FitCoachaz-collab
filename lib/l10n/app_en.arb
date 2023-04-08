@@ -17,5 +17,10 @@
     "password" :     "Password",
     "repeatPassw" :  "Password (repeat)",
     "checkPassw" :  " The password is not the same!",
-    "nullPassw" :   " Password cannot be empty!"
+    "nullPassw" :   " Password cannot be empty!",
+    "userNameText" :  "Name and Surname",
+    "idText" :       "Write as shown on your ID card",
+    "name" :         "Name",
+    "surname" :      "Surname"
+    
 }
