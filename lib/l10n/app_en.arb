@@ -11,5 +11,11 @@
     "enterNumber":   "Enter the mobile number",
     "confirmText":   "CONFIRM",
     "numberConfirm": "Confirm the code",
-    "resendText":    "Send again"
+    "resendText":    "Send again",
+    "createPassw":    "Create a password",
+    "choosePassw":    "Choose a password to secure your account",
+    "password" :     "Password",
+    "repeatPassw" :  "Password (repeat)",
+    "checkPassw" :  " The password is not the same!",
+    "nullPassw" :   " Password cannot be empty!"
 }

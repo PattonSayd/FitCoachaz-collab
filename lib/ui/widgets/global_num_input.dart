@@ -10,7 +10,7 @@ var maskFormatter =  MaskTextInputFormatter(
   filter: { "#": RegExp(r'[0-9]') },
 );
 
-class GlobalFormInput extends StatelessWidget {
+class GlobalNumberInput extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focus;
   final void Function(String) onChanged;
@@ -18,16 +18,16 @@ class GlobalFormInput extends StatelessWidget {
   final String? errorText;
   final String? hintText;
   final String? labelText;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final bool obscureText;
 
 
-   const GlobalFormInput({
+   const GlobalNumberInput({
     Key? key,
     required this.controller,
     required this.focus,
     required this.onChanged,
-    required this.keyboardType,
+    this.keyboardType,
     required this.validator,
     this.hintText, 
     this.labelText, 
@@ -41,6 +41,7 @@ class GlobalFormInput extends StatelessWidget {
       inputFormatters: [maskFormatter],
       obscureText:obscureText,
       onChanged: onChanged,
+      autofocus: true,
       keyboardType:keyboardType,
       validator: validator,
       controller: controller,

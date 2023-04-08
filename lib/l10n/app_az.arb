@@ -11,5 +11,12 @@
     "enterNumber":   "Mobil nömrəni daxil edin",
     "confirmText":   "TƏSDİQLƏ",
     "numberConfirm": "Kodu təsdiqlə",
-    "resendText":    "Yenidən göndər"
+    "resendText":    "Yenidən göndər",
+    "createPassw":   "Şifrə yarat",
+    "choosePassw":   "Hesabınızın təhlükəsizliyi üçün şifrə seçin",
+    "password" :     "Şifrə",
+    "repeatPassw" :  "Şifrə ( təkrar )",
+    "checkPassw" :  " Şifrə eyni deyil!",
+    "nullPassw" :  " Şifrə boş ola bilməz!"
+    
     }

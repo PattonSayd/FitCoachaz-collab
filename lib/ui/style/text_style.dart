@@ -29,6 +29,13 @@ class AppTextStyle {
       fontWeight: FontWeight.w500,
       color: AppColors.silver);
 
+ static TextStyle get activeButton =>  TextStyle(
+      fontSize: 16.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.17,
+      fontWeight: FontWeight.w500,
+      color: AppColors.white);
+
   static TextStyle get welcomeCaption => TextStyle(
       color: AppColors.white,
       fontWeight: FontWeight.w400,
@@ -57,9 +64,17 @@ class AppTextStyle {
       height: 1.31,
       color: AppColors.black
       );
+
+  static TextStyle get passwHeader => TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 42.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.20,
+      color: AppColors.black
+      );    
   static TextStyle get labelText => TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 10.spMin,
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
       fontFamily: AppFonts.alatsiRegular,
       height: 1.6,
       color: AppColors.silver
@@ -75,6 +90,12 @@ class AppTextStyle {
         fontSize: 16.spMin, 
         height: 1.5,
         color: AppColors.lightGreen,
+        fontWeight: FontWeight.w400,
+      );
+   static TextStyle get choosePassw=> TextStyle(
+        fontSize: 14.spMin, 
+        height: 1.42,
+        color: AppColors.black,
         fontWeight: FontWeight.w400,
       );
 }

@@ -2,10 +2,11 @@ import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../app/router/app_routes.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import '../../widgets/global_form_input.dart';
+import '../../widgets/global_num_input.dart';
 
 class NumberScreen extends StatefulWidget {
   const NumberScreen({super.key});
@@ -60,7 +61,7 @@ class _NumberScreenState extends State<NumberScreen> {
             ),
             Form(
               key: _formKey,
-              child: GlobalFormInput(
+              child: GlobalNumberInput(
                 controller: numberController,
                 focus: numberFocus,
                 keyboardType: TextInputType.phone,
