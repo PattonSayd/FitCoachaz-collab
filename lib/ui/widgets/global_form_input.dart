@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../style/text_style.dart';
@@ -49,8 +50,8 @@ class GlobalFormInput extends StatelessWidget {
          hintText: hintText,
          labelText: labelText,
          labelStyle:AppTextStyle.labelText,
-        errorStyle: const TextStyle(
-          fontSize: 14,
+        errorStyle:  TextStyle(
+          fontSize: 14.sp,
           color: AppColors.pink,
         ),
       ),

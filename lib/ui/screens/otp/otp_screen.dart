@@ -1,5 +1,7 @@
+import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/widgets/global_otp_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
 import '../../style/text_style.dart';
@@ -52,11 +54,11 @@ class _OTPScreenState extends State<OTPScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Kodu təsdiqlə',
+              context.localizations.numberConfirm,
               style: AppTextStyle.bigHeader,
             ),
             SizedBox(
-              height: 24,
+              height: 25.h,
             ),
             Form(
               key: _formKey,
@@ -68,33 +70,25 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
             ),
             SizedBox(
-              height: 16,
+              height: 24.h,
             ),
             GlobalButton(
               backgroundColor: AppColors.lightGrey,
               buttonStyle: AppTextStyle.deactiveButton,
-              text: 'TƏSDİQ ET',
+              text: context.localizations.confirmText,
               onPress: () {
                 if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Əla!'),
-                      backgroundColor: AppColors.lightGreen,
-                    ),
-                  );
+                  Navigator.pushNamed(context, AppRoutesName.passw);
                 }
-                Navigator.pushNamed(context, AppRoutesName.passw);
               },
             ),
             SizedBox(
-              height: 18,
+              height: 18.h,
             ),
             TextButton(
               onPressed: () {},
-              child: Text(
-                'Yenidən göndər',
-                // style: AppTextStyle.resendTextStyle
-              ),
+              child: Text(context.localizations.resendText,
+                  style: AppTextStyle.resendText),
             )
           ],
         ),

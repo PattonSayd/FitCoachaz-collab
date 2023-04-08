@@ -9,5 +9,7 @@
     "welcomeCaption" : "Distant və əyani məşqçilik platforması",
     "signInButton" : "Daxil ol",
     "enterNumber":   "Mobil nömrəni daxil edin",
-    "confirmText":   "TƏSDİQLƏ"
+    "confirmText":   "TƏSDİQLƏ",
+    "numberConfirm": "Kodu təsdiqlə",
+    "resendText":    "Yenidən göndər"
     }

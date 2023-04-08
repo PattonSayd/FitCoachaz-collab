@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../ui/screens/number/number_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
+import '../../ui/screens/password/password_screen.dart';
 import '../../ui/screens/welcome/welcome_screen.dart';
 
 class ScreenFactory {
@@ -19,7 +20,7 @@ class ScreenFactory {
     return const OTPScreen();
   }
 
-  // static Widget assemblePassw() {
-  //   return const PasswordScreen();
-  // }
+  static Widget assemblePassw() {
+    return const PasswordScreen();
+  }
 }

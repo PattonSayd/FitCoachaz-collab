@@ -9,5 +9,7 @@
     "welcomeCaption" : "Платформа удаленного и личного коучинга",
     "signInButton" : "Войти",
     "enterNumber":   "Введите номер мобильного телефона",
-    "confirmText":   "ПОДТВЕРЖДАТЬ"
+    "confirmText":   "ПОДТВЕРЖДАТЬ",
+    "numberConfirm": "Подтвердите код",
+    "resendText":    "Отправь еще раз"
 }

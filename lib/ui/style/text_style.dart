@@ -64,4 +64,17 @@ class AppTextStyle {
       height: 1.6,
       color: AppColors.silver
       );
+
+  static TextStyle get otpFieldText=> TextStyle(
+        fontSize: 22.sp, 
+        height: 1.27,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.w600,
+      );
+  static TextStyle get resendText=> TextStyle(
+        fontSize: 16.spMin, 
+        height: 1.5,
+        color: AppColors.lightGreen,
+        fontWeight: FontWeight.w400,
+      );
 }

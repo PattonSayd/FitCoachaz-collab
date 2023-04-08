@@ -9,5 +9,7 @@
     "welcomeCaption" : "Remote and face-to-face coaching platform",
     "signInButton" : "Sign in",
     "enterNumber":   "Enter the mobile number",
-    "confirmText":   "CONFIRM"
+    "confirmText":   "CONFIRM",
+    "numberConfirm": "Confirm the code",
+    "resendText":    "Send again"
 }
