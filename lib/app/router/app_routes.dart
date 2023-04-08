@@ -9,6 +9,7 @@ class AppRoutesName {
   static const signin = '/signin';
   static const otp = '/otp';
   static const passw = '/passw';
+  static const main = 'main';
 }
 
 class AppRoutes {
@@ -19,5 +20,6 @@ class AppRoutes {
     AppRoutesName.signin: (_) => ScreenFactory.assembleSignIn(),
     AppRoutesName.otp: (_) => ScreenFactory.assembleOTP(),
     AppRoutesName.passw: (_) => ScreenFactory.assemblePassw(),
+    AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
   };
 }
