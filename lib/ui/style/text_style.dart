@@ -49,4 +49,36 @@ class AppTextStyle {
       fontSize: 16.spMin,
       height: 1.27,
       fontFamily: AppFonts.alatsiRegular);
+
+  static TextStyle get searchIcon => TextStyle(
+        color: AppColors.grey,
+        fontWeight: FontWeight.w400,
+        fontFamily: AppFonts.alatsiRegular,
+        fontSize: 14.spMin,
+        height: 1.42,
+      );
+
+  static TextStyle get trendCoaches => TextStyle(
+        fontSize: 16.spMin,
+        height: 1.30,
+        fontWeight: FontWeight.w400,
+        fontFamily: AppFonts.alatsiRegular,
+        color: AppColors.darkBlue,
+      );
+
+  static TextStyle get seeAllTrendCoaches => TextStyle(
+        fontSize: 14.spMin,
+        height: 1.21,
+        fontWeight: FontWeight.w400,
+        fontFamily: AppFonts.alatsiRegular,
+        shadows: const [
+          Shadow(
+            color: AppColors.pink,
+            offset: Offset(0, -1.2),
+          )
+        ],
+        decorationColor: AppColors.pink,
+        color: AppColors.transparent,
+        decoration: TextDecoration.underline,
+      );
 }

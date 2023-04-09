@@ -7,5 +7,8 @@
     "startButtom" : "Başla",
     "initQestion" : "Hesabın var?",
     "welcomeCaption" : "Distant və əyani məşqçilik platforması",
-    "signInButton" : "Daxil ol"
+    "signInButton" : "Daxil ol",
+    "searchHint" : "Idman növü və ya məşqçi axtar",
+    "trendCoaches" : "Trend Məşqçilər",
+    "seeAllTrendCoaches" : "Hamısına bax"
     }

@@ -6,7 +6,7 @@ class AppRoutesName {
   AppRoutesName._();
 
   static const welcome = '/';
-  static const main = '/main';
+  static const main = 'main';
 }
 
 class AppRoutes {
