@@ -2,13 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../app/resources/app_assets.dart';
-import '../../../app/resources/app_fonst.dart';
-import '../../style/text_style.dart';
+import '../../style/app_button_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 class ActionAppBar extends StatelessWidget {
@@ -156,15 +155,8 @@ class _SlideContainerState extends State<SlideContainer> {
                               bottom: 0,
                               child: Column(
                                 children: [
-                                  Text(
-                                    'Crossfit',
-                                    style: TextStyle(
-                                      fontSize: 20.spMin,
-                                      height: 1.28,
-                                      color: AppColors.white,
-                                      fontFamily: AppFonts.alatsiRegular,
-                                    ),
-                                  ),
+                                  Text('Crossfit',
+                                      style: AppTextStyle.slideCaption),
                                   SizedBox(height: 3.h),
                                   OutlinedButton(
                                     onPressed: () {},
@@ -176,13 +168,10 @@ class _SlideContainerState extends State<SlideContainer> {
                                       side: const BorderSide(
                                           width: 1.0, color: AppColors.white),
                                     ),
-                                    child: const FittedBox(
+                                    child: FittedBox(
                                       child: Text(
                                         'Abune ol',
-                                        style: TextStyle(
-                                            fontSize: 7,
-                                            height: 1.43,
-                                            color: AppColors.white),
+                                        style: AppTextStyle.slideButton,
                                       ),
                                     ),
                                   ),
@@ -269,25 +258,9 @@ class CardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  _cardItems[index].sport,
-                  style: TextStyle(
-                    fontSize: 12.spMin,
-                    height: 1.10,
-                    color: AppColors.grey,
-                    fontFamily: AppFonts.abelRegular,
-                  ),
-                ),
+                Text(_cardItems[index].sport, style: AppTextStyle.cardSport),
                 const SizedBox(height: 4),
-                Text(
-                  _cardItems[index].name,
-                  style: TextStyle(
-                    fontSize: 16.spMin,
-                    height: 1.28,
-                    color: AppColors.darkBlue,
-                    fontFamily: AppFonts.alatsiRegular,
-                  ),
-                ),
+                Text(_cardItems[index].name, style: AppTextStyle.cardCoachName),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -297,15 +270,8 @@ class CardView extends StatelessWidget {
                       size: 16,
                     ),
                     const SizedBox(width: 2),
-                    Text(
-                      _cardItems[index].ranking,
-                      style: TextStyle(
-                        fontSize: 14.spMin,
-                        height: 1.4,
-                        color: AppColors.grey,
-                        fontFamily: AppFonts.alatsiRegular,
-                      ),
-                    ),
+                    Text(_cardItems[index].ranking,
+                        style: AppTextStyle.cardRanking),
                     const SizedBox(width: 14),
                     const Icon(
                       Icons.watch_later_outlined,
@@ -313,15 +279,8 @@ class CardView extends StatelessWidget {
                       size: 16,
                     ),
                     const SizedBox(width: 5),
-                    Text(
-                      _cardItems[index].dateTime,
-                      style: TextStyle(
-                        fontSize: 14.spMin,
-                        height: 1.4,
-                        color: AppColors.grey,
-                        fontFamily: AppFonts.alatsiRegular,
-                      ),
-                    ),
+                    Text(_cardItems[index].dateTime,
+                        style: AppTextStyle.cardDateTime),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -346,11 +305,7 @@ class ViewAll extends StatelessWidget {
             style: AppTextStyle.trendCoaches),
         TextButton(
           onPressed: () {},
-          style: TextButton.styleFrom(
-            minimumSize: Size.zero,
-            padding: EdgeInsets.zero,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
+          style: AppButtonStyle.textButtonReset,
           child: Text(context.localizations.seeAllTrendCoaches,
               style: AppTextStyle.seeAllTrendCoaches),
         ),

@@ -10,5 +10,6 @@
     "signInButton" : "Войти",
     "searchHint" : "Поиск спорта или тренера",
     "trendCoaches" : "Тренд Тренеры",
-    "seeAllTrendCoaches" : "Посмотреть все"
+    "seeAllTrendCoaches" : "Посмотреть все",
+    "slideButton" : "Подписаться"
 }

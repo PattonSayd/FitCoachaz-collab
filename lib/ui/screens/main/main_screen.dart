@@ -1,8 +1,6 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'main_components.dart';
 
 class CardItemState {
@@ -23,7 +21,6 @@ class CardItemState {
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
-
   final _cardItems = <CardItemState>[
     CardItemState(
       'İsrafil Rzabəyli',
@@ -84,7 +81,21 @@ class MainScreen extends StatelessWidget {
                 ),
               );
             }),
-          )
+          ),
+          const SizedBox(height: 34),
+          Align(
+            child: SizedBox(
+                width: context.deviceWidth * 0.872,
+                height: 72,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    AppAssets.advertising,
+                    fit: BoxFit.contain,
+                  ),
+                )),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );

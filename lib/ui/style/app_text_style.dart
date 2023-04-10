@@ -81,4 +81,42 @@ class AppTextStyle {
         color: AppColors.transparent,
         decoration: TextDecoration.underline,
       );
+
+  static TextStyle get cardSport => TextStyle(
+        fontSize: 12.spMin,
+        height: 1.10,
+        color: AppColors.grey,
+        fontFamily: AppFonts.abelRegular,
+      );
+
+  static TextStyle get cardCoachName => TextStyle(
+        fontSize: 16.spMin,
+        height: 1.28,
+        color: AppColors.darkBlue,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get cardDateTime => TextStyle(
+        fontSize: 14.spMin,
+        height: 1.4,
+        color: AppColors.grey,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get cardRanking => TextStyle(
+        fontSize: 14.spMin,
+        height: 1.4,
+        color: AppColors.grey,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get slideButton =>
+      const TextStyle(fontSize: 7, height: 1.43, color: AppColors.white);
+
+  static TextStyle get slideCaption => TextStyle(
+        fontSize: 20.spMin,
+        height: 1.28,
+        color: AppColors.white,
+        fontFamily: AppFonts.alatsiRegular,
+      );
 }

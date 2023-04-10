@@ -10,5 +10,6 @@
     "signInButton" : "Sign in",
     "searchHint" : "Search for a sport or coach",
     "trendCoaches" : "Trend Coaches",
-    "seeAllTrendCoaches" : "See all"
+    "seeAllTrendCoaches" : "See all",
+    "slideButton" : "Subscribe"
 }

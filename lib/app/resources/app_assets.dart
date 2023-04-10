@@ -10,6 +10,7 @@ class AppAssets {
   static String slideBackground = '$baseImagePath/slideBackground.png';
   static String crossfit = '$baseImagePath/crossfit.jpg';
   static String bodybuild = '$baseImagePath/bodybuild.jpg';
+  static String advertising = '$baseImagePath/advertising.png';
 
   static String homeTab = '$baseIconPath/homeTab.svg';
   static String bookmarkTab = '$baseIconPath/bookmarkTab.svg';
