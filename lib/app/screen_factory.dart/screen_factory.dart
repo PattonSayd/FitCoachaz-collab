@@ -23,7 +23,8 @@ class ScreenFactory {
 
   static Widget assemblePassw() {
     return const PasswordScreen();
-    
+  }
+
   static Widget assembleMain() {
     return const TabsNavigator();
   }
