@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import '../style/text_style.dart';
-import '../theme/app_colors.dart';
 
-class GlobalOtpField extends StatelessWidget {
+import '../../style/text_style.dart';
+import '../../theme/app_colors.dart';
+
+class OtpField extends StatelessWidget {
   final TextEditingController otpFieldController;
   final FocusNode otpFieldFocus;
   final int otpFieldLength;
   final void Function(String) otpOnChanged;
 
-  const GlobalOtpField({
+  const OtpField({
     Key? key,
     required this.otpFieldController,
     required this.otpFieldFocus,

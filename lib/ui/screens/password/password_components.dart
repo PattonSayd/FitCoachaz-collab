@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../style/text_style.dart';
-import '../theme/app_colors.dart';
+import '../../style/text_style.dart';
+import '../../theme/app_colors.dart';
 
-
-class GlobalPasswordInput extends StatelessWidget {
+class PasswordInput extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focus;
   final void Function(String) onChanged;
@@ -16,9 +15,8 @@ class GlobalPasswordInput extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final bool obscureText;
-
-
-   const GlobalPasswordInput({
+  
+   const PasswordInput({
     Key? key,
     required this.controller,
     required this.focus,
@@ -33,20 +31,55 @@ class GlobalPasswordInput extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<PasswordInput> createState() => _PasswordInputState();
+}
+
+
+class _PasswordInputState extends State<PasswordInput> {
+   bool _isActive = false;
+
+
+  void listenFocus() {
+    setState(() {
+      if (widget.focus.hasFocus) {
+        _isActive = true;
+      } else {
+        _isActive = false;
+      }
+    });
+  }
+
+    @override
+  void initState() {
+    super.initState();
+    widget.focus.addListener(listenFocus);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.focus.removeListener(listenFocus);
+  }
+
+
+
+
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText:obscureText,
-      onChanged: onChanged,
-      keyboardType:keyboardType,
-      validator: validator,
-      controller: controller,
-      focusNode: focus,
+      obscureText:widget.obscureText,
+      onChanged: widget.onChanged,
+      keyboardType:widget.keyboardType,
+      validator: widget.validator,
+      controller: widget.controller,
+      focusNode: widget.focus,
       autofocus: true,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
-        suffixIcon: suffixIcon,
-         hintText: hintText,
-         labelText: labelText,
+        suffixIcon: widget.suffixIcon,
+         hintText: widget.hintText,
+         labelText: widget.labelText,
          labelStyle:AppTextStyle.labelText,
         errorStyle:  TextStyle(
           fontSize: 14.sp,

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../style/text_style.dart';
-import '../theme/app_colors.dart';
+import '../../style/text_style.dart';
+import '../../theme/app_colors.dart';
 
 var maskFormatter =  MaskTextInputFormatter(
   mask: '+994 (###) ###-##-##', 
   filter: { "#": RegExp(r'[0-9]') },
 );
 
-class GlobalNumberInput extends StatelessWidget {
+class NumberInput extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focus;
   final void Function(String) onChanged;
@@ -22,7 +22,7 @@ class GlobalNumberInput extends StatelessWidget {
   final bool obscureText;
 
 
-   const GlobalNumberInput({
+   const NumberInput({
     Key? key,
     required this.controller,
     required this.focus,

@@ -6,7 +6,7 @@ import '../../../app/router/app_routes.dart';
 import '../../style/text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import '../../widgets/global_passw_input.dart';
+import 'password_components.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({super.key});
@@ -21,7 +21,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   late final FocusNode passwFocus;
   late final FocusNode rePasswFocus;
   final _formKey = GlobalKey<FormState>();
-  late String number;
+  late bool obsecureText;
 
   @override
   void initState() {
@@ -30,6 +30,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
     rePasswController = TextEditingController();
     passwFocus = FocusNode();
     rePasswFocus = FocusNode();
+    obsecureText=true;
   }
 
   @override
@@ -53,78 +54,87 @@ class _PasswordScreenState extends State<PasswordScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                context.localizations.createPassw,
-                style: AppTextStyle.bigHeader,
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Text(context.localizations.choosePassw,
-              style: AppTextStyle.choosePassw,
-              textAlign: TextAlign.start,),
-               SizedBox(
-                height: 20.h,
-              ),
-              GlobalPasswordInput(
-                controller: passwController,
-                obscureText: true,
-                focus: passwFocus,
-                labelText: context.localizations.password,
-                onChanged: (value) {},
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return context.localizations.nullPassw;
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-               GlobalPasswordInput(
-                 controller: rePasswController,
-                 obscureText: true,
-                 focus: rePasswFocus,
-                 suffixIcon: GestureDetector(
-                  onTap:(){
-                    rePasswController.clear();
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.localizations.createPassw,
+                  style: AppTextStyle.bigHeader,
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Text(context.localizations.choosePassw,
+                style: AppTextStyle.choosePassw,
+                textAlign: TextAlign.start,),
+                 SizedBox(
+                  height: 20.h,
+                ),
+                PasswordInput(
+                  controller: passwController,
+                  obscureText: true,
+                  focus: passwFocus,
+                  labelText: context.localizations.password,
+                  onChanged: (value) {},
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return context.localizations.nullPassw;
+                    }
+                    return null;
                   },
-                  child: const Icon(Icons.cancel)),
-                 labelText: context.localizations.repeatPassw,
-                 onChanged: (value) {},
-                 validator: (value) {
-                   if (value == null || value.isEmpty) {
-                     return context.localizations.nullPassw;
-                   }  
-                   if(value != passwController.text){
-                    return  context.localizations.checkPassw;
-                 }
-                   
-                 },
-               ),
-               SizedBox(
-                height: 24.h,
-              ),
-              GlobalButton(
-                backgroundColor: AppColors.lightGreen,
-                buttonStyle: AppTextStyle.activeButton,
-                text: context.localizations.confirmText,
-                onPress: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, AppRoutesName.user);
-                  }
-                },
-              ),
-            ],
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                 PasswordInput(
+                   controller: rePasswController,
+                   obscureText: obsecureText,
+                   focus: rePasswFocus,
+                   suffixIcon: IconButton(
+              icon: Icon(
+                // Based on passwordVisible state choose the icon
+                 obsecureText
+                 ? Icons.visibility
+                 : Icons.visibility_off,
+                 //color: Theme.of(context).primaryColorDark,
+                 ), onPressed: () { 
+                  setState(() {
+                     obsecureText=!obsecureText;
+                 });
+                  },),
+                   labelText: context.localizations.repeatPassw,
+                   onChanged: (value) {},
+                   validator: (value) {
+                     if (value == null || value.isEmpty) {
+                       return context.localizations.nullPassw;
+                     }  
+                     if(value != passwController.text){
+                      return  context.localizations.checkPassw;
+                   }
+                    return null; 
+                   },
+                 ),
+                 SizedBox(
+                  height: 24.h,
+                ),
+                GlobalButton(
+                  backgroundColor: AppColors.lightGreen,
+                  buttonStyle: AppTextStyle.activeButton,
+                  text: context.localizations.confirmText,
+                  onPress: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushNamed(context, AppRoutesName.user);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

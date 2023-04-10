@@ -3,7 +3,7 @@
     "@language" : {
         "description" : "The current language"
     },
-    "welcomeMessage" : "Welcome!",
+    "welcomeMessage" : "Welcome",
     "startButtom" : "Start",
     "initQestion" : "Have an account?",
     "welcomeCaption" : "Remote and face-to-face coaching platform",
@@ -21,6 +21,9 @@
     "userNameText" :  "Name and Surname",
     "idText" :       "Write as shown on your ID card",
     "name" :         "Name",
-    "surname" :      "Surname"
+    "surname" :      "Surname",
+    "nullName" :     " The name cannot be empty!",
+    "nullSurn" :     " Surname cannot be empty!",
+    "welcomeUserMessage":"Your account has been successfully created. Please follow the next steps by clicking the button below"
     
 }

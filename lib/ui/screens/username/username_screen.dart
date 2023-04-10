@@ -6,7 +6,7 @@ import '../../../app/router/app_routes.dart';
 import '../../style/text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import '../../widgets/global_passw_input.dart';
+import '../password/password_components.dart';
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({super.key});
@@ -53,75 +53,72 @@ class _UsernameScreenState extends State<UsernameScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                context.localizations.userNameText,
-                style: AppTextStyle.bigHeader,
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Text(context.localizations.idText,
-              style: AppTextStyle.choosePassw,
-              textAlign: TextAlign.start,),
-               SizedBox(
-                height: 20.h,
-              ),
-              GlobalPasswordInput(
-                controller: nameController,
-                obscureText: false,
-                focus: nameFocus,
-                labelText: context.localizations.name,
-                onChanged: (value) {},
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return context.localizations.nullPassw;
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-               GlobalPasswordInput(
-                 controller: surnameController,
-                 obscureText: false,
-                 focus: surnameFocus,
-                 suffixIcon: GestureDetector(
-                  onTap:(){
-                    surnameController.clear();
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.localizations.userNameText,
+                  style: AppTextStyle.bigHeader,
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Text(context.localizations.idText,
+                style: AppTextStyle.choosePassw,
+                textAlign: TextAlign.start,),
+                 SizedBox(
+                  height: 20.h,
+                ),
+                PasswordInput(
+                  controller: nameController,
+                  obscureText: false,
+                  focus: nameFocus,
+                  labelText: context.localizations.name,
+                  onChanged: (value) {},
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return context.localizations.nullName;
+                    }
+                    return null;
                   },
-                  child: const Icon(Icons.cancel)),
-                 labelText: context.localizations.surname,
-                 onChanged: (value) {},
-                 validator: (value) {
-                   if (value == null || value.isEmpty) {
-                     return context.localizations.nullPassw;
-                   }  
-                
-                 },
-               ),
-               SizedBox(
-                height: 24.h,
-              ),
-              GlobalButton(
-                backgroundColor: AppColors.lightGreen,
-                buttonStyle: AppTextStyle.activeButton,
-                text: context.localizations.confirmText,
-                onPress: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, AppRoutesName.account);
-                  }
-                },
-              ),
-            ],
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                 PasswordInput(
+                   controller: surnameController,
+                   obscureText: false,
+                   focus: surnameFocus,
+                   labelText: context.localizations.surname,
+                   onChanged: (value) {},
+                   validator: (value) {
+                     if (value == null || value.isEmpty) {
+                       return context.localizations.nullSurn;
+                     }  
+                  return null;
+                   },
+                 ),
+                 SizedBox(
+                  height: 24.h,
+                ),
+                GlobalButton(
+                  backgroundColor: AppColors.lightGreen,
+                  buttonStyle: AppTextStyle.activeButton,
+                  text: context.localizations.confirmText,
+                  onPress: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushNamed(context, AppRoutesName.account);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
