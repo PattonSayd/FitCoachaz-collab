@@ -6,6 +6,12 @@
     "welcomeMessage" : "Welcome!",
     "startButtom" : "Start",
     "initQestion" : "Have an account?",
+    "welcomeCaption" : "Distant və əyani məşqçilik platforması",
+    "signInButton" : "Sign in",
+    "searchHint" : "Search for a sport or coach",
+    "trendCoaches" : "Trend Coaches",
+    "seeAllTrendCoaches" : "See all",
+    "slideButton" : "Subscribe"
     "welcomeCaption" : "Remote and face-to-face coaching platform",
     "signInButton" : "Sign in",
     "enterNumber":   "Enter the mobile number",

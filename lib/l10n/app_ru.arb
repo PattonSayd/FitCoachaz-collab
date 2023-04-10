@@ -18,4 +18,8 @@
     "repeatPassw" :  "Пароль (повторить)",
     "checkPassw" :  " Пароль не тот!",
     "nullPassw" :  " Пароль не может быть пустым!"
+    "searchHint" : "Поиск спорта или тренера",
+    "trendCoaches" : "Тренд Тренеры",
+    "seeAllTrendCoaches" : "Посмотреть все",
+    "slideButton" : "Подписаться"
 }
