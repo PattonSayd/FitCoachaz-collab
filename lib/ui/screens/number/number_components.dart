@@ -52,7 +52,7 @@ class NumberInput extends StatelessWidget {
          labelText: labelText,
          labelStyle:AppTextStyle.labelText,
         errorStyle:  TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14.spMin,
           color: AppColors.pink,
         ),
       ),

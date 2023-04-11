@@ -21,29 +21,32 @@ class OtpField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PinCodeTextField(
-        pinBoxWidth: 73.0.w,
-        pinBoxHeight: 55.0.h,
-        pinTextStyle: AppTextStyle.otpFieldText,
-        maxLength: 4,
-        controller: otpFieldController,
-        hideCharacter: false,
-        highlight: false,
-        highlightAnimation: false,
-        defaultBorderColor: AppColors.brightSilver,
-        hasTextBorderColor: AppColors.lightGreen,
-        highlightPinBoxColor: AppColors.lightBlue,
-        hasError: false,
-        errorBorderColor: AppColors.pink,
-        onTextChanged: otpOnChanged,
-        autofocus: true,
-        focusNode: otpFieldFocus,
-        wrapAlignment: WrapAlignment.start,
-        pinBoxOuterPadding: const EdgeInsets.symmetric(horizontal: 6.0),
-        pinBoxColor: AppColors.lightBlue,
-        pinBoxBorderWidth: 2.0,
-        pinBoxRadius: 8,
-        hideDefaultKeyboard: false,
-        hasUnderline: false);
+    return SizedBox(
+      height: 55.h,
+      child: PinCodeTextField(
+          pinBoxWidth: 73.0.w,
+          pinBoxHeight: 55.0.h,
+          pinTextStyle: AppTextStyle.otpFieldText,
+          maxLength: 4,
+          controller: otpFieldController,
+          hideCharacter: false,
+          highlight: false,
+          highlightAnimation: false,
+          defaultBorderColor: AppColors.brightSilver,
+          hasTextBorderColor: AppColors.lightGreen,
+          highlightPinBoxColor: AppColors.lightBlue,
+          hasError: false,
+          errorBorderColor: AppColors.pink,
+          onTextChanged: otpOnChanged,
+          autofocus: true,
+          focusNode: otpFieldFocus,
+          wrapAlignment: WrapAlignment.start,
+          pinBoxOuterPadding:  EdgeInsets.symmetric(horizontal: 6.0.w),
+          pinBoxColor: AppColors.lightBlue,
+          pinBoxBorderWidth: 2.0.w,
+          pinBoxRadius: 8.r,
+          hideDefaultKeyboard: false,
+          hasUnderline: false),
+    );
   }
 }

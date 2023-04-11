@@ -26,8 +26,8 @@ class UserAccountScreen extends StatelessWidget {
                 SizedBox(height: 181.h),
                 Image.asset(
                   AppAssets.rectangle,
-                  width: 130,
-                  height: 130,
+                  width: 130.w,
+                  height: 130.h,
                 ),
                 Text(
                   "${context.localizations.welcomeMessage} , Nazrin!",

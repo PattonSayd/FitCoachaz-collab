@@ -98,12 +98,11 @@ class _PasswordScreenState extends State<PasswordScreen> {
                    obscureText: obsecureText,
                    focus: rePasswFocus,
                    suffixIcon: IconButton(
-              icon: Icon(
-                // Based on passwordVisible state choose the icon
+                    splashRadius: 10.r,
+                   icon: Icon(
                  obsecureText
                  ? Icons.visibility
                  : Icons.visibility_off,
-                 //color: Theme.of(context).primaryColorDark,
                  ), onPressed: () { 
                   setState(() {
                      obsecureText=!obsecureText;
@@ -132,6 +131,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pushNamed(context, AppRoutesName.user);
                     }
+                    FocusScope.of(context).unfocus();
+                    passwController.clear();
+                   rePasswController.clear();
                   },
                 ),
               ],

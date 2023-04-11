@@ -80,6 +80,8 @@ class _OTPScreenState extends State<OTPScreen> {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.passw);
                 }
+                FocusScope.of(context).unfocus();
+                 otpFieldController.clear();
               },
             ),
             SizedBox(
