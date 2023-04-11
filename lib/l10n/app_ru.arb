@@ -7,5 +7,19 @@
     "startButtom" : "Старт",
     "initQestion" : "Есть аккаунт?",
     "welcomeCaption" : "Платформа удаленного и личного коучинга",
-    "signInButton" : "Войти"
+    "signInButton" : "Войти",
+    "searchHint" : "Поиск спорта или тренера",
+    "trendCoaches" : "Тренд Тренеры",
+    "seeAllTrendCoaches" : "Посмотреть все",
+    "slideButton" : "Подписаться",
+    "enterNumber":   "Введите номер мобильного телефона",
+    "confirmText":   "ПОДТВЕРЖДАТЬ",
+    "numberConfirm": "Подтвердите код",
+    "resendText":    "Отправь еще раз",
+    "createPassw":    "Создать пароль",
+    "choosePassw":    "Выберите пароль для защиты вашей учетной записи",
+    "password" :     "Пароль",
+    "repeatPassw" :  "Пароль (повторить)",
+    "checkPassw" :  " Пароль не тот!",
+    "nullPassw" :  " Пароль не может быть пустым!"
 }

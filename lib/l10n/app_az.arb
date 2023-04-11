@@ -7,5 +7,20 @@
     "startButtom" : "Başla",
     "initQestion" : "Hesabın var?",
     "welcomeCaption" : "Distant və əyani məşqçilik platforması",
-    "signInButton" : "Daxil ol"
+    "signInButton" : "Daxil ol",
+    "searchHint" : "Idman növü və ya məşqçi axtar",
+    "trendCoaches" : "Trend Məşqçilər",
+    "seeAllTrendCoaches" : "Hamısına bax",
+    "slideButton" : "Abunə ol",
+    "enterNumber":   "Mobil nömrəni daxil edin",
+    "confirmText":   "TƏSDİQLƏ",
+    "numberConfirm": "Kodu təsdiqlə",
+    "resendText":    "Yenidən göndər",
+    "createPassw":   "Şifrə yarat",
+    "choosePassw":   "Hesabınızın təhlükəsizliyi üçün şifrə seçin",
+    "password" :     "Şifrə",
+    "repeatPassw" :  "Şifrə ( təkrar )",
+    "checkPassw" :  " Şifrə eyni deyil!",
+    "nullPassw" :  " Şifrə boş ola bilməz!"
+    
     }

@@ -15,8 +15,9 @@ class AppTextStyle {
         color: AppColors.black,
       );
 
-  static TextStyle get startButton => const TextStyle(
-        fontSize: 16,
+
+  static TextStyle get startButton =>  TextStyle(
+        fontSize: 16.spMin, 
         fontFamily: AppFonts.alatsiRegular,
         height: 1.25,
         fontWeight: FontWeight.w400,
@@ -30,6 +31,13 @@ class AppTextStyle {
         fontWeight: FontWeight.w500,
         color: AppColors.white,
       );
+      
+ static TextStyle get activeButton =>  TextStyle(
+      fontSize: 16.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.17,
+      fontWeight: FontWeight.w500,
+      color: AppColors.white);
 
   static TextStyle get welcomeCaption => TextStyle(
         color: AppColors.white,
@@ -77,5 +85,46 @@ class AppTextStyle {
         fontSize: 16.spMin,
         height: 1.63,
         fontFamily: AppFonts.alatsiRegular,
+        
+  static TextStyle get bigHeader => TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 38.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.31,
+      color: AppColors.black
+      );
+
+  static TextStyle get passwHeader => TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 42.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.20,
+      color: AppColors.black
+      );    
+  static TextStyle get labelText => TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.6,
+      color: AppColors.silver
+      );
+
+  static TextStyle get otpFieldText=> TextStyle(
+        fontSize: 22.sp, 
+        height: 1.27,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.w600,
+      );
+  static TextStyle get resendText=> TextStyle(
+        fontSize: 16.spMin, 
+        height: 1.5,
+        color: AppColors.lightGreen,
+        fontWeight: FontWeight.w400,
+      );
+   static TextStyle get choosePassw=> TextStyle(
+        fontSize: 14.spMin, 
+        height: 1.42,
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
       );
 }
