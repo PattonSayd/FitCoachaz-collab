@@ -103,7 +103,7 @@ class AppTextStyle {
       );    
   static TextStyle get labelText => TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 14.sp,
+      fontSize: 14.spMin,
       fontFamily: AppFonts.alatsiRegular,
       height: 1.6,
       color: AppColors.silver
@@ -127,4 +127,25 @@ class AppTextStyle {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
       );
+   static TextStyle get floatingLabelStyle => TextStyle(
+        color: AppColors.silver,
+        fontSize: 16.spMin, 
+        height: 1.6,
+        fontWeight: FontWeight.w400,
+      );
+   static TextStyle get user=> TextStyle(
+        fontFamily: AppFonts.alatsiRegular,
+        color: AppColors.black,
+        fontSize: 22.spMin, 
+        height: 1.27,
+        fontWeight: FontWeight.w600,
+      );
+  static TextStyle get welcomeUserText  => TextStyle(
+        fontFamily: AppFonts.alatsiRegular,
+        color: AppColors.black,
+        fontSize: 14.spMin, 
+        height: 1.42,
+        fontWeight: FontWeight.w400,
+      );
+
 }
