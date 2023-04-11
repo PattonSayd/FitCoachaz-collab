@@ -61,11 +61,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
             key: _formKey,
             child: Column(
              mainAxisAlignment: MainAxisAlignment.center,
-             crossAxisAlignment: CrossAxisAlignment.start,
+             crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   context.localizations.createPassw,
                   style: AppTextStyle.bigHeader,
+                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
                   height: 40.h,

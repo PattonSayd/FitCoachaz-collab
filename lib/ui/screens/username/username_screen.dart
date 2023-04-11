@@ -59,8 +59,8 @@ class _UsernameScreenState extends State<UsernameScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   context.localizations.userNameText,

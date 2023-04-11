@@ -36,34 +36,6 @@ class PasswordInput extends StatefulWidget {
 
 
 class _PasswordInputState extends State<PasswordInput> {
-   bool _isActive = false;
-
-
-  void listenFocus() {
-    setState(() {
-      if (widget.focus.hasFocus) {
-        _isActive = true;
-      } else {
-        _isActive = false;
-      }
-    });
-  }
-
-    @override
-  void initState() {
-    super.initState();
-    widget.focus.addListener(listenFocus);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    widget.focus.removeListener(listenFocus);
-  }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
