@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/number/number_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
 import '../../ui/screens/password/password_screen.dart';
@@ -13,6 +14,10 @@ class ScreenFactory {
     return const WelcomeScreen();
   }
 
+  static Widget assembleProfile() {
+    return const ProfileScreen();
+   }
+   
   static Widget assembleSignIn() {
     return const NumberScreen();
   }
