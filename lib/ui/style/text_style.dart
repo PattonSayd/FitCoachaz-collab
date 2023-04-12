@@ -14,6 +14,7 @@ class AppTextStyle {
       fontWeight: FontWeight.w900,
       color: AppColors.black);
 
+
   static TextStyle get startButton =>  TextStyle(
         fontSize: 16.spMin, 
         fontFamily: AppFonts.alatsiRegular,
@@ -22,13 +23,14 @@ class AppTextStyle {
         color: AppColors.white,
       );
 
-  static TextStyle get deactiveButton =>  TextStyle(
-      fontSize: 16.spMin,
-      fontFamily: AppFonts.alatsiRegular,
-      height: 1.17,
-      fontWeight: FontWeight.w500,
-      color: AppColors.silver);
-
+  static TextStyle get deactiveButton => const TextStyle(
+        fontSize: 16,
+        fontFamily: AppFonts.alatsiRegular,
+        height: 1.17,
+        fontWeight: FontWeight.w500,
+        color: AppColors.white,
+      );
+      
  static TextStyle get activeButton =>  TextStyle(
       fontSize: 16.spMin,
       fontFamily: AppFonts.alatsiRegular,
@@ -37,26 +39,52 @@ class AppTextStyle {
       color: AppColors.white);
 
   static TextStyle get welcomeCaption => TextStyle(
-      color: AppColors.white,
-      fontWeight: FontWeight.w400,
-      height: 1.28,
-      fontSize: 16.spMin,
-      fontFamily: AppFonts.alatsiRegular);
+        color: AppColors.white,
+        fontWeight: FontWeight.w400,
+        height: 1.28,
+        fontSize: 16.spMin,
+        fontFamily: AppFonts.alatsiRegular,
+      );
 
   static TextStyle get initQestion => TextStyle(
-      color: AppColors.white,
-      fontWeight: FontWeight.w400,
-      fontSize: 16.spMin,
-      height: 1.27,
-      fontFamily: AppFonts.alatsiRegular);
+        color: AppColors.white,
+        fontWeight: FontWeight.w400,
+        fontSize: 16.spMin,
+        height: 1.27,
+        fontFamily: AppFonts.alatsiRegular,
+      );
 
   static TextStyle get signInButton => TextStyle(
-      color: AppColors.lightGreen,
-      fontWeight: FontWeight.w400,
-      fontSize: 16.spMin,
-      height: 1.27,
-      fontFamily: AppFonts.alatsiRegular);
-  
+        color: AppColors.lightGreen,
+        fontWeight: FontWeight.w400,
+        fontSize: 16.spMin,
+        height: 1.27,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get profileScreenTitle => TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 16.spMin,
+        height: 1.63,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get profileScreenUserName => TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 24.spMin,
+        height: 1.42,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get profileScreenListItem => TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 16.spMin,
+        height: 1.63,
+        fontFamily: AppFonts.alatsiRegular,
+        
   static TextStyle get bigHeader => TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: 38.spMin,

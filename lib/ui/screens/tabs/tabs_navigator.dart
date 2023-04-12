@@ -1,9 +1,10 @@
+import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:fitcoachaz/ui/screens/tabs/tabs_mixin.dart';
 import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'components/bottom_navbar.dart';
+import 'tabs_components.dart';
 
 class TabsNavigator extends StatefulWidget {
   const TabsNavigator({super.key});
@@ -18,10 +19,10 @@ class _TabsNavigatorState extends State<TabsNavigator> with TabsMixin {
     return Scaffold(
       body: IndexedStack(
         index: selectedIndex,
-        children: const [
-          Center(child: Text("Main Screen")),
-          Center(child: Text("Book Screen")),
-          Center(child: Text("Profile Screen")),
+        children: [
+          MainScreen(),
+          const Center(child: Text("Book Screen")),
+          const Center(child: Text("Profile Screen")),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
