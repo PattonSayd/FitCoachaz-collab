@@ -2,14 +2,13 @@ import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../app/router/app_routes.dart';
 import '../../style/text_style.dart';
 import '../../widgets/global_start_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
-
-  //comment added, new Commit 06.04
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                     style: AppTextStyle.initQestion,
                   ),
                   TextButton(
-                    onPressed: () { },
+                    onPressed: () {},
                     child: Text(
                       context.localizations.signInButton,
                       style: AppTextStyle.signInButton,

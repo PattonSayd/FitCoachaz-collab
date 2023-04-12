@@ -6,40 +6,39 @@ import '../../../app/router/app_routes.dart';
 import '../../style/text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import 'password_components.dart';
+import '../password/password_components.dart';
 
-class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
+class UsernameScreen extends StatefulWidget {
+  const UsernameScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  State<UsernameScreen> createState() => _UsernameScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
-  late final TextEditingController passwController;
-  late final TextEditingController rePasswController;
-  late final FocusNode passwFocus;
-  late final FocusNode rePasswFocus;
+class _UsernameScreenState extends State<UsernameScreen> {
+  late final TextEditingController nameController;
+  late final TextEditingController surnameController;
+  late final FocusNode nameFocus;
+  late final FocusNode surnameFocus;
   final _formKey = GlobalKey<FormState>();
-  late bool obsecureText;
+  
 
   @override
   void initState() {
     super.initState();
-    passwController = TextEditingController();
-    rePasswController = TextEditingController();
-    passwFocus = FocusNode();
-    rePasswFocus = FocusNode();
-    obsecureText=true;
+    nameController = TextEditingController();
+    surnameController = TextEditingController();
+    nameFocus = FocusNode();
+    surnameFocus = FocusNode();
   }
 
   @override
   void dispose() {
     super.dispose();
-    passwController.dispose();
-    rePasswController.dispose();
-    passwFocus.dispose();
-    rePasswFocus.dispose();
+    nameController.dispose();
+    surnameController.dispose();
+    nameFocus.dispose();
+    surnameFocus.dispose();
   }
 
   @override
@@ -60,32 +59,31 @@ class _PasswordScreenState extends State<PasswordScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  context.localizations.createPassw,
+                  context.localizations.userNameText,
                   style: AppTextStyle.bigHeader,
-                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
                   height: 40.h,
                 ),
-                Text(context.localizations.choosePassw,
+                Text(context.localizations.idText,
                 style: AppTextStyle.choosePassw,
                 textAlign: TextAlign.start,),
                  SizedBox(
                   height: 20.h,
                 ),
                 PasswordInput(
-                  controller: passwController,
-                  obscureText: true,
-                  focus: passwFocus,
-                  labelText: context.localizations.password,
+                  controller: nameController,
+                  obscureText: false,
+                  focus: nameFocus,
+                  labelText: context.localizations.name,
                   onChanged: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return context.localizations.nullPassw;
+                      return context.localizations.nullName;
                     }
                     return null;
                   },
@@ -94,30 +92,16 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   height: 24.h,
                 ),
                  PasswordInput(
-                   controller: rePasswController,
-                   obscureText: obsecureText,
-                   focus: rePasswFocus,
-                   suffixIcon: IconButton(
-                    splashRadius: 10.r,
-                   icon: Icon(
-                 obsecureText
-                 ? Icons.visibility
-                 : Icons.visibility_off,
-                 ), onPressed: () { 
-                  setState(() {
-                     obsecureText=!obsecureText;
-                 });
-                  },),
-                   labelText: context.localizations.repeatPassw,
+                   controller: surnameController,
+                   obscureText: false,
+                   focus: surnameFocus,
+                   labelText: context.localizations.surname,
                    onChanged: (value) {},
                    validator: (value) {
                      if (value == null || value.isEmpty) {
-                       return context.localizations.nullPassw;
+                       return context.localizations.nullSurn;
                      }  
-                     if(value != passwController.text){
-                      return  context.localizations.checkPassw;
-                   }
-                    return null; 
+                  return null;
                    },
                  ),
                  SizedBox(
@@ -129,11 +113,11 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   text: context.localizations.confirmText,
                   onPress: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, AppRoutesName.user);
+                      Navigator.pushNamed(context, AppRoutesName.account);
                     }
                     FocusScope.of(context).unfocus();
-                    passwController.clear();
-                   rePasswController.clear();
+                    nameController.clear();
+                    surnameController.clear();
                   },
                 ),
               ],

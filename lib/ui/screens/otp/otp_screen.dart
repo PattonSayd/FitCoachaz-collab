@@ -1,5 +1,4 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
-import 'package:fitcoachaz/ui/widgets/global_otp_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,6 +6,7 @@ import '../../../app/router/app_routes.dart';
 import '../../style/text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
+import 'otp_components.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -62,7 +62,7 @@ class _OTPScreenState extends State<OTPScreen> {
             ),
             Form(
               key: _formKey,
-              child: GlobalOtpField(
+              child: OtpField(
                 otpFieldController: otpFieldController,
                 otpFieldLength: 4,
                 otpFieldFocus: otpFieldFocus,
@@ -80,6 +80,8 @@ class _OTPScreenState extends State<OTPScreen> {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.passw);
                 }
+                FocusScope.of(context).unfocus();
+                 otpFieldController.clear();
               },
             ),
             SizedBox(

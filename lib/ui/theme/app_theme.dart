@@ -23,7 +23,7 @@ class AppTheme {
 }
 InputDecorationTheme inputDecorationTheme() {
   return InputDecorationTheme(
-    fillColor: AppColors.white,
+    fillColor: AppColors.lightBlue,
     filled: true,
     enabledBorder: AppStyles.outlineInputBorder(),
     border: AppStyles.outlineInputBorder(),

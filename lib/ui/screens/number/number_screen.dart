@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../app/router/app_routes.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import '../../widgets/global_num_input.dart';
+import 'number_components.dart';
 
 class NumberScreen extends StatefulWidget {
   const NumberScreen({super.key});
@@ -61,7 +61,7 @@ class _NumberScreenState extends State<NumberScreen> {
             ),
             Form(
               key: _formKey,
-              child: GlobalNumberInput(
+              child: NumberInput(
                 controller: numberController,
                 focus: numberFocus,
                 keyboardType: TextInputType.phone,
@@ -85,6 +85,8 @@ class _NumberScreenState extends State<NumberScreen> {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.otp);
                 }
+                FocusScope.of(context).unfocus();
+                 numberController.clear();
               },
             ),
           ],
