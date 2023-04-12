@@ -3,14 +3,14 @@ import 'package:fitcoachaz/app/resources/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'main_components.dart';
 
-class CardItemState {
+class CardItem {
   final String name;
   final String image;
   final String sport;
   final String ranking;
   final String dateTime;
 
-  CardItemState(
+  CardItem(
     this.name,
     this.image,
     this.sport,
@@ -21,22 +21,22 @@ class CardItemState {
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
-  final _cardItems = <CardItemState>[
-    CardItemState(
+  final _cardItems = <CardItem>[
+    CardItem(
       'İsrafil Rzabəyli',
       AppAssets.bodybuild,
       'Fitness',
       '4.9',
       '10:00 - 18:00',
     ),
-    CardItemState(
+    CardItem(
       'Ismayil Rzabəyli',
       AppAssets.slideBackground,
       'Fitness',
       '4.9',
       '10:00 - 18:00',
     ),
-    CardItemState(
+    CardItem(
       'İsrafil Rzabəyli',
       AppAssets.welcomeScreen,
       'Fitness',
@@ -91,7 +91,7 @@ class MainScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
                     AppAssets.advertising,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 )),
           ),

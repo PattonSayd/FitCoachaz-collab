@@ -1,9 +1,9 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
-import 'package:fitcoachaz/ui/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 import 'number_components.dart';
@@ -56,7 +56,7 @@ class _NumberScreenState extends State<NumberScreen> {
               context.localizations.enterNumber,
               style: AppTextStyle.bigHeader,
             ),
-             SizedBox(
+            SizedBox(
               height: 47.h,
             ),
             Form(
@@ -74,7 +74,7 @@ class _NumberScreenState extends State<NumberScreen> {
                 },
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 22.h,
             ),
             GlobalButton(

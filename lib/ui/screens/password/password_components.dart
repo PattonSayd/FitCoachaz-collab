@@ -23,10 +23,10 @@ class PasswordInput extends StatefulWidget {
     required this.onChanged,
     this.keyboardType,
     required this.validator,
-    this.hintText, 
+    this.hintText,
     this.suffixIcon,
-    this.labelText, 
-    this.obscureText=false,
+    this.labelText,
+    this.obscureText = false,
     this.errorText,
   }) : super(key: key);
 

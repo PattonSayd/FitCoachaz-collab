@@ -22,6 +22,11 @@
     "repeatPassw" :  "Password (repeat)",
     "checkPassw" :  " The password is not the same!",
     "nullPassw" :   " Password cannot be empty!",
+    "subscribe" :  "Subscribe",
+    "subReal" :  "Offline",
+    "subOnline" :  "Online",
+    "subAboutCoach" :  "About the teacher"
+
     "userNameText" :  "Name and Surname",
     "idText" :       "Write as shown on your ID card",
     "name" :         "Name",
