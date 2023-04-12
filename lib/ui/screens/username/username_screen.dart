@@ -115,6 +115,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pushNamed(context, AppRoutesName.account);
                     }
+                    FocusScope.of(context).unfocus();
+                    nameController.clear();
+                    surnameController.clear();
                   },
                 ),
               ],

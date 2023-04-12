@@ -85,6 +85,8 @@ class _NumberScreenState extends State<NumberScreen> {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.otp);
                 }
+                FocusScope.of(context).unfocus();
+                 numberController.clear();
               },
             ),
           ],
