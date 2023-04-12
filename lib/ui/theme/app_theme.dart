@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
-import 'app_styles.dart';
+import '../style/app_styles.dart';
 
 class AppTheme {
   AppTheme._();
 
   static final light = ThemeData(
     primarySwatch: Colors.grey,
-    iconButtonTheme:  IconButtonThemeData(style:IconButton.styleFrom(
-    backgroundColor: AppColors.silver,
-    iconSize: 10) ),
-    appBarTheme: const AppBarTheme(color: Colors.white,elevation: 0.0),
+    iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+            backgroundColor: AppColors.silver, iconSize: 10)),
+    appBarTheme: const AppBarTheme(color: Colors.white, elevation: 0.0),
     scaffoldBackgroundColor: AppColors.white,
     inputDecorationTheme: inputDecorationTheme(),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -21,6 +21,7 @@ class AppTheme {
     ),
   );
 }
+
 InputDecorationTheme inputDecorationTheme() {
   return InputDecorationTheme(
     fillColor: AppColors.white,
@@ -31,6 +32,4 @@ InputDecorationTheme inputDecorationTheme() {
     errorBorder: AppStyles.outlineInputBorder(color: AppColors.pink),
     focusedErrorBorder: AppStyles.outlineInputBorder(color: AppColors.pink),
   );
-
-  
 }

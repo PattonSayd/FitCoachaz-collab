@@ -21,6 +21,10 @@
     "password" :     "Şifrə",
     "repeatPassw" :  "Şifrə ( təkrar )",
     "checkPassw" :  " Şifrə eyni deyil!",
-    "nullPassw" :  " Şifrə boş ola bilməz!"
+    "nullPassw" :  " Şifrə boş ola bilməz!",
+    "subscribe" :  "Abunə ol",
+    "subReal" :  "Real dərs",
+    "subOnline" :  "Online",
+    "subAboutCoach" :  "Müəllim haqqında"
     
     }

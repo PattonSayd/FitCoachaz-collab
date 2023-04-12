@@ -21,5 +21,10 @@
     "password" :     "Пароль",
     "repeatPassw" :  "Пароль (повторить)",
     "checkPassw" :  " Пароль не тот!",
-    "nullPassw" :  " Пароль не может быть пустым!"
+    "nullPassw" :  " Пароль не может быть пустым!",
+    "subscribe" :  "Подписаться",
+    "subReal" :  "Offline",
+    "subOnline" :  "Online",
+    "subAboutCoach" :  "О тренере"
+
 }

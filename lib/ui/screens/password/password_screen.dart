@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 import '../../widgets/global_passw_input.dart';
@@ -58,8 +58,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
-           crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 context.localizations.createPassw,
@@ -68,10 +68,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
               SizedBox(
                 height: 40.h,
               ),
-              Text(context.localizations.choosePassw,
-              style: AppTextStyle.choosePassw,
-              textAlign: TextAlign.start,),
-               SizedBox(
+              Text(
+                context.localizations.choosePassw,
+                style: AppTextStyle.choosePassw,
+                textAlign: TextAlign.start,
+              ),
+              SizedBox(
                 height: 20.h,
               ),
               GlobalPasswordInput(
@@ -90,28 +92,27 @@ class _PasswordScreenState extends State<PasswordScreen> {
               SizedBox(
                 height: 24.h,
               ),
-               GlobalPasswordInput(
-                 controller: rePasswController,
-                 obscureText: true,
-                 focus: rePasswFocus,
-                 suffixIcon: GestureDetector(
-                  onTap:(){
-                    rePasswController.clear();
-                  },
-                  child: const Icon(Icons.cancel)),
-                 labelText: context.localizations.repeatPassw,
-                 onChanged: (value) {},
-                 validator: (value) {
-                   if (value == null || value.isEmpty) {
-                     return context.localizations.nullPassw;
-                   }  
-                   if(value != passwController.text){
-                    return  context.localizations.checkPassw;
-                 }
-                   
-                 },
-               ),
-               SizedBox(
+              GlobalPasswordInput(
+                controller: rePasswController,
+                obscureText: true,
+                focus: rePasswFocus,
+                suffixIcon: GestureDetector(
+                    onTap: () {
+                      rePasswController.clear();
+                    },
+                    child: const Icon(Icons.cancel)),
+                labelText: context.localizations.repeatPassw,
+                onChanged: (value) {},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return context.localizations.nullPassw;
+                  }
+                  if (value != passwController.text) {
+                    return context.localizations.checkPassw;
+                  }
+                },
+              ),
+              SizedBox(
                 height: 24.h,
               ),
               GlobalButton(

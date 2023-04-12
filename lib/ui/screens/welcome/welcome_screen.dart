@@ -3,7 +3,7 @@ import 'package:fitcoachaz/app/resources/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../app/router/app_routes.dart';
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../widgets/global_start_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                     style: AppTextStyle.initQestion,
                   ),
                   TextButton(
-                    onPressed: () { },
+                    onPressed: () {},
                     child: Text(
                       context.localizations.signInButton,
                       style: AppTextStyle.signInButton,

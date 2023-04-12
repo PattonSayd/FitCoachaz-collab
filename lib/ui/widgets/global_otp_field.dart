@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import '../style/text_style.dart';
+import '../style/app_text_style.dart';
 import '../theme/app_colors.dart';
 
 class GlobalOtpField extends StatelessWidget {
