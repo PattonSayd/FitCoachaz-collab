@@ -21,6 +21,13 @@
     "password" :     "Şifrə",
     "repeatPassw" :  "Şifrə ( təkrar )",
     "checkPassw" :  " Şifrə eyni deyil!",
-    "nullPassw" :  " Şifrə boş ola bilməz!"
+    "nullPassw" :  " Şifrə boş ola bilməz!",
+    "userNameText" :  "Ad , soyad",
+    "idText"  :       "Şəxsiyyət vəsiqənizdə qeyd olunan şəkildə yazın",
+    "name" :         "Ad",
+    "surname" :      "Soyad",
+    "nullName" :  " Ad boş ola bilməz!",
+    "nullSurn" :  " Soyad boş ola bilməz!",
+    "welcomeUserMessage":"Hesabın müvəffəqiyyətlə yaradıldı. Zəhmət olmasa aşağıdakı düyməyə klik edərək növbəti addımları izlə"
     
     }

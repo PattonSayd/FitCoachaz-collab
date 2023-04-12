@@ -17,11 +17,11 @@ class GlobalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minWidth: 200,
-        maxWidth: 342,
-        maxHeight: 44,
-        minHeight: 35,
+      constraints:  BoxConstraints(
+        minWidth: 200.w,
+        maxWidth: 342.w,
+        maxHeight: 44.h,
+        minHeight: 35.h,
       ),
       width: 342.w,
       height: 44.h,

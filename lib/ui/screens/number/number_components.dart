@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../style/text_style.dart';
-import '../theme/app_colors.dart';
+import '../../style/text_style.dart';
+import '../../theme/app_colors.dart';
 
+var maskFormatter =  MaskTextInputFormatter(
+  mask: '+994 (###) ###-##-##', 
+  filter: { "#": RegExp(r'[0-9]') },
+);
 
-class GlobalPasswordInput extends StatelessWidget {
+class NumberInput extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focus;
   final void Function(String) onChanged;
@@ -13,12 +18,11 @@ class GlobalPasswordInput extends StatelessWidget {
   final String? errorText;
   final String? hintText;
   final String? labelText;
-  final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final bool obscureText;
 
 
-   const GlobalPasswordInput({
+   const NumberInput({
     Key? key,
     required this.controller,
     required this.focus,
@@ -26,7 +30,6 @@ class GlobalPasswordInput extends StatelessWidget {
     this.keyboardType,
     required this.validator,
     this.hintText, 
-    this.suffixIcon,
     this.labelText, 
     this.obscureText=false,
     this.errorText,
@@ -35,21 +38,21 @@ class GlobalPasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: [maskFormatter],
       obscureText:obscureText,
       onChanged: onChanged,
+      autofocus: true,
       keyboardType:keyboardType,
       validator: validator,
       controller: controller,
       focusNode: focus,
-      autofocus: true,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
-        suffixIcon: suffixIcon,
          hintText: hintText,
          labelText: labelText,
          labelStyle:AppTextStyle.labelText,
         errorStyle:  TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14.spMin,
           color: AppColors.pink,
         ),
       ),

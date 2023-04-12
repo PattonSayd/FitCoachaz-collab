@@ -16,11 +16,11 @@ class GlobalStartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minWidth: 100,
-        maxWidth: 234,
-        maxHeight: 44,
-        minHeight: 35,
+      constraints:  BoxConstraints(
+        minWidth: 100.w,
+        maxWidth: 234.w,
+        maxHeight: 44.h,
+        minHeight: 35.h,
       ),
       width: 234.w,
       height: 44.h,
