@@ -10,6 +10,7 @@ class AppRoutesName {
   static const otp = '/otp';
   static const passw = '/passw';
   static const main = 'main';
+  static const subscribe = '/subscribe'; // main/subscribe📍
 }
 
 class AppRoutes {
@@ -21,5 +22,6 @@ class AppRoutes {
     AppRoutesName.otp: (_) => ScreenFactory.assembleOTP(),
     AppRoutesName.passw: (_) => ScreenFactory.assemblePassw(),
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
+    AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),
   };
 }

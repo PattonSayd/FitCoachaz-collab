@@ -23,7 +23,8 @@ class BottomNavBar extends StatelessWidget {
         children: [
           SvgPicture.asset(
             image,
-            color: selected ? AppColors.pink : AppColors.grey,
+            colorFilter: ColorFilter.mode(
+                selected ? AppColors.pink : AppColors.grey, BlendMode.srcIn),
             width: 19.w,
             height: 20.h,
           ),

@@ -91,7 +91,7 @@ class MainScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
                     AppAssets.advertising,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 )),
           ),
