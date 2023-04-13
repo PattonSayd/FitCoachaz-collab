@@ -222,9 +222,9 @@ class _SlideContainerState extends State<SlideContainer> {
 
 class CardView extends StatelessWidget {
   final int index;
-  final List<CardItemState> _cardItems;
+  final List<CardItem> _cardItems;
   const CardView(
-      {super.key, required this.index, required List<CardItemState> cardItems})
+      {super.key, required this.index, required List<CardItem> cardItems})
       : _cardItems = cardItems;
 
   @override

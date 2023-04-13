@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
+import '../theme/app_colors.dart';
 
 class AppStyles {
   static OutlineInputBorder outlineInputBorder(
@@ -13,9 +13,8 @@ class AppStyles {
         ),
       );
 
-
   static final InputDecoration otpInputDecoration = InputDecoration(
-    contentPadding:const EdgeInsets.symmetric(vertical: 16),
+    contentPadding: const EdgeInsets.symmetric(vertical: 16),
     enabledBorder: otpOutlineInputBorder(),
     focusedBorder: AppStyles.outlineInputBorder(color: AppColors.lightGreen),
     border: otpOutlineInputBorder(),

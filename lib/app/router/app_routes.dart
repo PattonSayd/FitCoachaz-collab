@@ -13,6 +13,7 @@ class AppRoutesName {
   static const main = 'main';
   static const user = '/user';
   static const account = '/account';
+  static const subscribe = '/subscribe'; // main/subscribe📍
 }
 
 class AppRoutes {
@@ -25,9 +26,8 @@ class AppRoutes {
     AppRoutesName.otp: (_) => ScreenFactory.assembleOTP(),
     AppRoutesName.passw: (_) => ScreenFactory.assemblePassw(),
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
-
-
     AppRoutesName.user: (_) => ScreenFactory.assembleUser(),
     AppRoutesName.account: (_) => ScreenFactory.assembleUserAccount(),
+    AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),
   };
 }
