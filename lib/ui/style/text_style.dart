@@ -84,6 +84,7 @@ class AppTextStyle {
         fontSize: 16.spMin,
         height: 1.63,
         fontFamily: AppFonts.alatsiRegular,
+  );
         
   static TextStyle get bigHeader => TextStyle(
       fontWeight: FontWeight.w400,
