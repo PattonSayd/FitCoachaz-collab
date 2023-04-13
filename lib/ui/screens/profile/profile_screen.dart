@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../app/resources/app_icons.dart';
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/bordered_icon_button.dart';
 
@@ -66,11 +66,16 @@ class ProfileScreen extends StatelessWidget {
             const Divider(),
             SizedBox(height: 40.h),
             //! Selections
-            _SelectionListTile(text: 'Hədəflər', icon: AppIcons.targets, onTap: () {}),
+            _SelectionListTile(
+                text: 'Hədəflər', icon: AppIcons.targets, onTap: () {}),
             SizedBox(height: 32.h),
-            _SelectionListTile(text: 'Bədən Parametrləri', icon: AppIcons.bodySettings, onTap: () {}),
+            _SelectionListTile(
+                text: 'Bədən Parametrləri',
+                icon: AppIcons.bodySettings,
+                onTap: () {}),
             SizedBox(height: 32.h),
-            _SelectionListTile(text: 'Parametrlər', icon: AppIcons.settings, onTap: () {}),
+            _SelectionListTile(
+                text: 'Parametrlər', icon: AppIcons.settings, onTap: () {}),
             //! Bottom Rectangle Ellipse
             Expanded(
               child: Align(

@@ -19,8 +19,8 @@ class ScreenFactory {
 
   static Widget assembleProfile() {
     return const ProfileScreen();
-   }
-   
+  }
+
   static Widget assembleSignIn() {
     return const NumberScreen();
   }
@@ -30,16 +30,20 @@ class ScreenFactory {
   }
 
   static Widget assemblePassw() {
-    return const PasswordScreen();}
+    return const PasswordScreen();
+  }
 
   static Widget assembleMain() {
     return const TabsNavigator();
   }
+
   static Widget assembleUser() {
     return const UsernameScreen();
   }
+
   static Widget assembleUserAccount() {
     return const UserAccountScreen();
+  }
 
   static Widget assembleSubscribe() {
     return const SubscribeScreen();

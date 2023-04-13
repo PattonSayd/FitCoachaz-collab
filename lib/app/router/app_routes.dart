@@ -26,8 +26,6 @@ class AppRoutes {
     AppRoutesName.otp: (_) => ScreenFactory.assembleOTP(),
     AppRoutesName.passw: (_) => ScreenFactory.assemblePassw(),
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
-
-
     AppRoutesName.user: (_) => ScreenFactory.assembleUser(),
     AppRoutesName.account: (_) => ScreenFactory.assembleUserAccount(),
     AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),

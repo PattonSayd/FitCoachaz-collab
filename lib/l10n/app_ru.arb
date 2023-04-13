@@ -23,10 +23,9 @@
     "checkPassw" :  " Пароль не тот!",
     "nullPassw" :  " Пароль не может быть пустым!",
     "subscribe" :  "Подписаться",
-    "subReal" :  "Offline",
+    "subOffline" :  "Offline",
     "subOnline" :  "Online",
-    "subAboutCoach" :  "О тренере"
-
+    "subAboutCoach" :  "О тренере",
     "userNameText" :  "Имя и фамилия",
     "idText" :        "Напишите, как показано на вашей идентификационной карте",
     "name" :         "Имя",

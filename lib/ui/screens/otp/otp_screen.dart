@@ -73,15 +73,13 @@ class _OTPScreenState extends State<OTPScreen> {
               height: 24.h,
             ),
             GlobalButton(
-              backgroundColor: AppColors.lightGrey,
-              buttonStyle: AppTextStyle.deactiveButton,
-              text: context.localizations.confirmText,
+              isActive: true,
               onPress: () {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.passw);
                 }
                 FocusScope.of(context).unfocus();
-                 otpFieldController.clear();
+                otpFieldController.clear();
               },
             ),
             SizedBox(

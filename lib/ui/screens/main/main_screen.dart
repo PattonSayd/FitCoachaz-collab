@@ -1,5 +1,6 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
+import 'package:fitcoachaz/app/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'main_components.dart';
 
@@ -75,9 +76,13 @@ class MainScreen extends StatelessWidget {
                 clipBehavior: Clip.none,
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                itemBuilder: (context, index) => CardView(
-                  index: index,
-                  cardItems: _cardItems,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, AppRoutesName.subscribe),
+                  child: CardView(
+                    index: index,
+                    cardItems: _cardItems,
+                  ),
                 ),
               );
             }),

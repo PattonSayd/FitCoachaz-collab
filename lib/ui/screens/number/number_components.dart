@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 var maskFormatter = MaskTextInputFormatter(
@@ -21,8 +21,7 @@ class NumberInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
 
-
-   const NumberInput({
+  const NumberInput({
     Key? key,
     required this.controller,
     required this.focus,
@@ -48,10 +47,10 @@ class NumberInput extends StatelessWidget {
       focusNode: focus,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
-         hintText: hintText,
-         labelText: labelText,
-         labelStyle:AppTextStyle.labelText,
-        errorStyle:  TextStyle(
+        hintText: hintText,
+        labelText: labelText,
+        labelStyle: AppTextStyle.labelText,
+        errorStyle: TextStyle(
           fontSize: 14.spMin,
           color: AppColors.pink,
         ),

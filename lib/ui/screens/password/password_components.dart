@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 class PasswordInput extends StatefulWidget {
@@ -15,8 +15,8 @@ class PasswordInput extends StatefulWidget {
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final bool obscureText;
-  
-   const PasswordInput({
+
+  const PasswordInput({
     Key? key,
     required this.controller,
     required this.focus,
@@ -34,15 +34,13 @@ class PasswordInput extends StatefulWidget {
   State<PasswordInput> createState() => _PasswordInputState();
 }
 
-
 class _PasswordInputState extends State<PasswordInput> {
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText:widget.obscureText,
+      obscureText: widget.obscureText,
       onChanged: widget.onChanged,
-      keyboardType:widget.keyboardType,
+      keyboardType: widget.keyboardType,
       validator: widget.validator,
       controller: widget.controller,
       focusNode: widget.focus,
@@ -50,10 +48,10 @@ class _PasswordInputState extends State<PasswordInput> {
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
         suffixIcon: widget.suffixIcon,
-         hintText: widget.hintText,
-         labelText: widget.labelText,
-         labelStyle:AppTextStyle.labelText,
-        errorStyle:  TextStyle(
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        labelStyle: AppTextStyle.labelText,
+        errorStyle: TextStyle(
           fontSize: 14.spMin,
           color: AppColors.pink,
         ),

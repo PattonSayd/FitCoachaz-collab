@@ -191,7 +191,7 @@ class AlertButtons {
                   ),
                   onPressed: () {},
                   child: Text(
-                    context.localizations.subOnline,
+                    context.localizations.subOffline,
                     style: TextStyle(
                       fontSize: 24.spMin,
                       height: 1,
