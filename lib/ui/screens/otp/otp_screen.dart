@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 import 'otp_components.dart';
@@ -73,15 +73,13 @@ class _OTPScreenState extends State<OTPScreen> {
               height: 24.h,
             ),
             GlobalButton(
-              backgroundColor: AppColors.lightGrey,
-              buttonStyle: AppTextStyle.deactiveButton,
-              text: context.localizations.confirmText,
+              isActive: true,
               onPress: () {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.passw);
                 }
                 FocusScope.of(context).unfocus();
-                 otpFieldController.clear();
+                otpFieldController.clear();
               },
             ),
             SizedBox(

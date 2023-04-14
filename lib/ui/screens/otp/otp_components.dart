@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 class OtpField extends StatelessWidget {
@@ -41,7 +41,7 @@ class OtpField extends StatelessWidget {
           autofocus: true,
           focusNode: otpFieldFocus,
           wrapAlignment: WrapAlignment.start,
-          pinBoxOuterPadding:  EdgeInsets.symmetric(horizontal: 6.0.w),
+          pinBoxOuterPadding: EdgeInsets.symmetric(horizontal: 6.0.w),
           pinBoxColor: AppColors.lightBlue,
           pinBoxBorderWidth: 2.0.w,
           pinBoxRadius: 8.r,

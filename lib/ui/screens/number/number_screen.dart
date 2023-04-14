@@ -1,9 +1,9 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
-import 'package:fitcoachaz/ui/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 import 'number_components.dart';
@@ -16,23 +16,31 @@ class NumberScreen extends StatefulWidget {
 }
 
 class _NumberScreenState extends State<NumberScreen> {
-  late final TextEditingController numberController;
-  late final FocusNode numberFocus;
+  late final TextEditingController _numberController;
+  late final FocusNode _numberFocus;
   final _formKey = GlobalKey<FormState>();
   late String number;
+
+  bool _isActive = false;
 
   @override
   void initState() {
     super.initState();
-    numberController = TextEditingController();
-    numberFocus = FocusNode();
+    _numberController = TextEditingController();
+    _numberFocus = FocusNode();
   }
 
   @override
   void dispose() {
     super.dispose();
-    numberController.dispose();
-    numberFocus.dispose();
+    _numberController.dispose();
+    _numberFocus.dispose();
+  }
+
+  void _onChangeField(String value) {
+    if (value.isNotEmpty && _isActive) return;
+
+    setState(() => _isActive = _numberController.text.isNotEmpty);
   }
 
   @override
@@ -56,16 +64,16 @@ class _NumberScreenState extends State<NumberScreen> {
               context.localizations.enterNumber,
               style: AppTextStyle.bigHeader,
             ),
-             SizedBox(
+            SizedBox(
               height: 47.h,
             ),
             Form(
               key: _formKey,
               child: NumberInput(
-                controller: numberController,
-                focus: numberFocus,
+                controller: _numberController,
+                focus: _numberFocus,
                 keyboardType: TextInputType.phone,
-                onChanged: (value) {},
+                onChanged: _onChangeField,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return context.localizations.enterNumber;
@@ -74,19 +82,17 @@ class _NumberScreenState extends State<NumberScreen> {
                 },
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 22.h,
             ),
             GlobalButton(
-              backgroundColor: AppColors.brightSilver,
-              buttonStyle: AppTextStyle.deactiveButton,
-              text: context.localizations.confirmText,
+              isActive: _isActive,
               onPress: () {
                 if (_formKey.currentState!.validate()) {
                   Navigator.pushNamed(context, AppRoutesName.otp);
                 }
                 FocusScope.of(context).unfocus();
-                 numberController.clear();
+                _numberController.clear();
               },
             ),
           ],

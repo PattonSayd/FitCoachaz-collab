@@ -22,13 +22,6 @@ class AppTextStyle {
         color: AppColors.white,
       );
 
-  static TextStyle get deactiveButton => const TextStyle(
-      fontSize: 16,
-      fontFamily: AppFonts.alatsiRegular,
-      height: 1.17,
-      fontWeight: FontWeight.w500,
-      color: AppColors.white);
-
   static TextStyle get welcomeCaption => TextStyle(
       color: AppColors.white,
       fontWeight: FontWeight.w400,
@@ -118,5 +111,101 @@ class AppTextStyle {
         height: 1.28,
         color: AppColors.white,
         fontFamily: AppFonts.alatsiRegular,
+      );
+  static TextStyle get subDescription => TextStyle(
+        fontSize: 14.spMin,
+        height: 1.28,
+        color: AppColors.grey,
+      );
+  static TextStyle get subStudents => TextStyle(
+        fontSize: 16.spMin,
+        height: 1.28,
+        color: AppColors.darkBlue,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get verifyButton => TextStyle(
+        fontSize: 16.spMin,
+        fontFamily: AppFonts.alatsiRegular,
+        height: 1.17,
+        fontWeight: FontWeight.w500,
+      );
+
+  static TextStyle get bigHeader => TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 38.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.31,
+      color: AppColors.black);
+
+  static TextStyle get passwHeader => TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 42.spMin,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.20,
+      color: AppColors.black);
+  static TextStyle get labelText => TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      fontFamily: AppFonts.alatsiRegular,
+      height: 1.6,
+      color: AppColors.silver);
+
+  static TextStyle get otpFieldText => TextStyle(
+        fontSize: 22.sp,
+        height: 1.27,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.w600,
+      );
+  static TextStyle get resendText => TextStyle(
+        fontSize: 16.spMin,
+        height: 1.5,
+        color: AppColors.lightGreen,
+        fontWeight: FontWeight.w400,
+      );
+  static TextStyle get choosePassw => TextStyle(
+        fontSize: 14.spMin,
+        height: 1.42,
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+      );
+
+  static TextStyle get profileScreenTitle => TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 16.spMin,
+        height: 1.63,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get profileScreenUserName => TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 24.spMin,
+        height: 1.42,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get profileScreenListItem => TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: 16.spMin,
+        height: 1.63,
+        fontFamily: AppFonts.alatsiRegular,
+      );
+
+  static TextStyle get user => TextStyle(
+        fontFamily: AppFonts.alatsiRegular,
+        color: AppColors.black,
+        fontSize: 22.spMin,
+        height: 1.27,
+        fontWeight: FontWeight.w600,
+      );
+  static TextStyle get welcomeUserText => TextStyle(
+        fontFamily: AppFonts.alatsiRegular,
+        color: AppColors.black,
+        fontSize: 14.spMin,
+        height: 1.42,
+        fontWeight: FontWeight.w400,
       );
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../style/text_style.dart';
+import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 class UserAccountScreen extends StatelessWidget {
@@ -46,7 +46,8 @@ class UserAccountScreen extends StatelessWidget {
                     text: context.localizations.startButtom,
                     style: AppTextStyle.startButton,
                     onPress: () {
-                      Navigator.pushNamed(context, AppRoutesName.main);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, AppRoutesName.main, (route) => false);
                     }),
                 SizedBox(height: 50.h),
               ],
