@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "611002416338",
+    "project_id": "fitcoachaz-519f3",
+    "storage_bucket": "fitcoachaz-519f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611002416338:android:fcdc1c9f881fb0513f010b",
+        "android_client_info": {
+          "package_name": "com.example.fitcoachaz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611002416338-pnr9ci1snh5ffs8vc3sj2ssauva7kb0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fitcoachaz",
+            "certificate_hash": "cc67c9377745fe3a52285c37fbd2059c92226e21"
+          }
+        },
+        {
+          "client_id": "611002416338-blej1ltit730st1k8o9g8aorh1od99c9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnTJVqXBaRjHswOlwbhFQQWHhZaAciYyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611002416338-blej1ltit730st1k8o9g8aorh1od99c9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "611002416338-dorsepe620766dpa627sabc6ftekh338.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fitcoachaz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
