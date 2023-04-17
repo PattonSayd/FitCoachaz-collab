@@ -1,8 +1,11 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../bloc/register/register_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
@@ -18,9 +21,8 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreenState extends State<OTPScreen> {
   late final TextEditingController otpFieldController;
   late final FocusNode otpFieldFocus;
-  final _formKey = GlobalKey<FormState>();
-
-  late String number;
+  bool _isActive = false;
+  late String verificationId;
 
   @override
   void initState() {
@@ -39,17 +41,9 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back,
-            color: AppColors.black,
-          ),
-        ),
-      ),
+      appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -60,26 +54,68 @@ class _OTPScreenState extends State<OTPScreen> {
             SizedBox(
               height: 25.h,
             ),
-            Form(
-              key: _formKey,
-              child: OtpField(
-                otpFieldController: otpFieldController,
-                otpFieldLength: 4,
-                otpFieldFocus: otpFieldFocus,
-                otpOnChanged: (value) {},
+            PinCodeTextField(
+              appContext: context,
+              controller: otpFieldController,
+              length: 6,
+              backgroundColor: Colors.transparent,
+              animationDuration: const Duration(milliseconds: 350),
+              animationType: AnimationType.scale,
+              autoFocus: true,
+              keyboardType: TextInputType.number,
+              enableActiveFill: true,
+              cursorHeight: 20,
+              cursorColor: AppColors.darkBlue,
+              focusNode: otpFieldFocus,
+              autovalidateMode: AutovalidateMode.always,
+              pinTheme: PinTheme(
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(8),
+                fieldHeight: 45.h,
+                fieldWidth: 45.w,
+                inactiveColor: AppColors.brightSilver,
+                activeColor: AppColors.lightGreen,
+                activeFillColor: AppColors.lightBlue,
+                selectedFillColor: AppColors.lightBlue,
+                selectedColor: AppColors.lightGreen,
+                inactiveFillColor: AppColors.lightBlue,
+                errorBorderColor: Colors.red,
+                borderWidth: 2,
               ),
+              onChanged: (value) {
+                if (value.length == 6) {
+                  _isActive = true;
+                }
+                setState(() {});
+              },
             ),
             SizedBox(
               height: 24.h,
             ),
-            GlobalButton(
-              isActive: true,
-              onPress: () {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.pushNamed(context, AppRoutesName.passw);
+            BlocConsumer<RegisterBloc, RegisterState>(
+              listener: (context, state) {
+                if (state is RegisterStateLoaded) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, AppRoutesName.passw, (route) => false);
                 }
-                FocusScope.of(context).unfocus();
-                otpFieldController.clear();
+              },
+              builder: (context, state) {
+                if (state is RegisterStateOTPSentSuccess) {
+                  verificationId = state.verificationId;
+                }
+                return GlobalButton(
+                  isActive: _isActive,
+                  onPress: () {
+                    // if (_formKey.currentState!.validate()) {
+                    //   Navigator.pushNamed(context, AppRoutesName.passw);
+                    // }
+                    // FocusScope.of(context).unfocus();
+                    // otpFieldController.clear();
+                    context.read<RegisterBloc>().add(VerifySentOTPRegisterEvent(
+                        otpCode: otpFieldController.text,
+                        verificationId: verificationId));
+                  },
+                );
               },
             ),
             SizedBox(

@@ -6,7 +6,7 @@ import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 var maskFormatter = MaskTextInputFormatter(
-  mask: '+994 (###) ###-##-##',
+  mask: '(##) ###-##-##',
   filter: {"#": RegExp(r'[0-9]')},
 );
 
@@ -47,6 +47,8 @@ class NumberInput extends StatelessWidget {
       focusNode: focus,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
+        errorText: errorText,
+        prefix: const Text('+994 '),
         hintText: hintText,
         labelText: labelText,
         labelStyle: AppTextStyle.labelText,

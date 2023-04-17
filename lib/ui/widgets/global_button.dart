@@ -9,11 +9,13 @@ import '../theme/app_colors.dart';
 class GlobalButton extends StatelessWidget {
   final VoidCallback onPress;
   final bool isActive;
+  final bool? loading;
 
   const GlobalButton({
     Key? key,
     required this.onPress,
     required this.isActive,
+    this.loading,
   }) : super(key: key);
 
   @override
@@ -40,10 +42,19 @@ class GlobalButton extends StatelessWidget {
           ),
         ),
         onPressed: isActive ? onPress : null,
-        child: Text(
-          context.localizations.confirmText,
-          style: AppTextStyle.verifyButton,
-        ),
+        child: loading != null && loading == true
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                  strokeWidth: 2,
+                ),
+              )
+            : Text(
+                context.localizations.confirmText,
+                style: AppTextStyle.verifyButton,
+              ),
       ),
     );
   }

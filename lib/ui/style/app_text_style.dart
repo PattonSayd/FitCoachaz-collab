@@ -152,7 +152,7 @@ class AppTextStyle {
       color: AppColors.silver);
 
   static TextStyle get otpFieldText => TextStyle(
-        fontSize: 22.sp,
+        fontSize: 22.spMin,
         height: 1.27,
         color: AppColors.darkGrey,
         fontWeight: FontWeight.w600,
