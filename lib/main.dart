@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'app/app.dart';
 import 'firebase_options.dart';
+import 'logger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // initLogger();
   runApp(const App());
 }
