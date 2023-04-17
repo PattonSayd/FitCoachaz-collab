@@ -9,7 +9,6 @@ import '../../bloc/register/register_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import 'otp_components.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -58,6 +57,7 @@ class _OTPScreenState extends State<OTPScreen> {
               appContext: context,
               controller: otpFieldController,
               length: 6,
+              autoDisposeControllers: false,
               backgroundColor: Colors.transparent,
               animationDuration: const Duration(milliseconds: 350),
               animationType: AnimationType.scale,
@@ -106,11 +106,6 @@ class _OTPScreenState extends State<OTPScreen> {
                 return GlobalButton(
                   isActive: _isActive,
                   onPress: () {
-                    // if (_formKey.currentState!.validate()) {
-                    //   Navigator.pushNamed(context, AppRoutesName.passw);
-                    // }
-                    // FocusScope.of(context).unfocus();
-                    // otpFieldController.clear();
                     context.read<RegisterBloc>().add(VerifySentOTPRegisterEvent(
                         otpCode: otpFieldController.text,
                         verificationId: verificationId));

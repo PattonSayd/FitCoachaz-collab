@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../../app/config.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 var maskFormatter = MaskTextInputFormatter(
-  mask: '(##) ###-##-##',
+  mask: '## ### ## ##',
   filter: {"#": RegExp(r'[0-9]')},
 );
 
@@ -15,6 +16,8 @@ class NumberInput extends StatelessWidget {
   final FocusNode focus;
   final void Function(String) onChanged;
   final String? Function(String?) validator;
+  final void Function(String)? onSelected;
+  final String seletedPrefix;
   final String? errorText;
   final String? hintText;
   final String? labelText;
@@ -26,12 +29,14 @@ class NumberInput extends StatelessWidget {
     required this.controller,
     required this.focus,
     required this.onChanged,
-    this.keyboardType,
     required this.validator,
+    required this.onSelected,
+    required this.seletedPrefix,
+    this.errorText,
     this.hintText,
     this.labelText,
+    this.keyboardType,
     this.obscureText = false,
-    this.errorText,
   }) : super(key: key);
 
   @override
@@ -47,8 +52,11 @@ class NumberInput extends StatelessWidget {
       focusNode: focus,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 16,
+          horizontal: 10,
+        ),
         errorText: errorText,
-        prefix: const Text('+994 '),
         hintText: hintText,
         labelText: labelText,
         labelStyle: AppTextStyle.labelText,
@@ -56,7 +64,66 @@ class NumberInput extends StatelessWidget {
           fontSize: 14.spMin,
           color: AppColors.pink,
         ),
+        prefix: PopupMenuButton(
+          offset: const Offset(-15, -15),
+          onSelected: onSelected,
+          child: SizedBox(
+            width: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(seletedPrefix),
+                const Icon(Icons.keyboard_arrow_down_rounded)
+              ],
+            ),
+          ),
+          itemBuilder: (context) => phonePrefix
+              .map((prefix) => PopupMenuItem(
+                    height: 40,
+                    value: prefix,
+                    child: Align(child: Text(prefix)),
+                  ))
+              .toList(),
+        ),
       ),
     );
   }
 }
+
+// class CustomPopupMenuItem<T> extends PopupMenuItem<T> {
+//   final String text;
+//   final IconData icon;
+//   final Color textColor;
+//   final Color iconColor;
+//   final VoidCallback onTap;
+
+//   CustomPopupMenuItem({
+//     super.key,
+//     required this.text,
+//     required this.icon,
+//     this.textColor = Colors.black87,
+//     this.iconColor = Colors.black87,
+//     required this.onTap,
+//   }) : super(
+//           child: Container(
+//             padding: EdgeInsets.all(12.0),
+//             child: Row(
+//               children: [
+//                 Icon(
+//                   icon,
+//                   color: iconColor,
+//                 ),
+//                 SizedBox(width: 16.0),
+//                 Text(
+//                   text,
+//                   style: TextStyle(
+//                     color: textColor,
+//                     fontSize: 16.0,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           onTap: onTap,
+//         );
+// }

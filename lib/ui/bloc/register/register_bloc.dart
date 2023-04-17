@@ -10,6 +10,8 @@ part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   String registerResult = '';
+  late final String _verificationId;
+  late final int? _resendToken;
   final registerRepository = RegisterRepository();
 
   RegisterBloc() : super(const RegisterStateInitial()) {
@@ -52,8 +54,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           add(OnPhoneAuthErrorRegisterEvent(error: e.code));
         },
         codeSent: (String verificationId, int? resendToken) {
+          _verificationId = verificationId;
+          _resendToken = resendToken;
           add(OnPhoneOTPSentRegisterEvent(
-              verificationId: verificationId, token: resendToken));
+              verificationId: _verificationId, token: _resendToken));
         },
         codeAutoRetrievalTimeout: (String verificationId) {},
       );

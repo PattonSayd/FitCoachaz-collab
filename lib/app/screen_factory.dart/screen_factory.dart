@@ -32,8 +32,10 @@ class ScreenFactory {
       providers: [
         BlocProvider(create: (context) => regBloc),
         BlocProvider(
-            create: (context) =>
-                NetworkConnectivityCubit(connectivity: Connectivity())),
+          create: (context) => NetworkConnectivityCubit(
+            connectivity: Connectivity(),
+          ),
+        ),
       ],
       child: const RegisterScreen(),
     );
