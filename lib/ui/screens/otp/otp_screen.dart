@@ -106,7 +106,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 return GlobalButton(
                   isActive: _isActive,
                   onPress: () {
-                    context.read<RegisterBloc>().add(VerifySentOTPRegisterEvent(
+                    context.read<RegisterBloc>().add(VerifySentOTPEvent(
                         otpCode: otpFieldController.text,
                         verificationId: verificationId));
                   },

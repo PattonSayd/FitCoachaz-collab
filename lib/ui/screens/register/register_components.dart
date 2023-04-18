@@ -7,15 +7,14 @@ import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 var maskFormatter = MaskTextInputFormatter(
-  mask: '## ### ## ##',
+  mask: '(##) ### ## ##',
   filter: {"#": RegExp(r'[0-9]')},
 );
 
-class NumberInput extends StatelessWidget {
-  final TextEditingController controller;
+class PhoneInput extends StatelessWidget {
+  final String? initialValue;
   final FocusNode focus;
   final void Function(String) onChanged;
-  final String? Function(String?) validator;
   final void Function(String)? onSelected;
   final String seletedPrefix;
   final String? errorText;
@@ -24,14 +23,13 @@ class NumberInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
 
-  const NumberInput({
+  const PhoneInput({
     Key? key,
-    required this.controller,
     required this.focus,
     required this.onChanged,
-    required this.validator,
     required this.onSelected,
     required this.seletedPrefix,
+    this.initialValue,
     this.errorText,
     this.hintText,
     this.labelText,
@@ -42,13 +40,12 @@ class NumberInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       inputFormatters: [maskFormatter],
       obscureText: obscureText,
       onChanged: onChanged,
       autofocus: true,
       keyboardType: keyboardType,
-      validator: validator,
-      controller: controller,
       focusNode: focus,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(

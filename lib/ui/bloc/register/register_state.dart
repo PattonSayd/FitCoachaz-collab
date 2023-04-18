@@ -1,8 +1,16 @@
 part of 'register_bloc.dart';
 
 @immutable
-abstract class RegisterState extends Equatable {
+class RegisterState extends Equatable {
   const RegisterState();
+
+  factory RegisterState.form() {
+    return RegisterState();
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
 
 class RegisterStateInitial extends RegisterState {
@@ -14,6 +22,9 @@ class RegisterStateInitial extends RegisterState {
 
 class RegisterStateLoading extends RegisterState {
   const RegisterStateLoading();
+
+  int get root => 1;
+
   @override
   List<Object?> get props => [];
 }

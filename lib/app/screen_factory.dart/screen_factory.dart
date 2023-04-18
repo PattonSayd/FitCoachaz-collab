@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fitcoachaz/ui/bloc/network_connectivity/network_connectivity_cubit.dart';
+import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,10 +33,10 @@ class ScreenFactory {
       providers: [
         BlocProvider(create: (context) => regBloc),
         BlocProvider(
-          create: (context) => NetworkConnectivityCubit(
-            connectivity: Connectivity(),
-          ),
+          create: (context) =>
+              NetworkConnectivityCubit(connectivity: Connectivity()),
         ),
+        BlocProvider(create: (context) => PhoneFieldBloc()),
       ],
       child: const RegisterScreen(),
     );
