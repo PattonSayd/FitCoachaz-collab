@@ -5,11 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
 import 'package:fitcoachaz/ui/screens/register/register_components.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../app/router/app_routes.dart';
 import '../../../logger.dart';
 import '../../formz/phone_field/phone_field_bloc.dart';
 import '../../style/app_text_style.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -59,6 +61,11 @@ class _InputState extends State<Input> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+    // _focusNode.addListener(() {
+    //   if (!_focusNode.hasFocus) {
+    //     FocusScope.of(context).unfocus();
+    //   }
+    // });
   }
 
   @override
@@ -71,7 +78,8 @@ class _InputState extends State<Input> {
   Widget build(BuildContext context) {
     return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
       builder: (context, state) {
-        logger.w('input');
+        logger.wtf("$state");
+
         return PhoneInput(
           initialValue: state.phone.value,
           seletedPrefix: state.prefix,
@@ -80,9 +88,7 @@ class _InputState extends State<Input> {
           focus: _focusNode,
           keyboardType: TextInputType.phone,
           onChanged: (value) {
-            context.read<PhoneFieldBloc>().add(PhoneFieldEvent(
-                  phone: value,
-                ));
+            context.read<PhoneFieldBloc>().add(PhoneFieldEvent(phone: value));
           },
           onSelected: (prefix) {
             context.read<PhoneFieldBloc>().add(PrefixEvent(prefix: prefix));
@@ -98,20 +104,32 @@ class ConfirmButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.w('confirm');
-    bool loading = false;
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
-        logger.w('Listening');
+        logger.wtf("$state");
+
         if (state is RegisterStateOTPSentSuccess) {
           Navigator.pushNamed(context, AppRoutesName.otp);
         }
+        if (state is RegisterStateError) {
+          Fluttertoast.showToast(
+            msg: state.error,
+            fontSize: 18,
+            backgroundColor: AppColors.brightBlue,
+            textColor: AppColors.grey,
+            gravity: ToastGravity.TOP,
+          );
+        }
       },
-      builder: (context, regState) {
-        if (regState is RegisterStateLoading) loading = true;
+      builder: (context, state) {
+        logger.wtf("$state");
+
+        bool loading = false;
+        if (state is RegisterStateLoading) loading = !loading;
         return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
           buildWhen: (previous, current) => current.isValid != previous.isValid,
           builder: (context, state) {
+            logger.wtf("$state");
             return GlobalButton2(
               loading: loading,
               onPressed: state.isValid && !loading

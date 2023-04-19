@@ -159,8 +159,6 @@ class AppTextStyle {
       );
   static TextStyle get resendText => TextStyle(
         fontSize: 16.spMin,
-        height: 1.5,
-        color: AppColors.lightGreen,
         fontWeight: FontWeight.w400,
       );
   static TextStyle get choosePassw => TextStyle(

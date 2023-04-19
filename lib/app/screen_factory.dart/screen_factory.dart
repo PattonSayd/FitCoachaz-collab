@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fitcoachaz/ui/bloc/network_connectivity/network_connectivity_cubit.dart';
+import 'package:fitcoachaz/ui/bloc/timer/ticker.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../ui/bloc/register/register_bloc.dart';
+import '../../ui/bloc/timer/timer_bloc.dart';
 import '../../ui/screens/account/user_account_screen.dart';
 import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/register/register_screen.dart';
@@ -43,8 +45,15 @@ class ScreenFactory {
   }
 
   static Widget assembleOTP() {
-    return BlocProvider.value(
-      value: regBloc,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: regBloc,
+        ),
+        BlocProvider(
+          create: (context) => TimerBloc(ticker: const Ticker()),
+        ),
+      ],
       child: const OTPScreen(),
     );
   }

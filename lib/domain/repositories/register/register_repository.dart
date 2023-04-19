@@ -7,17 +7,21 @@ class RegisterRepository {
 
   User? firebaseUser;
 
-  Future<void> loginWithPhoneNumber(
-      {required String phoneNumber,
-      required Function(PhoneAuthCredential) verificationCompleted,
-      required Function(FirebaseAuthException) verificationFailed,
-      required Function(String, int?) codeSent,
-      required Function(String) codeAutoRetrievalTimeout}) async {
+  Future<void> verifyPhoneNumber({
+    required String phoneNumber,
+    required Function(PhoneAuthCredential) verificationCompleted,
+    required Function(FirebaseAuthException) verificationFailed,
+    required Function(String, int?) codeSent,
+    required Function(String) codeAutoRetrievalTimeout,
+    required int? forceResendingToken,
+  }) async {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
       codeSent: codeSent,
+      forceResendingToken: forceResendingToken,
+      // timeout: const Duration(seconds: 30),
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
   }

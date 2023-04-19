@@ -1,4 +1,6 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
+import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
+import 'package:fitcoachaz/ui/screens/otp/otp_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +33,12 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<TimerBloc>().add(const TimerStarted(duration: 30));
+  }
+
+  @override
   void dispose() {
     super.dispose();
     otpFieldController.dispose();
@@ -40,7 +48,17 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.black,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -83,9 +101,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 borderWidth: 2,
               ),
               onChanged: (value) {
-                if (value.length == 6) {
-                  _isActive = true;
-                }
+                _isActive = value.length == 6 ? true : false;
                 setState(() {});
               },
             ),
@@ -116,10 +132,37 @@ class _OTPScreenState extends State<OTPScreen> {
             SizedBox(
               height: 18.h,
             ),
-            TextButton(
-              onPressed: () {},
-              child: Text(context.localizations.resendText,
-                  style: AppTextStyle.resendText),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BlocBuilder<TimerBloc, TimerState>(
+                  builder: (context, state) {
+                    bool isActive = false;
+                    if (state is TimerRunComplete) isActive = !isActive;
+                    return TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.lightGreen,
+                      ),
+                      onPressed: isActive
+                          ? () {
+                              context
+                                  .read<TimerBloc>()
+                                  .add(const TimerStarted(duration: 10));
+                              context.read<RegisterBloc>().add(
+                                  const SendOTPToPhoneEvent(
+                                      number: '+994517763399'));
+                            }
+                          : null,
+                      child: Text(
+                        context.localizations.resendText,
+                        style: AppTextStyle.resendText,
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(width: 8),
+                const TimerText()
+              ],
             )
           ],
         ),
