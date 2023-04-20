@@ -146,7 +146,7 @@ class AppTextStyle {
       color: AppColors.black);
   static TextStyle get labelText => TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 14.sp,
+      fontSize: 20.sp,
       fontFamily: AppFonts.alatsiRegular,
       height: 1.6,
       color: AppColors.silver);

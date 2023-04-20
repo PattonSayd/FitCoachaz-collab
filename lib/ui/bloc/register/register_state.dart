@@ -45,5 +45,5 @@ class RegisterStateOTPSentSuccess extends RegisterState {
   final String verificationId;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [verificationId];
 }

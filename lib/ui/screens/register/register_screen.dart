@@ -1,3 +1,4 @@
+import 'package:fitcoachaz/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,6 @@ import 'package:fitcoachaz/ui/screens/register/register_components.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../../logger.dart';
 import '../../formz/phone_field/phone_field_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
@@ -19,16 +19,17 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.wtf("buildiw");
-    return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20)
-              .copyWith(top: context.deviceHeight / 6),
+    logger.i('buildw');
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 100.h),
               Text(
                 context.localizations.enterNumber,
                 style: AppTextStyle.bigHeader,
@@ -61,11 +62,6 @@ class _InputState extends State<Input> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    // _focusNode.addListener(() {
-    //   if (!_focusNode.hasFocus) {
-    //     FocusScope.of(context).unfocus();
-    //   }
-    // });
   }
 
   @override
@@ -78,13 +74,12 @@ class _InputState extends State<Input> {
   Widget build(BuildContext context) {
     return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
       builder: (context, state) {
-        logger.wtf("$state");
-
+        logger.i(
+            '$state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
         return PhoneInput(
-          initialValue: state.phone.value,
           seletedPrefix: state.prefix,
           hintText: 'Phone number',
-          errorText: state.isNotValid ? state.phone.displayError : null,
+          errorText: state.phone.isNotValid ? state.phone.displayError : null,
           focus: _focusNode,
           keyboardType: TextInputType.phone,
           onChanged: (value) {
@@ -106,9 +101,10 @@ class ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
-        logger.wtf("$state");
-
+        logger.i(
+            'LISENER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
         if (state is RegisterStateOTPSentSuccess) {
+          logger.w('Navigator');
           Navigator.pushNamed(context, AppRoutesName.otp);
         }
         if (state is RegisterStateError) {
@@ -122,19 +118,24 @@ class ConfirmButton extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        logger.wtf("$state");
-
+        logger.i(
+            'BUILDER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
         bool loading = false;
         if (state is RegisterStateLoading) loading = !loading;
         return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
-          buildWhen: (previous, current) => current.isValid != previous.isValid,
+          buildWhen: (previous, current) =>
+              current.phone.isValid != previous.phone.isValid,
           builder: (context, state) {
-            logger.wtf("$state");
+            logger.i(
+                '$state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
             return GlobalButton2(
               loading: loading,
-              onPressed: state.isValid && !loading
-                  ? () => context.read<RegisterBloc>().add(SendOTPToPhoneEvent(
-                      number: state.prefix + state.phone.value))
+              onPressed: state.phone.isValid && !loading
+                  ? () {
+                      context.read<RegisterBloc>().add(SendOTPToPhoneEvent(
+                          number: state.prefix + state.phone.value));
+                      FocusScope.of(context).unfocus();
+                    }
                   : null,
             );
           },
@@ -143,24 +144,3 @@ class ConfirmButton extends StatelessWidget {
     );
   }
 }
-
-
-  // void _onSubmitted(NetworkConnectivityState networkState) {
-  //   switch (networkState.type) {
-  //     case NetworkConnectivityType.unknown:
-  //       Fluttertoast.showToast(
-  //           msg: 'No internet connection',
-  //           fontSize: 18,
-  //           backgroundColor: AppColors.brightBlue,
-  //           textColor: AppColors.grey,
-  //           gravity: ToastGravity.TOP);
-  //       break;
-  //     case NetworkConnectivityType.connected:
-  //       context.read<RegisterBloc>().add(SendOTPToPhoneEvent(
-  //           number: selectedPrefix + _numberController.text));
-
-  //       break;
-
-  //     default:
-  //   }
-  // }

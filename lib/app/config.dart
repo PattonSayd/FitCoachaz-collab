@@ -1,1 +1,2 @@
-const List<String> phonePrefix = ['+994', '+99'];
+const List<String> phonePrefix = ['+994'];
+const int resendTimer = 60;

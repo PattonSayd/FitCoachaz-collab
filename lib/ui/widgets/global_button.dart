@@ -86,8 +86,8 @@ class GlobalButton2 extends StatelessWidget {
           elevation: 0,
           splashFactory: NoSplash.splashFactory,
           disabledBackgroundColor: AppColors.brightSilver,
-          foregroundColor: AppColors.white,
           disabledForegroundColor: AppColors.silver,
+          foregroundColor: AppColors.white,
           backgroundColor: AppColors.lightGreen,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),

@@ -1,5 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:fitcoachaz/ui/bloc/network_connectivity/network_connectivity_cubit.dart';
+import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
 import 'package:fitcoachaz/ui/bloc/timer/ticker.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +17,7 @@ import '../../ui/screens/tabs/tabs_navigator.dart';
 import '../../ui/screens/welcome/welcome_screen.dart';
 
 class ScreenFactory {
-  ScreenFactory._();
-
-  static final RegisterBloc regBloc = RegisterBloc();
+  static RegisterBloc? _registerBloc;
 
   static Widget assembleWelcome() {
     return const WelcomeScreen();
@@ -30,14 +27,13 @@ class ScreenFactory {
     return const ProfileScreen();
   }
 
-  static Widget assembleLogin() {
+  static Widget assembleRegister() {
+    final registerBloc = RegisterBloc(repository: RegisterRepository());
+    _registerBloc = registerBloc;
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => regBloc),
-        BlocProvider(
-          create: (context) =>
-              NetworkConnectivityCubit(connectivity: Connectivity()),
-        ),
+        BlocProvider<RegisterBloc>.value(value: registerBloc),
         BlocProvider(create: (context) => PhoneFieldBloc()),
       ],
       child: const RegisterScreen(),
@@ -47,10 +43,10 @@ class ScreenFactory {
   static Widget assembleOTP() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(
-          value: regBloc,
+        BlocProvider<RegisterBloc>.value(
+          value: _registerBloc!,
         ),
-        BlocProvider(
+        BlocProvider<TimerBloc>(
           create: (context) => TimerBloc(ticker: const Ticker()),
         ),
       ],

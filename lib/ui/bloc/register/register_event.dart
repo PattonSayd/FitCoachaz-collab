@@ -6,9 +6,9 @@ abstract class RegisterEvent extends Equatable {
 }
 
 class SendOTPToPhoneEvent extends RegisterEvent {
-  const SendOTPToPhoneEvent({required this.number});
+  const SendOTPToPhoneEvent({this.number});
 
-  final String number;
+  final String? number;
 
   @override
   List<Object?> get props => [number];

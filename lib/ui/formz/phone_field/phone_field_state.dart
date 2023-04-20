@@ -1,6 +1,6 @@
 part of 'phone_field_bloc.dart';
 
-class PhoneFieldState with FormzMixin {
+class PhoneFieldState extends Equatable {
   const PhoneFieldState({
     this.phone = const PhoneField.pure(),
     this.prefix = '+994',
@@ -10,7 +10,7 @@ class PhoneFieldState with FormzMixin {
   final String prefix;
 
   @override
-  List<FormzInput> get inputs => [phone];
+  List<Object?> get props => [phone, prefix];
 
   PhoneFieldState copyWith({
     PhoneField? phone,
