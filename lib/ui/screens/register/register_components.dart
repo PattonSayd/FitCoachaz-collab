@@ -2,36 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../../app/config.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
 var maskFormatter = MaskTextInputFormatter(
-  mask: '(##) ###-##-##',
+  mask: '(##) ### ## ##',
   filter: {"#": RegExp(r'[0-9]')},
 );
 
-class NumberInput extends StatelessWidget {
-  final TextEditingController controller;
+class PhoneInput extends StatelessWidget {
   final FocusNode focus;
   final void Function(String) onChanged;
-  final String? Function(String?) validator;
+  final void Function(String)? onSelected;
+  final String seletedPrefix;
   final String? errorText;
   final String? hintText;
   final String? labelText;
   final TextInputType? keyboardType;
   final bool obscureText;
 
-  const NumberInput({
+  const PhoneInput({
     Key? key,
-    required this.controller,
     required this.focus,
     required this.onChanged,
-    this.keyboardType,
-    required this.validator,
+    required this.onSelected,
+    required this.seletedPrefix,
+    this.errorText,
     this.hintText,
     this.labelText,
+    this.keyboardType,
     this.obscureText = false,
-    this.errorText,
   }) : super(key: key);
 
   @override
@@ -40,21 +41,48 @@ class NumberInput extends StatelessWidget {
       inputFormatters: [maskFormatter],
       obscureText: obscureText,
       onChanged: onChanged,
-      autofocus: true,
       keyboardType: keyboardType,
-      validator: validator,
-      controller: controller,
       focusNode: focus,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
         errorText: errorText,
-        prefix: const Text('+994 '),
         hintText: hintText,
         labelText: labelText,
         labelStyle: AppTextStyle.labelText,
         errorStyle: TextStyle(
           fontSize: 14.spMin,
           color: AppColors.pink,
+        ),
+        prefixIcon: Container(
+          padding: const EdgeInsets.only(left: 10),
+          child: PopupMenuButton(
+            color: AppColors.lightBlue,
+            offset: const Offset(-10, 0),
+            onSelected: onSelected,
+            child: SizedBox(
+              width: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    seletedPrefix,
+                    style: const TextStyle(
+                        fontSize: 16, color: AppColors.darkBlue),
+                  ),
+                  const Icon(Icons.keyboard_arrow_down_rounded)
+                ],
+              ),
+            ),
+            itemBuilder: (context) => phonePrefix
+                .map((prefix) => PopupMenuItem(
+                      height: 40,
+                      value: prefix,
+                      child: Align(child: Text(prefix)),
+                    ))
+                .toList(),
+          ),
         ),
       ),
     );

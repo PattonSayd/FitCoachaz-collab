@@ -7,7 +7,7 @@ import '../style/app_text_style.dart';
 import '../theme/app_colors.dart';
 
 class GlobalButton extends StatelessWidget {
-  final VoidCallback onPress;
+  final void Function()? onPress;
   final bool isActive;
   final bool? loading;
 
@@ -42,6 +42,58 @@ class GlobalButton extends StatelessWidget {
           ),
         ),
         onPressed: isActive ? onPress : null,
+        child: loading != null && loading == true
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                  strokeWidth: 2,
+                ),
+              )
+            : Text(
+                context.localizations.confirmText,
+                style: AppTextStyle.verifyButton,
+              ),
+      ),
+    );
+  }
+}
+
+class GlobalButton2 extends StatelessWidget {
+  final void Function()? onPressed;
+  final bool? loading;
+
+  const GlobalButton2({
+    Key? key,
+    required this.onPressed,
+    this.loading,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(
+        minWidth: 200,
+        maxWidth: 370,
+        maxHeight: 50,
+        minHeight: 44,
+      ),
+      width: 342.w,
+      height: 44.h,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          splashFactory: NoSplash.splashFactory,
+          disabledBackgroundColor: AppColors.brightSilver,
+          disabledForegroundColor: AppColors.silver,
+          foregroundColor: AppColors.white,
+          backgroundColor: AppColors.lightGreen,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        onPressed: onPressed,
         child: loading != null && loading == true
             ? const SizedBox(
                 width: 20,

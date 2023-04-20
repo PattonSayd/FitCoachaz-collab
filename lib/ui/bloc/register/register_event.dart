@@ -5,17 +5,17 @@ abstract class RegisterEvent extends Equatable {
   const RegisterEvent();
 }
 
-class SendOTPToPhoneRegisterEvent extends RegisterEvent {
-  const SendOTPToPhoneRegisterEvent({required this.number});
+class SendOTPToPhoneEvent extends RegisterEvent {
+  const SendOTPToPhoneEvent({this.number});
 
-  final String number;
+  final String? number;
 
   @override
   List<Object?> get props => [number];
 }
 
-class VerifySentOTPRegisterEvent extends RegisterEvent {
-  const VerifySentOTPRegisterEvent({
+class VerifySentOTPEvent extends RegisterEvent {
+  const VerifySentOTPEvent({
     required this.otpCode,
     required this.verificationId,
   });
@@ -27,8 +27,8 @@ class VerifySentOTPRegisterEvent extends RegisterEvent {
   List<Object?> get props => [otpCode, verificationId];
 }
 
-class OnPhoneOTPSentRegisterEvent extends RegisterEvent {
-  const OnPhoneOTPSentRegisterEvent({
+class OnPhoneOTPSentEvent extends RegisterEvent {
+  const OnPhoneOTPSentEvent({
     required this.verificationId,
     this.token,
   });
@@ -40,8 +40,8 @@ class OnPhoneOTPSentRegisterEvent extends RegisterEvent {
   List<Object?> get props => [verificationId, token];
 }
 
-class OnPhoneAuthErrorRegisterEvent extends RegisterEvent {
-  const OnPhoneAuthErrorRegisterEvent({
+class OnPhoneAuthErrorEvent extends RegisterEvent {
+  const OnPhoneAuthErrorEvent({
     required this.error,
   });
 
@@ -51,8 +51,8 @@ class OnPhoneAuthErrorRegisterEvent extends RegisterEvent {
   List<Object?> get props => [error];
 }
 
-class OnPhoneAuthVerificationCompleteRegisterEvent extends RegisterEvent {
-  const OnPhoneAuthVerificationCompleteRegisterEvent({
+class OnPhoneAuthVerificationCompleteEvent extends RegisterEvent {
+  const OnPhoneAuthVerificationCompleteEvent({
     required this.credential,
   });
 

@@ -6,8 +6,8 @@ class AppRoutesName {
   AppRoutesName._();
 
   static const welcome = '/';
+  static const register = '/register';
   static const profile = '/profile';
-  static const login = '/login';
   static const otp = '/otp';
   static const passw = '/passw';
   static const main = 'main';
@@ -22,7 +22,7 @@ class AppRoutes {
   static final routes = <String, Widget Function(BuildContext)>{
     AppRoutesName.welcome: (_) => ScreenFactory.assembleWelcome(),
     AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
-    AppRoutesName.login: (_) => ScreenFactory.assembleLogin(),
+    AppRoutesName.register: (_) => ScreenFactory.assembleRegister(),
     AppRoutesName.otp: (_) => ScreenFactory.assembleOTP(),
     AppRoutesName.passw: (_) => ScreenFactory.assemblePassw(),
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),

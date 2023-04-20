@@ -19,6 +19,11 @@ class AppTheme {
       selectedItemColor: AppColors.pink,
       unselectedItemColor: AppColors.grey,
     ),
+    popupMenuTheme: const PopupMenuThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+    ),
   );
 }
 

@@ -1,8 +1,11 @@
 import 'package:fitcoachaz/app/resources/app_assets.dart';
+import 'package:fitcoachaz/ui/formz/phone_field/phone_field.dart';
+import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:fitcoachaz/ui/screens/subscribe/subscribe_components.dart';
 import 'package:fitcoachaz/ui/style/app_text_style.dart';
 import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';

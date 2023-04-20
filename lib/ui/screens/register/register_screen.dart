@@ -1,153 +1,146 @@
-import 'dart:io';
-import 'dart:math';
-
-import 'package:fitcoachaz/app/extension/build_context.dart';
-import 'package:fitcoachaz/ui/bloc/network_connectivity/network_connectivity_cubit.dart';
-import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
-import 'package:fitcoachaz/ui/screens/register/register_components.dart';
+import 'package:fitcoachaz/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:fitcoachaz/app/extension/build_context.dart';
+import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
+import 'package:fitcoachaz/ui/screens/register/register_components.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../../logger.dart';
+import '../../formz/phone_field/phone_field_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  Widget build(BuildContext context) {
+    logger.i('buildw');
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              SizedBox(height: 100.h),
+              Text(
+                context.localizations.enterNumber,
+                style: AppTextStyle.bigHeader,
+              ),
+              SizedBox(height: 47.h),
+              const Input(),
+              SizedBox(height: 22.h),
+              const ConfirmButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  late final TextEditingController _numberController;
-  late final FocusNode _numberFocus;
-  String? _errorText;
-  bool _isActive = false;
-  bool _loading = false;
+class Input extends StatefulWidget {
+  const Input({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<Input> createState() => _InputState();
+}
+
+class _InputState extends State<Input> {
+  late final FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
-    _numberController = TextEditingController();
-    _numberFocus = FocusNode();
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _numberController.dispose();
-    _numberFocus.dispose();
-  }
-
-  void _onSubmitted(NetworkConnectivityState networkState) {
-    switch (networkState.type) {
-      case NetworkConnectivityType.unknown:
-        Fluttertoast.showToast(
-            msg: 'No internet connection',
-            fontSize: 18,
-            backgroundColor: AppColors.brightBlue,
-            textColor: AppColors.grey,
-            gravity: ToastGravity.TOP);
-        break;
-      case NetworkConnectivityType.connected:
-        final phoneNum = _numberController.text;
-        final bool contains51InBrackets =
-            RegExp(r"\(50\)|\(51\)|\(55\)|\(77\)|\(70\)|\(10\)\(99\)")
-                .hasMatch(phoneNum);
-        if (phoneNum.length < 14 || !contains51InBrackets) {
-          _errorText = 'Field is wrong';
-        } else {
-          _errorText = null;
-          context
-              .read<RegisterBloc>()
-              .add(SendOTPToPhoneRegisterEvent(number: _numberController.text));
-        }
-        setState(() {});
-        break;
-
-      default:
-    }
-  }
-
-  void _onChangeField(String value) {
-    if (value.isNotEmpty && _isActive) return;
-
-    setState(() => _isActive = _numberController.text.isNotEmpty);
+    _focusNode.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    logger.wtf("buildiw");
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              context.localizations.enterNumber,
-              style: AppTextStyle.bigHeader,
-            ),
-            SizedBox(
-              height: 47.h,
-            ),
-            NumberInput(
-              errorText: _errorText,
-              controller: _numberController,
-              focus: _numberFocus,
-              keyboardType: TextInputType.phone,
-              onChanged: _onChangeField,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return context.localizations.enterNumber;
-                }
-                return null;
-              },
-            ),
-            SizedBox(
-              height: 22.h,
-            ),
-            BlocConsumer<RegisterBloc, RegisterState>(
-              listener: (context, state) {
-                if (state is RegisterStateOTPSentSuccess) {
-                  Navigator.pushNamed(context, AppRoutesName.otp);
-                }
-              },
-              builder: (context, state) {
-                if (state is RegisterStateLoading) {
-                  _loading = true;
-                  _isActive = false;
-                } else if (state is RegisterStateError) {
-                  _loading = false;
-                  _isActive = true;
-                  Fluttertoast.showToast(
-                      msg: state.error,
-                      fontSize: 18,
-                      backgroundColor: AppColors.brightBlue,
-                      textColor: AppColors.grey,
-                      gravity: ToastGravity.TOP);
-                }
-                return BlocBuilder<NetworkConnectivityCubit,
-                    NetworkConnectivityState>(
-                  builder: (context, networkState) {
-                    return GlobalButton(
-                      isActive: _isActive,
-                      loading: _loading,
-                      onPress: () => _onSubmitted(networkState),
-                    );
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+    return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
+      builder: (context, state) {
+        logger.i(
+            '$state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
+        return PhoneInput(
+          seletedPrefix: state.prefix,
+          hintText: 'Phone number',
+          errorText: state.phone.isNotValid ? state.phone.displayError : null,
+          focus: _focusNode,
+          keyboardType: TextInputType.phone,
+          onChanged: (value) {
+            context.read<PhoneFieldBloc>().add(PhoneFieldEvent(phone: value));
+          },
+          onSelected: (prefix) {
+            context.read<PhoneFieldBloc>().add(PrefixEvent(prefix: prefix));
+          },
+        );
+      },
+    );
+  }
+}
+
+class ConfirmButton extends StatelessWidget {
+  const ConfirmButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<RegisterBloc, RegisterState>(
+      listener: (context, state) {
+        logger.i(
+            'LISENER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
+        if (state is RegisterStateOTPSentSuccess) {
+          logger.w('Navigator');
+          Navigator.pushNamed(context, AppRoutesName.otp);
+        }
+        if (state is RegisterStateError) {
+          Fluttertoast.showToast(
+            msg: state.error,
+            fontSize: 18,
+            backgroundColor: AppColors.brightBlue,
+            textColor: AppColors.grey,
+            gravity: ToastGravity.TOP,
+          );
+        }
+      },
+      builder: (context, state) {
+        logger.i(
+            'BUILDER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
+        bool loading = false;
+        if (state is RegisterStateLoading) loading = !loading;
+        return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
+          buildWhen: (previous, current) =>
+              current.phone.isValid != previous.phone.isValid,
+          builder: (context, state) {
+            logger.i(
+                '$state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
+            return GlobalButton2(
+              loading: loading,
+              onPressed: state.phone.isValid && !loading
+                  ? () {
+                      context.read<RegisterBloc>().add(SendOTPToPhoneEvent(
+                          number: state.prefix + state.phone.value));
+                      FocusScope.of(context).unfocus();
+                    }
+                  : null,
+            );
+          },
+        );
+      },
     );
   }
 }

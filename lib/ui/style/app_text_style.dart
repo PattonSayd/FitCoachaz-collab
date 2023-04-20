@@ -146,7 +146,7 @@ class AppTextStyle {
       color: AppColors.black);
   static TextStyle get labelText => TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 14.sp,
+      fontSize: 20.sp,
       fontFamily: AppFonts.alatsiRegular,
       height: 1.6,
       color: AppColors.silver);
@@ -159,8 +159,6 @@ class AppTextStyle {
       );
   static TextStyle get resendText => TextStyle(
         fontSize: 16.spMin,
-        height: 1.5,
-        color: AppColors.lightGreen,
         fontWeight: FontWeight.w400,
       );
   static TextStyle get choosePassw => TextStyle(

@@ -1,52 +1,19 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// import '../../style/app_text_style.dart';
-// import '../../theme/app_colors.dart';
+import '../../bloc/timer/timer_bloc.dart';
 
-// class OtpField extends StatelessWidget {
-//   final TextEditingController otpFieldController;
-//   final FocusNode otpFieldFocus;
-//   final int otpFieldLength;
-//   final void Function(String) otpOnChanged;
+class TimerText extends StatelessWidget {
+  const TimerText({super.key});
 
-//   const OtpField({
-//     Key? key,
-//     required this.otpFieldController,
-//     required this.otpFieldFocus,
-//     required this.otpFieldLength,
-//     required this.otpOnChanged,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 55.h,
-//       child: PinCodeTextField(
-//           pinBoxWidth: 73.0.w,
-//           pinBoxHeight: 55.0.h,
-//           pinTextStyle: AppTextStyle.otpFieldText,
-//           maxLength: 4,
-//           controller: otpFieldController,
-//           hideCharacter: false,
-//           highlight: false,
-//           highlightAnimation: false,
-//           defaultBorderColor: AppColors.brightSilver,
-//           hasTextBorderColor: AppColors.lightGreen,
-//           highlightPinBoxColor: AppColors.lightBlue,
-//           hasError: false,
-//           errorBorderColor: AppColors.pink,
-//           onTextChanged: otpOnChanged,
-//           autofocus: true,
-//           focusNode: otpFieldFocus,
-//           wrapAlignment: WrapAlignment.start,
-//           pinBoxOuterPadding: EdgeInsets.symmetric(horizontal: 6.0.w),
-//           pinBoxColor: AppColors.lightBlue,
-//           pinBoxBorderWidth: 2.0.w,
-//           pinBoxRadius: 8.r,
-//           hideDefaultKeyboard: false,
-//           hasUnderline: false),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    final duration = context.select((TimerBloc bloc) => bloc.state.duration);
+    final minutesStr =
+        ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+    final secondsStr = (duration % 60).toString().padLeft(2, '0');
+    return Text(
+      '$minutesStr:$secondsStr',
+    );
+  }
+}

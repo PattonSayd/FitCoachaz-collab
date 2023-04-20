@@ -3,6 +3,9 @@ part of 'register_bloc.dart';
 @immutable
 abstract class RegisterState extends Equatable {
   const RegisterState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class RegisterStateInitial extends RegisterState {
@@ -14,6 +17,9 @@ class RegisterStateInitial extends RegisterState {
 
 class RegisterStateLoading extends RegisterState {
   const RegisterStateLoading();
+
+  int get root => 1;
+
   @override
   List<Object?> get props => [];
 }
@@ -39,5 +45,5 @@ class RegisterStateOTPSentSuccess extends RegisterState {
   final String verificationId;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [verificationId];
 }

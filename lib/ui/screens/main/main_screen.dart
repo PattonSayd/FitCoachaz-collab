@@ -86,7 +86,7 @@ class MainScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () =>
-                        Navigator.pushNamed(context, AppRoutesName.subscribe),
+                        Navigator.pushNamed(context, AppRoutesName.profile),
                     child: CardView(
                       index: index,
                       cardItems: _cardItems,
