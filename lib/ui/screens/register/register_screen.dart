@@ -104,8 +104,12 @@ class ConfirmButton extends StatelessWidget {
         logger.i(
             'LISENER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
         if (state is RegisterStateOTPSentSuccess) {
-          logger.w('Navigator');
-          Navigator.pushNamed(context, AppRoutesName.otp);
+          logger.i('Navigator');
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutesName.otp,
+            (route) => false,
+          );
         }
         if (state is RegisterStateError) {
           Fluttertoast.showToast(
