@@ -99,13 +99,13 @@ class _OTPScreenState extends State<OTPScreen> {
                             ? () {
                                 context.read<TimerBloc>().add(
                                     const TimerStarted(duration: resendTime));
-                                locator.register.add(
-                                  SendOTPToPhoneEvent(
-                                    number: context
-                                        .read<RegisterBloc>()
-                                        .phoneNumber,
-                                  ),
-                                );
+                                context.read<RegisterBloc>().add(
+                                      SendOTPToPhoneEvent(
+                                        number: context
+                                            .read<RegisterBloc>()
+                                            .phoneNumber,
+                                      ),
+                                    );
                               }
                             : null,
                         child: Text(
@@ -193,18 +193,18 @@ class _ConfirmButton extends StatelessWidget {
       builder: (context, state) {
         logger.d(state);
         String verificationId = '';
-        bool loaded = false;
+        bool loading = false;
         if (state is RegisterStateOTPSentSuccess) {
           verificationId = state.verificationId;
         } else if (state is RegisterStateLoaded) {
-          loaded = !loaded;
+          loading = !loading;
         }
         return BlocBuilder<OtpBloc, OtpState>(
           buildWhen: (prev, current) => prev.isValid != current.isValid,
           builder: (context, state) {
             return GlobalButton2(
-              loading: loaded,
-              onPressed: state.isValid
+              loading: loading,
+              onPressed: state.isValid && !loading
                   ? () => context.read<RegisterBloc>().add(VerifySentOTPEvent(
                       otpCode: state.otpCode, verificationId: verificationId))
                   : null,
