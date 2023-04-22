@@ -17,6 +17,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   String _verificationId = '';
   final RegisterRepository _repository;
 
+  String get phoneNumber => _phoneNumber;
+
   RegisterBloc({required RegisterRepository repository})
       : _repository = repository,
         super(const RegisterStateInitial()) {
@@ -31,11 +33,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     SendOTPToPhoneEvent event,
     Emitter<RegisterState> emit,
   ) async {
-    _phoneNumber = event.number ?? _phoneNumber;
+    _phoneNumber = event.number;
     emit(const RegisterStateLoading());
     try {
       await _repository.verifyPhoneNumber(
-        phoneNumber: _phoneNumber,
+        phoneNumber: event.number,
         verificationCompleted: (PhoneAuthCredential credential) {
           add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
         },
