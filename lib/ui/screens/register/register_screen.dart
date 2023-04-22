@@ -125,7 +125,8 @@ class ConfirmButton extends StatelessWidget {
         logger.i(
             'BUILDER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
         bool loading = false;
-        if (state is RegisterStateLoading) loading = !loading;
+        if (state is RegisterStateLoading ||
+            state is RegisterStateOTPSentSuccess) loading = !loading;
         return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
           buildWhen: (previous, current) =>
               current.phone.isValid != previous.phone.isValid,

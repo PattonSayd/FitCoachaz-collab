@@ -42,20 +42,25 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
         },
         verificationFailed: (FirebaseAuthException e) {
-          logger.e(e.code);
+          logger.d(e.message, e.code, e.stackTrace);
           add(OnPhoneAuthErrorEvent(error: e.code));
         },
         codeSent: (String verificationId, int? resendToken) async {
           _verificationId = verificationId;
           _resendToken = resendToken;
+          logger.wtf(
+              'verificationId: $verificationId, resendToken: $resendToken');
+
           add(OnPhoneOTPSentEvent(
               verificationId: _verificationId, token: _resendToken));
         },
         // forceResendingToken: _resendToken,
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        codeAutoRetrievalTimeout: (String verificationId) {
+          logger.w(verificationId);
+        },
       );
     } catch (e) {
-      logger.e('Phone number verification error');
+      logger.d(e.toString());
       emit(RegisterStateError(error: e.toString()));
     }
   }
@@ -70,8 +75,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           verificationId: event.verificationId, smsCode: event.otpCode);
       add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
     } catch (e) {
-      logger.e('verification');
-
+      logger.d(e.toString());
       emit(RegisterStateError(error: e.toString()));
     }
   }
@@ -89,13 +93,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         }
       });
     } on FirebaseAuthException catch (e) {
-      logger.e(e.code);
+      logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');
       final error = raw.replaceFirst(raw[0], raw[0].toUpperCase());
       emit(RegisterStateError(error: error));
     } catch (e) {
       logger.e(e.toString());
-
       emit(RegisterStateError(error: e.toString()));
     }
   }
