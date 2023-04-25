@@ -1,9 +1,7 @@
-
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field.dart';
-import 'package:formz/formz.dart';
 
 part 'phone_field_event.dart';
 part 'phone_field_state.dart';

@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'config.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -25,7 +27,7 @@ class App extends StatelessWidget {
                 child: child ?? const SizedBox.shrink(),
               );
             },
-            title: 'Fit Coach',
+            title: appName,
             debugShowCheckedModeBanner: false,
             theme: AppTheme.light,
             supportedLocales: AppLocalizations.supportedLocales,

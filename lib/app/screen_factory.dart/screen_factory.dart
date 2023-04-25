@@ -1,4 +1,5 @@
-import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
+import 'package:fitcoachaz/service_locator.dart';
+import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/ticker.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ import '../../ui/screens/tabs/tabs_navigator.dart';
 import '../../ui/screens/welcome/welcome_screen.dart';
 
 class ScreenFactory {
-  static RegisterBloc? _registerBloc;
+  ScreenFactory._();
 
   static Widget assembleWelcome() {
     return const WelcomeScreen();
@@ -28,13 +29,10 @@ class ScreenFactory {
   }
 
   static Widget assembleRegister() {
-    final registerBloc = RegisterBloc(repository: RegisterRepository());
-    _registerBloc = registerBloc;
-
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>.value(value: registerBloc),
-        BlocProvider(create: (context) => PhoneFieldBloc()),
+        BlocProvider<RegisterBloc>.value(value: locator.register),
+        BlocProvider<PhoneFieldBloc>.value(value: locator.phoneField)
       ],
       child: const RegisterScreen(),
     );
@@ -43,12 +41,9 @@ class ScreenFactory {
   static Widget assembleOTP() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>.value(
-          value: _registerBloc!,
-        ),
-        BlocProvider<TimerBloc>(
-          create: (context) => TimerBloc(ticker: const Ticker()),
-        ),
+        BlocProvider<RegisterBloc>.value(value: locator.register),
+        BlocProvider<OtpBloc>.value(value: locator.otp),
+        BlocProvider<TimerBloc>.value(value: locator.timer),
       ],
       child: const OTPScreen(),
     );
