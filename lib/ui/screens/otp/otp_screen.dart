@@ -53,7 +53,6 @@ class _OTPScreenState extends State<OTPScreen> {
           leading: IconButton(
             onPressed: () {
               FocusScope.of(context).unfocus();
-              context.read<RegisterBloc>().close();
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 AppRoutesName.welcome,
@@ -100,8 +99,6 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                         onPressed: isActive
                             ? () {
-                                context.read<TimerBloc>().add(
-                                    const TimerStarted(duration: resendTime));
                                 context.read<RegisterBloc>().add(
                                       SendOTPToPhoneEvent(
                                         number: context
@@ -109,6 +106,8 @@ class _OTPScreenState extends State<OTPScreen> {
                                             .phoneNumber,
                                       ),
                                     );
+                                context.read<TimerBloc>().add(
+                                    const TimerStarted(duration: resendTime));
                               }
                             : null,
                         child: Text(
