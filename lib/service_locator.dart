@@ -1,7 +1,6 @@
 import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
-import 'package:fitcoachaz/ui/bloc/timer/ticker.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -12,21 +11,31 @@ const locator = ServiceLocator._();
 void configureDependencies() {
   getIt.registerFactory<RegisterRepository>(() => RegisterRepository());
   getIt.registerFactory<Ticker>(() => const Ticker());
-
   getIt.registerLazySingleton<RegisterBloc>(
       () => RegisterBloc(repository: getIt.get<RegisterRepository>()));
-  getIt.resetLazySingleton<RegisterBloc>();
 
   getIt.registerLazySingleton<TimerBloc>(
       () => TimerBloc(ticker: getIt.get<Ticker>()));
   getIt.registerLazySingleton<OtpBloc>(() => OtpBloc());
-  getIt.registerLazySingleton<PhoneFieldBloc>(() => PhoneFieldBloc());
+  getIt.registerFactory<PhoneFieldBloc>(() => PhoneFieldBloc());
 }
 
 class ServiceLocator {
-  RegisterBloc get register => getIt.get<RegisterBloc>();
+  RegisterBloc get register {
+    if (getIt.get<RegisterBloc>().isClosed) {
+      getIt.unregister<RegisterBloc>();
+      getIt.registerLazySingleton<RegisterBloc>(
+          () => RegisterBloc(repository: getIt.get<RegisterRepository>()));
+    }
+    return getIt.get<RegisterBloc>();
+  }
+
   OtpBloc get otp => getIt.get<OtpBloc>();
-  PhoneFieldBloc get phoneField => getIt.get<PhoneFieldBloc>();
+
+  PhoneFieldBloc get phoneField {
+    return getIt.get<PhoneFieldBloc>();
+  }
+
   TimerBloc get timer => getIt.get<TimerBloc>();
 
   const ServiceLocator._();

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/logger.dart';
-import 'package:fitcoachaz/service_locator.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:fitcoachaz/ui/screens/otp/otp_components.dart';
@@ -17,6 +15,7 @@ import '../../bloc/register/register_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
+import '../../widgets/notification_window.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key, this.registerContext});
@@ -52,11 +51,15 @@ class _OTPScreenState extends State<OTPScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () => Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutesName.welcome,
-              (route) => false,
-            ),
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              context.read<RegisterBloc>().close();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutesName.welcome,
+                (route) => false,
+              );
+            },
             icon: const Icon(
               Icons.arrow_back,
               color: AppColors.black,
@@ -181,12 +184,9 @@ class _ConfirmButton extends StatelessWidget {
           Navigator.pushNamedAndRemoveUntil(
               context, AppRoutesName.passw, (route) => false);
         } else if (state is RegisterStateError) {
-          Fluttertoast.showToast(
-            msg: state.error,
-            fontSize: 18,
-            backgroundColor: AppColors.brightBlue,
-            textColor: AppColors.grey,
-            gravity: ToastGravity.TOP,
+          showDialog(
+            context: context,
+            builder: (context) => NotificationWindow(alertText: state.error),
           );
         }
       },

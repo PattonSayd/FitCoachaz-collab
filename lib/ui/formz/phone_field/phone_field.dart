@@ -1,7 +1,5 @@
 import 'package:formz/formz.dart';
 
-enum PhoneNumberValidationError { invalid }
-
 class PhoneField extends FormzInput<String, String> {
   const PhoneField.pure([super.value = '']) : super.pure();
   const PhoneField.dirty([super.value = '']) : super.dirty();
