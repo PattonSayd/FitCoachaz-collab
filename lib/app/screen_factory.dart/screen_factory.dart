@@ -42,7 +42,7 @@ class ScreenFactory {
       providers: [
         BlocProvider<RegisterBloc>.value(value: locator.register),
         BlocProvider<OtpBloc>.value(value: locator.otp),
-        BlocProvider<TimerBloc>.value(value: locator.timer),
+        BlocProvider<TimerBloc>(create: (context) => locator.timer),
       ],
       child: const OTPScreen(),
     );

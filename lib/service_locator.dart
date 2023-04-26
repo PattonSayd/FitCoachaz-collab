@@ -14,28 +14,16 @@ void configureDependencies() {
   getIt.registerLazySingleton<RegisterBloc>(
       () => RegisterBloc(repository: getIt.get<RegisterRepository>()));
 
-  getIt.registerLazySingleton<TimerBloc>(
-      () => TimerBloc(ticker: getIt.get<Ticker>()));
+  getIt
+      .registerFactory<TimerBloc>(() => TimerBloc(ticker: getIt.get<Ticker>()));
   getIt.registerLazySingleton<OtpBloc>(() => OtpBloc());
   getIt.registerFactory<PhoneFieldBloc>(() => PhoneFieldBloc());
 }
 
 class ServiceLocator {
-  RegisterBloc get register {
-    if (getIt.get<RegisterBloc>().isClosed) {
-      getIt.unregister<RegisterBloc>();
-      getIt.registerLazySingleton<RegisterBloc>(
-          () => RegisterBloc(repository: getIt.get<RegisterRepository>()));
-    }
-    return getIt.get<RegisterBloc>();
-  }
-
+  RegisterBloc get register => getIt.get<RegisterBloc>();
   OtpBloc get otp => getIt.get<OtpBloc>();
-
-  PhoneFieldBloc get phoneField {
-    return getIt.get<PhoneFieldBloc>();
-  }
-
+  PhoneFieldBloc get phoneField => getIt.get<PhoneFieldBloc>();
   TimerBloc get timer => getIt.get<TimerBloc>();
 
   const ServiceLocator._();
