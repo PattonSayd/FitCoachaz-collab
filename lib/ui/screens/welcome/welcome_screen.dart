@@ -15,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(

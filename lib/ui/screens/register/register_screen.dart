@@ -6,13 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
 import 'package:fitcoachaz/ui/screens/register/register_components.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../app/router/app_routes.dart';
 import '../../formz/phone_field/phone_field_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
+import '../../widgets/notification_window.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -24,7 +24,18 @@ class RegisterScreen extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColors.black,
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -112,12 +123,9 @@ class ConfirmButton extends StatelessWidget {
           );
         }
         if (state is RegisterStateError) {
-          Fluttertoast.showToast(
-            msg: state.error,
-            fontSize: 18,
-            backgroundColor: AppColors.brightBlue,
-            textColor: AppColors.grey,
-            gravity: ToastGravity.TOP,
+          showDialog(
+            context: context,
+            builder: (context) => NotificationWindow(alertText: state.error),
           );
         }
       },
@@ -125,8 +133,7 @@ class ConfirmButton extends StatelessWidget {
         logger.i(
             'BUILDER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
         bool loading = false;
-        if (state is RegisterStateLoading ||
-            state is RegisterStateOTPSentSuccess) loading = !loading;
+        if (state is RegisterStateLoading) loading = !loading;
         return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
           buildWhen: (previous, current) =>
               current.phone.isValid != previous.phone.isValid,

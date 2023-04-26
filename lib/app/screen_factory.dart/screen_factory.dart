@@ -1,6 +1,5 @@
 import 'package:fitcoachaz/service_locator.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
-import 'package:fitcoachaz/ui/bloc/timer/ticker.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +31,7 @@ class ScreenFactory {
     return MultiBlocProvider(
       providers: [
         BlocProvider<RegisterBloc>.value(value: locator.register),
-        BlocProvider<PhoneFieldBloc>.value(value: locator.phoneField)
+        BlocProvider<PhoneFieldBloc>(create: (context) => locator.phoneField)
       ],
       child: const RegisterScreen(),
     );
