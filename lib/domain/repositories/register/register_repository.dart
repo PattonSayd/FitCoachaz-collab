@@ -1,11 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/data/storage/sharedPrefs/key_store.dart';
+
+import '../../../data/storage/sharedPrefs/key_value_store.dart';
 
 class RegisterRepository {
+  RegisterRepository({required KeyValueStore sharedPrefs})
+      : _sharedPrefs = sharedPrefs;
+
   final auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
-  User? firebaseUser;
+  final KeyValueStore _sharedPrefs;
+  // User? firebaseUser;
 
   Future<void> verifyPhoneNumber({
     required String phoneNumber,
@@ -22,4 +29,53 @@ class RegisterRepository {
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
   }
+
+  Future<String?> verifyAndLogin(
+    AuthCredential credential,
+    String phone,
+  ) async {
+    // PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    //   verificationId: verificationId,
+    //   smsCode: smsCode,
+    // );
+
+    final authCredential = await auth.signInWithCredential(credential);
+
+    if (authCredential.user == null) return null;
+
+    final uid = authCredential.user?.uid;
+    final userData = await _firestore.collection('users').doc(uid).get();
+
+    if (!userData.exists) {
+      await _firestore.collection('users').doc(uid).set({
+        'uid': uid,
+        'phone': phone,
+      });
+    }
+
+    return uid;
+  }
+
+  Future<String?> getCredential(PhoneAuthCredential credential) async {
+    final authCredential = await auth.signInWithCredential(credential);
+    return authCredential.user?.uid;
+  }
+
+  Future<String?> getPhoneNumberPrefs(String phoneNumber) async => _sharedPrefs
+      .read<String>(TypeStoreKey<String>(KeyStore.entranceBy + phoneNumber));
+
+  Future<void> setLimitedTimePrefs(
+      String phoneNumber, DateTime futureTime) async {
+    await _sharedPrefs.write<String>(
+        TypeStoreKey<String>(KeyStore.limitedTime + phoneNumber),
+        futureTime.toIso8601String());
+    await _sharedPrefs.write<String>(
+        TypeStoreKey<String>(KeyStore.entranceBy + phoneNumber), phoneNumber);
+  }
+
+  Future<String?> getLimtedTimePrefs(String phoneNumber) async => _sharedPrefs
+      .read<String>(TypeStoreKey<String>(KeyStore.limitedTime + phoneNumber));
+
+  Future<void> setUserIdPrefs(String? uid) async =>
+      await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
 }

@@ -6,7 +6,6 @@ import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
-import '../password/password_components.dart';
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({super.key});
@@ -75,35 +74,35 @@ class _UsernameScreenState extends State<UsernameScreen> {
               SizedBox(
                 height: 20.h,
               ),
-              PasswordInput(
-                controller: nameController,
-                obscureText: false,
-                focus: nameFocus,
-                labelText: context.localizations.name,
-                onChanged: (value) {},
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return context.localizations.nullName;
-                  }
-                  return null;
-                },
-              ),
+              // PasswordInput(
+              //   controller: nameController,
+              //   obscureText: false,
+              //   focus: nameFocus,
+              //   labelText: context.localizations.name,
+              //   onChanged: (value) {},
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return context.localizations.nullName;
+              //     }
+              //     return null;
+              //   },
+              // ),
               SizedBox(
                 height: 24.h,
               ),
-              PasswordInput(
-                controller: surnameController,
-                obscureText: false,
-                focus: surnameFocus,
-                labelText: context.localizations.surname,
-                onChanged: (value) {},
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return context.localizations.nullSurn;
-                  }
-                  return null;
-                },
-              ),
+              // PasswordInput(
+              //   controller: surnameController,
+              //   obscureText: false,
+              //   focus: surnameFocus,
+              //   labelText: context.localizations.surname,
+              //   onChanged: (value) {},
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return context.localizations.nullSurn;
+              //     }
+              //     return null;
+              //   },
+              // ),
               SizedBox(
                 height: 24.h,
               ),
