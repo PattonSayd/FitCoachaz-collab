@@ -12,7 +12,7 @@ class AppRoutesName {
   static const email = 'email';
   static const main = 'main';
   static const user = 'user';
-  static const account = '/account';
+  static const congratulation = '/congratulation';
   static const subscribe = '/subscribe'; // main/subscribe📍
 }
 
@@ -27,7 +27,7 @@ class AppRoutes {
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
     AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
     AppRoutesName.user: (_) => ScreenFactory.assembleUser(),
-    AppRoutesName.account: (_) => ScreenFactory.assembleUserAccount(),
+    AppRoutesName.congratulation: (_) => ScreenFactory.assembleCongratulation(),
     AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),
   };
 

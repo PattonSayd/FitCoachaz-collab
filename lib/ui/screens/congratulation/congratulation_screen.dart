@@ -8,8 +8,8 @@ import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
-class UserAccountScreen extends StatelessWidget {
-  const UserAccountScreen({super.key});
+class CongratulationScreen extends StatelessWidget {
+  const CongratulationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

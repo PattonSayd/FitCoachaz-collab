@@ -110,7 +110,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
                 isActive: true,
                 onPress: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, AppRoutesName.account);
+                    Navigator.pushNamed(context, AppRoutesName.congratulation);
                   }
                   FocusScope.of(context).unfocus();
                   nameController.clear();
