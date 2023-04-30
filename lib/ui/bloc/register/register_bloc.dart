@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/app/config.dart';
+import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
+import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
 import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/register/resend_code_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,8 +22,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   String get phoneNumber => _phoneNumber;
 
-  RegisterBloc({required RegisterRepository repository})
-      : _repository = repository,
+  RegisterBloc({
+    required RegisterRepository repository,
+  })  : _repository = repository,
         super(const RegisterStateInitial()) {
     on<SendOTPToPhoneEvent>(_onSentOtpToPhone);
     on<OnPhoneAuthVerificationCompleteEvent>(_onVerificationComplete);
@@ -105,13 +107,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      await _repository.auth
-          .signInWithCredential(event.credential)
-          .then((credential) {
-        if (credential.user != null) {
-          emit(const RegisterStateLoaded());
-        }
-      });
+      final uid =
+          await _repository.verifyAndLogin(event.credential, _phoneNumber);
+      await _repository.setUserIdPrefs(uid);
+      if (uid == null) logger.e(uid);
+      emit(const RegisterStateLoaded());
     } on FirebaseAuthException catch (e) {
       logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');
@@ -123,14 +123,18 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     }
   }
 
-  FutureOr<void> _onOTPSentSuccess(
-      OnPhoneOTPSentEvent event, Emitter<RegisterState> emit) async {
-    _setFutureTimeForPhoneNumber(_phoneNumber, resendTime);
+  Future<void> _onOTPSentSuccess(
+    OnPhoneOTPSentEvent event,
+    Emitter<RegisterState> emit,
+  ) async {
+    await _setLimitedTimeToResend(_phoneNumber, resendTime);
     emit(RegisterStateOTPSentSuccess(verificationId: event.verificationId));
   }
 
-  FutureOr<void> _onError(
-      OnPhoneAuthErrorEvent event, Emitter<RegisterState> emit) {
+  void _onError(
+    OnPhoneAuthErrorEvent event,
+    Emitter<RegisterState> emit,
+  ) {
     if (event.error == 'too-many-requests') {
       emit(const RegisterStateError(error: 'Too many requests'));
     } else {
@@ -138,17 +142,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     }
   }
 
-  String _normalizePhoneNumber(String phoneNumber) {
-    return phoneNumber.replaceAll(' ', '');
-  }
+  String _normalizePhoneNumber(String phoneNumber) =>
+     phoneNumber.replaceAll(RegExp(r'[() ]+'), '');
 
-  Future<DateTime?> _checkFutureTimeForPhoneNumber(
+  Future<DateTime?> _checkLimitedTime(
     String phoneNumber,
     int resendTime,
   ) async {
-    final prefs = await SharedPreferences.getInstance();
-    final futureTime = prefs.getString('futureTimeFor$phoneNumber');
-
+    final futureTime = await _repository.getLimtedTimePrefs(phoneNumber);
     if (futureTime != null && futureTime.isNotEmpty) {
       return DateTime.parse(futureTime);
     }
@@ -156,23 +157,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     return null;
   }
 
-  Future<String> _getPhoneNumberFromPrefs(String phoneNumber) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('identity$phoneNumber') ?? '';
-  }
-
   Future<ResendCodeResult> _shouldResendCode(
     String phoneNumber,
     int resendTime,
   ) async {
-    final futureTime =
-        await _checkFutureTimeForPhoneNumber(phoneNumber, resendTime);
+    final futureTime = await _checkLimitedTime(phoneNumber, resendTime);
 
     if (futureTime != null) {
       final now = DateTime.now();
       final Duration timeRequired = futureTime.difference(now);
-      final number = await _getPhoneNumberFromPrefs(_phoneNumber);
-      final shouldResend = number.isEmpty || timeRequired.inSeconds <= 0;
+      final number = await _repository.getPhoneNumberPrefs(_phoneNumber);
+      final shouldResend = number == null || timeRequired.inSeconds <= 0;
       return ResendCodeResult(
         shouldResend: shouldResend,
         timeRequired: timeRequired.inSeconds,
@@ -182,15 +177,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     return ResendCodeResult.defaulting;
   }
 
-  Future<void> _setFutureTimeForPhoneNumber(
+  Future<void> _setLimitedTimeToResend(
     String phoneNumber,
     int resendTime,
   ) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     final now = DateTime.now();
     final addingFutureTime = now.add(Duration(seconds: resendTime));
-    await prefs.setString(
-        'futureTimeFor$phoneNumber', addingFutureTime.toIso8601String());
-    await prefs.setString('identity$phoneNumber', phoneNumber);
+    await _repository.setLimitedTimePrefs(phoneNumber, addingFutureTime);
   }
 }

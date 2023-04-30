@@ -52,9 +52,7 @@ class OnPhoneAuthErrorEvent extends RegisterEvent {
 }
 
 class OnPhoneAuthVerificationCompleteEvent extends RegisterEvent {
-  const OnPhoneAuthVerificationCompleteEvent({
-    required this.credential,
-  });
+  const OnPhoneAuthVerificationCompleteEvent({required this.credential});
 
   final AuthCredential credential;
 

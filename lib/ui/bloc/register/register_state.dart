@@ -18,14 +18,13 @@ class RegisterStateInitial extends RegisterState {
 class RegisterStateLoading extends RegisterState {
   const RegisterStateLoading();
 
-  int get root => 1;
-
   @override
   List<Object?> get props => [];
 }
 
 class RegisterStateLoaded extends RegisterState {
   const RegisterStateLoaded();
+
   @override
   List<Object?> get props => [];
 }

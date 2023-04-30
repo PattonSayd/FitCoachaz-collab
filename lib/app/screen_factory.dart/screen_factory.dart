@@ -4,13 +4,14 @@ import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
 import '../../ui/bloc/timer/timer_bloc.dart';
 import '../../ui/screens/account/user_account_screen.dart';
 import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/register/register_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
-import '../../ui/screens/password/password_screen.dart';
+import '../../ui/screens/email/email_screen.dart';
 import '../../ui/screens/username/username_screen.dart';
 import '../../ui/screens/subscribe/subscribe_screen.dart';
 import '../../ui/screens/tabs/tabs_navigator.dart';
@@ -48,8 +49,11 @@ class ScreenFactory {
     );
   }
 
-  static Widget assemblePassw() {
-    return const PasswordScreen();
+  static Widget assembleEmail() {
+    return BlocProvider<EmailBloc>(
+      create: (context) => locator.email,
+      child: const EmailScreen(),
+    );
   }
 
   static Widget assembleMain() {

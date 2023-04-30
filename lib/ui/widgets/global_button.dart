@@ -62,12 +62,12 @@ class GlobalButton extends StatelessWidget {
 
 class GlobalButton2 extends StatelessWidget {
   final void Function()? onPressed;
-  final bool? loading;
+  final Widget? child;
 
   const GlobalButton2({
     Key? key,
     required this.onPressed,
-    this.loading,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -94,20 +94,22 @@ class GlobalButton2 extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: loading != null && loading == true
-            ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator.adaptive(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
-                  strokeWidth: 2,
-                ),
-              )
-            : Text(
-                context.localizations.confirmText,
-                style: AppTextStyle.verifyButton,
-              ),
+        child: child,
       ),
     );
   }
 }
+
+// loading != null && loading == true
+//             ? const SizedBox(
+//                 width: 20,
+//                 height: 20,
+//                 child: CircularProgressIndicator.adaptive(
+//                   valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+//                   strokeWidth: 2,
+//                 ),
+//               )
+//             : Text(
+//                 context.localizations.confirmText,
+//                 style: AppTextStyle.verifyButton,
+//               ),
