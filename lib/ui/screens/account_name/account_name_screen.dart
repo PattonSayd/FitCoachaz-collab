@@ -5,10 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
+import 'package:formz/formz.dart';
 
+import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
+import '../../widgets/notification_window.dart';
 
 class AccountNameScreen extends StatefulWidget {
   const AccountNameScreen({super.key});
@@ -18,8 +21,6 @@ class AccountNameScreen extends StatefulWidget {
 }
 
 class _AccountNameScreenState extends State<AccountNameScreen> {
-  final _nameCtrl = TextEditingController();
-  final _surnCtrl = TextEditingController();
   final _nameFocus = FocusNode();
   final _surnFocus = FocusNode();
 
@@ -42,8 +43,6 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
   @override
   void dispose() {
     super.dispose();
-    _nameCtrl.dispose();
-    _surnCtrl.dispose();
     _nameFocus.dispose();
     _surnFocus.dispose();
   }
@@ -70,14 +69,14 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
                 textAlign: TextAlign.start,
               ),
               SizedBox(height: 20.h),
-              BlocSelector<AccountNameBloc, AccountNameState, Formify>(
-                selector: (state) => state.name,
+              BlocBuilder<AccountNameBloc, AccountNameState>(
                 builder: (context, state) {
                   return _AccountNameField(
+                    initialValue: state.name.value,
                     focusNode: _nameFocus,
-                    controller: _nameCtrl,
                     hintText: 'Enter your name',
-                    errorText: state.valid ? null : state.msg,
+                    errorText:
+                        state.name.isNotValid ? state.name.displayError : null,
                     onChanged: (v) => context
                         .read<AccountNameBloc>()
                         .add(NameChangedEvent(name: v)),
@@ -85,15 +84,14 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
                 },
               ),
               SizedBox(height: 24.h),
-              BlocSelector<AccountNameBloc, AccountNameState, Formify>(
-                selector: (state) => state.surn,
+              BlocBuilder<AccountNameBloc, AccountNameState>(
                 builder: (context, state) {
-                  logger.i(state);
                   return _AccountNameField(
+                    initialValue: state.surn.value,
                     focusNode: _surnFocus,
-                    controller: _surnCtrl,
                     hintText: 'Enter your surname',
-                    errorText: state.valid ? null : state.msg,
+                    errorText:
+                        state.surn.isNotValid ? state.surn.displayError : null,
                     onChanged: (v) => context
                         .read<AccountNameBloc>()
                         .add(SurnChangedEvent(surn: v)),
@@ -101,15 +99,30 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
                 },
               ),
               SizedBox(height: 24.h),
-              BlocBuilder<AccountNameBloc, AccountNameState>(
+              BlocConsumer<AccountNameBloc, AccountNameState>(
+                listener: (context, state) {
+                  if (state.status.isSuccess) {
+                    Navigator.pushReplacementNamed(
+                        context, AppRoutesName.congratulation);
+                  } else if (state.status.isFailure) {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          NotificationWindow(alertText: state.error!),
+                    );
+                  }
+                },
+                buildWhen: (p, c) => p.status != c.status,
                 builder: (context, state) {
-                  return GlobalButton2(
-                    onPressed:
-                        state.name.valid && state.surn.valid ? () {} : null,
-                    child: Text(
-                      context.localizations.confirmText,
-                      style: AppTextStyle.verifyButton,
-                    ),
+                  return GlobalButton(
+                    onPressed: state.status.isInitial
+                        ? () {
+                            context
+                                .read<AccountNameBloc>()
+                                .add(FormsSubmittedEvent());
+                          }
+                        : null,
+                    child: _buildButtonChild(context, state.status),
                   );
                 },
               ),
@@ -119,28 +132,43 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
       ),
     );
   }
+
+  Widget _buildButtonChild(BuildContext ctx, FormzSubmissionStatus status) =>
+      status.isInProgress
+          ? const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                strokeWidth: 2,
+              ),
+            )
+          : Text(
+              ctx.localizations.confirmText,
+              style: AppTextStyle.verifyButton,
+            );
 }
 
 class _AccountNameField extends StatelessWidget {
   const _AccountNameField({
     Key? key,
+    required this.initialValue,
     required this.focusNode,
-    required this.controller,
     required this.hintText,
     this.onChanged,
     this.errorText,
   }) : super(key: key);
 
+  final String? initialValue;
   final FocusNode focusNode;
-  final TextEditingController controller;
   final String hintText;
   final String? errorText;
   final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) => TextFormField(
+      initialValue: initialValue,
       focusNode: focusNode,
-      controller: controller,
       keyboardType: TextInputType.emailAddress,
       cursorColor: AppColors.darkGrey,
       decoration: InputDecoration(

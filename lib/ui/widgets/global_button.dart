@@ -6,11 +6,11 @@ import 'package:fitcoachaz/app/extension/build_context.dart';
 import '../style/app_text_style.dart';
 import '../theme/app_colors.dart';
 
-class GlobalButton2 extends StatelessWidget {
+class GlobalButton extends StatelessWidget {
   final void Function()? onPressed;
   final Widget? child;
 
-  const GlobalButton2({
+  const GlobalButton({
     Key? key,
     required this.onPressed,
     this.child,

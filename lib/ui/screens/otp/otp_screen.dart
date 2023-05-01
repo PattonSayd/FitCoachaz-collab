@@ -201,7 +201,7 @@ class _ConfirmButton extends StatelessWidget {
         return BlocBuilder<OtpBloc, OtpState>(
           buildWhen: (prev, current) => prev.isValid != current.isValid,
           builder: (context, otpState) {
-            return GlobalButton2(
+            return GlobalButton(
               onPressed: otpState.isValid && state is! RegisterStateLoading
                   ? () => context.read<RegisterBloc>().add(VerifySentOTPEvent(
                       otpCode: otpState.otpCode,

@@ -10,13 +10,14 @@ import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import 'domain/repositories/account_name/account_name_repository.dart';
+
 final getIt = GetIt.instance;
 const locator = ServiceLocator._();
 
 void configureDependencies() {
   getIt.registerFactory<RegisterRepository>(
-    () => RegisterRepository(sharedPrefs: locator._sharedPrefs),
-  );
+      () => RegisterRepository(sharedPrefs: locator._sharedPrefs));
   getIt.registerFactory<Ticker>(() => const Ticker());
   getIt.registerSingletonAsync<KeyValueStore>(() async {
     final sharedPrefs = SharedPrefs();
@@ -33,7 +34,10 @@ void configureDependencies() {
       () => EmailRepository(sharedPrefs: locator._sharedPrefs));
   getIt.registerFactory<EmailBloc>(
       () => EmailBloc(repository: locator._emailRepo));
-  getIt.registerFactory<AccountNameBloc>(() => AccountNameBloc());
+  getIt.registerFactory<AccountNameRepository>(
+      () => AccountNameRepository(sharedPrefs: locator._sharedPrefs));
+  getIt.registerFactory<AccountNameBloc>(
+      () => AccountNameBloc(repository: locator._accountNameRepo));
 }
 
 class ServiceLocator {
@@ -47,6 +51,8 @@ class ServiceLocator {
   EmailBloc get email => getIt.get<EmailBloc>();
   KeyValueStore get _sharedPrefs => getIt.get<KeyValueStore>();
   AccountNameBloc get accountName => getIt.get<AccountNameBloc>();
+  AccountNameRepository get _accountNameRepo =>
+      getIt.get<AccountNameRepository>();
 
   const ServiceLocator._();
 }

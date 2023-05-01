@@ -81,7 +81,7 @@ class _EmailScreenState extends State<EmailScreen> {
                     buildWhen: (prev, cnt) => prev.status != cnt.status,
                     builder: (context, state) {
                       logger.i(state);
-                      return GlobalButton2(
+                      return GlobalButton(
                         onPressed: state.status == EmailStatus.valid
                             ? () => _onSubmitted(context, _contoller.text)
                             : null,

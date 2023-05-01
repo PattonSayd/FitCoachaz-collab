@@ -28,3 +28,5 @@ class SurnChangedEvent extends AccountNameEvent {
 class NameUnfocusedEvent extends AccountNameEvent {}
 
 class SurnUnfocusedEvent extends AccountNameEvent {}
+
+class FormsSubmittedEvent extends AccountNameEvent {}

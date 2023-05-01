@@ -4,15 +4,15 @@ enum AccStatus { unknown, valid, invalid, loading, success }
 
 class AccountNameState extends Equatable {
   const AccountNameState._({
-    this.name = const ValidateForm(''),
-    this.surn = const ValidateForm(''),
-    this.status = AccStatus.unknown,
+    this.name = const Name.pure(),
+    this.surn = const Surname.pure(),
+    this.status = FormzSubmissionStatus.canceled,
     this.error,
   });
 
-  final Formify name;
-  final Formify surn;
-  final AccStatus status;
+  final Name name;
+  final Surname surn;
+  final FormzSubmissionStatus status;
   final String? error;
 
   const AccountNameState.initial() : this._();
@@ -21,9 +21,9 @@ class AccountNameState extends Equatable {
   List<Object> get props => [name, surn, status];
 
   AccountNameState copyWith({
-    Formify? name,
-    Formify? surn,
-    AccStatus? status,
+    Name? name,
+    Surname? surn,
+    FormzSubmissionStatus? status,
     String? error,
   }) {
     return AccountNameState._(
@@ -34,43 +34,6 @@ class AccountNameState extends Equatable {
     );
   }
 }
-
-abstract class Formify {
-  const Formify._(this.value);
-
-  const Formify(String value) : this._(value);
-
-  final String value;
-
-  String? get msg => validator(value);
-  bool get valid => value.isNotEmpty && validator(value) == null;
-
-  String? validator(String value);
-}
-
-class ValidateForm extends Formify {
-  const ValidateForm(String value) : super(value);
-
-  static final RegExp _nameRegExp =
-      RegExp(r"^[\p{L}]*$", caseSensitive: false, unicode: true, dotAll: true);
-
-  @override
-  String? validator(String value) {
-    if (value.isEmpty) return null;
-
-    if (value.length < 4) {
-      return 'Entered too short';
-    }
-
-    if (!_nameRegExp.hasMatch(value)) {
-      return 'Enter a valid name';
-    }
-
-    return null;
-  }
-}
-
-
 
   // const AccountNameState.valid(Formify name)
   //     : this._(name: name, status: AccStatus.valid);

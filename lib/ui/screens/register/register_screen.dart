@@ -138,7 +138,7 @@ class ConfirmButton extends StatelessWidget {
           builder: (context, fieldState) {
             logger.i(
                 '$fieldState -> hasCode: ${fieldState.hashCode}, runtimeType ${fieldState.runtimeType}');
-            return GlobalButton2(
+            return GlobalButton(
               onPressed: fieldState.phone.isValid &&
                       state is! RegisterStateLoading
                   ? () {

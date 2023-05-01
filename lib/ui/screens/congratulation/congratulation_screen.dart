@@ -16,8 +16,7 @@ class CongratulationScreen extends StatelessWidget {
     return SafeArea(
         top: false,
         child: Scaffold(
-            body: SingleChildScrollView(
-                child: Column(children: [
+            body: Column(children: [
           CustomPaint(
             size: Size(390.w, (390.w * 2.164102564102564).toDouble()),
             painter: RPSCustomPainter(),
@@ -39,9 +38,7 @@ class CongratulationScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: AppTextStyle.welcomeUserText,
                 ),
-                SizedBox(
-                  height: 367.h,
-                ),
+                const Divider(),
                 GlobalStartButton(
                     text: context.localizations.startButtom,
                     style: AppTextStyle.startButton,
@@ -53,7 +50,7 @@ class CongratulationScreen extends StatelessWidget {
               ],
             ),
           ),
-        ]))));
+        ])));
   }
 }
 

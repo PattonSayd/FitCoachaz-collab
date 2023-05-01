@@ -63,7 +63,7 @@ class ScreenFactory {
 
   static Widget assembleAccountName() {
     return BlocProvider<AccountNameBloc>(
-      create: (context) => AccountNameBloc(),
+      create: (context) => locator.accountName,
       child: const AccountNameScreen(),
     );
   }
