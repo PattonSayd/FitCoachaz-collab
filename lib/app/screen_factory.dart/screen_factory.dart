@@ -1,4 +1,5 @@
 import 'package:fitcoachaz/service_locator.dart';
+import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/register/register_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
 import '../../ui/screens/email/email_screen.dart';
-import '../../ui/screens/username/username_screen.dart';
+import '../../ui/screens/account_name/account_name_screen.dart';
 import '../../ui/screens/subscribe/subscribe_screen.dart';
 import '../../ui/screens/tabs/tabs_navigator.dart';
 import '../../ui/screens/welcome/welcome_screen.dart';
@@ -60,8 +61,11 @@ class ScreenFactory {
     return const TabsNavigator();
   }
 
-  static Widget assembleUser() {
-    return const UsernameScreen();
+  static Widget assembleAccountName() {
+    return BlocProvider<AccountNameBloc>(
+      create: (context) => AccountNameBloc(),
+      child: const AccountNameScreen(),
+    );
   }
 
   static Widget assembleCongratulation() {

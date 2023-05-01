@@ -17,16 +17,16 @@ class EmailChanged extends EmailEvent {
 }
 
 class EmailUnfocused extends EmailEvent {
+  const EmailUnfocused({required this.email});
+
   final String email;
-  const EmailUnfocused({
-    required this.email,
-  });
+
+  @override
+  List<Object> get props => [email];
 }
 
 class EmailSubmitted extends EmailEvent {
-  const EmailSubmitted({
-    required this.email,
-  });
+  const EmailSubmitted({required this.email});
 
   final String email;
 

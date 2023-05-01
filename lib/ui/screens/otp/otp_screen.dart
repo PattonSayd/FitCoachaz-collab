@@ -69,7 +69,7 @@ class _OTPScreenState extends State<OTPScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 80.h),
               Text(
                 context.localizations.numberConfirm,
                 style: AppTextStyle.bigHeader,

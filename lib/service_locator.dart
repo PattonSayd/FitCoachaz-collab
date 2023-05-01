@@ -2,6 +2,7 @@ import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
 import 'package:fitcoachaz/domain/repositories/email/email_repository.dart';
 import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
+import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/email/email_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
@@ -14,7 +15,7 @@ const locator = ServiceLocator._();
 
 void configureDependencies() {
   getIt.registerFactory<RegisterRepository>(
-    () => RegisterRepository(sharedPrefs: locator.sharedPrefs),
+    () => RegisterRepository(sharedPrefs: locator._sharedPrefs),
   );
   getIt.registerFactory<Ticker>(() => const Ticker());
   getIt.registerSingletonAsync<KeyValueStore>(() async {
@@ -29,9 +30,10 @@ void configureDependencies() {
   getIt.registerLazySingleton<OtpBloc>(() => OtpBloc());
   getIt.registerFactory<PhoneFieldBloc>(() => PhoneFieldBloc());
   getIt.registerFactory<EmailRepository>(
-      () => EmailRepository(sharedPrefs: locator.sharedPrefs));
+      () => EmailRepository(sharedPrefs: locator._sharedPrefs));
   getIt.registerFactory<EmailBloc>(
       () => EmailBloc(repository: locator._emailRepo));
+  getIt.registerFactory<AccountNameBloc>(() => AccountNameBloc());
 }
 
 class ServiceLocator {
@@ -43,7 +45,8 @@ class ServiceLocator {
   PhoneFieldBloc get phoneField => getIt.get<PhoneFieldBloc>();
   TimerBloc get timer => getIt.get<TimerBloc>();
   EmailBloc get email => getIt.get<EmailBloc>();
-  KeyValueStore get sharedPrefs => getIt.get<KeyValueStore>();
+  KeyValueStore get _sharedPrefs => getIt.get<KeyValueStore>();
+  AccountNameBloc get accountName => getIt.get<AccountNameBloc>();
 
   const ServiceLocator._();
 }

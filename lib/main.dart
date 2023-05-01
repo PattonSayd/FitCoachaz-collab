@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app/app.dart';
-import 'data/storage/sharedPrefs/key_value_store.dart';
-import 'data/storage/sharedPrefs/shared_prefs.dart';
 import 'firebase_options.dart';
 
 void main() async {

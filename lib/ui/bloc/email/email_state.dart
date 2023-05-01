@@ -1,6 +1,13 @@
 part of 'email_bloc.dart';
 
-enum EmailStatus { unknown, valid, invalid, loading, success, error }
+enum EmailStatus {
+  unknown,
+  valid,
+  invalid,
+  loading,
+  success,
+  error,
+}
 
 class EmailState extends Equatable {
   const EmailState._({

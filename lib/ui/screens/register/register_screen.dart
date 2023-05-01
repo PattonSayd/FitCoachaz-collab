@@ -40,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 80.h),
               Text(
                 context.localizations.enterNumber,
                 style: AppTextStyle.bigHeader,
