@@ -42,20 +42,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
     if (result.shouldResend) {
       emit(const RegisterStateLoading());
-
       try {
         await _repository.verifyPhoneNumber(
           phoneNumber: event.number,
-
           verificationCompleted: (PhoneAuthCredential credential) {
             add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
           },
-
           verificationFailed: (FirebaseAuthException e) {
             logger.d(e.message, e.code, e.stackTrace);
             add(OnPhoneAuthErrorEvent(error: e.code));
           },
-
           codeSent: (String verificationId, int? resendToken) async {
             _verificationId = verificationId;
             _resendToken = resendToken;
@@ -64,7 +60,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             add(OnPhoneOTPSentEvent(
                 verificationId: _verificationId, token: _resendToken));
           },
-          // forceResendingToken: _resendToken,
           codeAutoRetrievalTimeout: (String verificationId) {
             logger.w(verificationId);
           },

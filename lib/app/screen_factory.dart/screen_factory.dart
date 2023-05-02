@@ -1,5 +1,6 @@
 import 'package:fitcoachaz/service_locator.dart';
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
+import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,10 @@ class ScreenFactory {
   }
 
   static Widget assembleCongratulation() {
-    return const CongratulationScreen();
+    return BlocProvider<CongratulationBloc>(
+      create: (context) => locator.congrBloc,
+      child: const CongratulationScreen(),
+    );
   }
 
   static Widget assembleSubscribe() {
