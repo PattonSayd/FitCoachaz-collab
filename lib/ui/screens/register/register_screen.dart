@@ -40,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 80.h),
               Text(
                 context.localizations.enterNumber,
                 style: AppTextStyle.bigHeader,
@@ -132,23 +132,35 @@ class ConfirmButton extends StatelessWidget {
       builder: (context, state) {
         logger.i(
             'BUILDER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
-        bool loading = false;
-        if (state is RegisterStateLoading) loading = !loading;
         return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
           buildWhen: (previous, current) =>
               current.phone.isValid != previous.phone.isValid,
-          builder: (context, state) {
+          builder: (context, fieldState) {
             logger.i(
-                '$state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
-            return GlobalButton2(
-              loading: loading,
-              onPressed: state.phone.isValid && !loading
+                '$fieldState -> hasCode: ${fieldState.hashCode}, runtimeType ${fieldState.runtimeType}');
+            return GlobalButton(
+              onPressed: fieldState.phone.isValid &&
+                      state is! RegisterStateLoading
                   ? () {
                       context.read<RegisterBloc>().add(SendOTPToPhoneEvent(
-                          number: state.prefix + state.phone.value));
+                          number: fieldState.prefix + fieldState.phone.value));
                       FocusScope.of(context).unfocus();
                     }
                   : null,
+              child: state is RegisterStateLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator.adaptive(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.silver),
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : Text(
+                      context.localizations.confirmText,
+                      style: AppTextStyle.verifyButton,
+                    ),
             );
           },
         );

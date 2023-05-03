@@ -53,7 +53,9 @@ dependencies:
   get_it: ^7.2.0
   flutter_bloc: ^8.1.2
   shared_preferences: ^2.1.0
+  injectable: ^2.1.1
   flutter_native_splash: ^2.2.19
+
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,8 @@ flutter_native_splash:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.3
+  injectable_generator: ^2.1.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

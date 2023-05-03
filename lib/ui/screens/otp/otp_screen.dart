@@ -69,7 +69,7 @@ class _OTPScreenState extends State<OTPScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 80.h),
               Text(
                 context.localizations.numberConfirm,
                 style: AppTextStyle.bigHeader,
@@ -181,7 +181,10 @@ class _ConfirmButton extends StatelessWidget {
         logger.d(state);
         if (state is RegisterStateLoaded) {
           Navigator.pushNamedAndRemoveUntil(
-              context, AppRoutesName.passw, (route) => false);
+            context,
+            AppRoutesName.email,
+            (route) => false,
+          );
         } else if (state is RegisterStateError) {
           showDialog(
             context: context,
@@ -192,21 +195,32 @@ class _ConfirmButton extends StatelessWidget {
       builder: (context, state) {
         logger.d(state);
         String verificationId = '';
-        bool loading = false;
         if (state is RegisterStateOTPSentSuccess) {
           verificationId = state.verificationId;
-        } else if (state is RegisterStateLoaded) {
-          loading = !loading;
         }
         return BlocBuilder<OtpBloc, OtpState>(
           buildWhen: (prev, current) => prev.isValid != current.isValid,
-          builder: (context, state) {
-            return GlobalButton2(
-              loading: loading,
-              onPressed: state.isValid && !loading
+          builder: (context, otpState) {
+            return GlobalButton(
+              onPressed: otpState.isValid && state is! RegisterStateLoading
                   ? () => context.read<RegisterBloc>().add(VerifySentOTPEvent(
-                      otpCode: state.otpCode, verificationId: verificationId))
+                      otpCode: otpState.otpCode,
+                      verificationId: verificationId))
                   : null,
+              child: state is RegisterStateLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator.adaptive(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.silver),
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : Text(
+                      context.localizations.confirmText,
+                      style: AppTextStyle.verifyButton,
+                    ),
             );
           },
         );
