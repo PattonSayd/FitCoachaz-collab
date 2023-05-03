@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'assemble/assemble.dart';
 import 'config.dart';
 
 class App extends StatelessWidget {
@@ -37,7 +38,7 @@ class App extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            initialRoute: AppRoutesName.user,
+            initialRoute: AppRoutesName.welcome,
             routes: AppRoutes.routes,
             // onGenerateRoute: AppRoutes.onGenerateRoute,
           );

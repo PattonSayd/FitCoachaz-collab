@@ -54,7 +54,7 @@ class _EmailScreenState extends State<EmailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 100.h),
+                SizedBox(height: 80.h),
                 Text(
                   context.localizations.createPassw,
                   style: AppTextStyle.bigHeader,
@@ -81,7 +81,7 @@ class _EmailScreenState extends State<EmailScreen> {
                     buildWhen: (prev, cnt) => prev.status != cnt.status,
                     builder: (context, state) {
                       logger.i(state);
-                      return GlobalButton2(
+                      return GlobalButton(
                         onPressed: state.status == EmailStatus.valid
                             ? () => _onSubmitted(context, _contoller.text)
                             : null,
@@ -123,7 +123,7 @@ class _EmailScreenState extends State<EmailScreen> {
 
   void _listenMethod(EmailState state, BuildContext context) {
     if (state.status == EmailStatus.success) {
-      Navigator.pushReplacementNamed(context, AppRoutesName.user);
+      Navigator.pushReplacementNamed(context, AppRoutesName.accountName);
     } else if (state.status == EmailStatus.error) {
       showDialog(
         context: context,

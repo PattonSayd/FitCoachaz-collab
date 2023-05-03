@@ -40,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 80.h),
               Text(
                 context.localizations.enterNumber,
                 style: AppTextStyle.bigHeader,
@@ -138,7 +138,7 @@ class ConfirmButton extends StatelessWidget {
           builder: (context, fieldState) {
             logger.i(
                 '$fieldState -> hasCode: ${fieldState.hashCode}, runtimeType ${fieldState.runtimeType}');
-            return GlobalButton2(
+            return GlobalButton(
               onPressed: fieldState.phone.isValid &&
                       state is! RegisterStateLoading
                   ? () {

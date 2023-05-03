@@ -1,35 +1,42 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitcoachaz/data/storage/sharedPrefs/key_store.dart';
+import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
+import 'package:fitcoachaz/data/services/firestore_service.dart';
+import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 
-import '../../../data/storage/sharedPrefs/key_value_store.dart';
+import '../helpers/table_key.dart';
+import '../storage/sharedPrefs/key_store.dart';
+import '../storage/sharedPrefs/key_value_store.dart';
 
-class RegisterRepository {
-  RegisterRepository({required KeyValueStore sharedPrefs})
-      : _sharedPrefs = sharedPrefs;
+class RegisterRepositoryImp extends RegisterRepository {
+  RegisterRepositoryImp({
+    required KeyValueStore sharedPrefs,
+    required FirestoreService service,
+    required FirebaseAuthService authService,
+  })  : _sharedPrefs = sharedPrefs,
+        _service = service,
+        _authService = authService;
 
-  final auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
-
+  final FirestoreService _service;
   final KeyValueStore _sharedPrefs;
-  // User? firebaseUser;
+  final FirebaseAuthService _authService;
 
-  Future<void> verifyPhoneNumber({
+  @override
+  Future<void> verifyNumber({
     required String phoneNumber,
     required Function(PhoneAuthCredential) verificationCompleted,
     required Function(FirebaseAuthException) verificationFailed,
     required Function(String, int?) codeSent,
     required Function(String) codeAutoRetrievalTimeout,
-  }) async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-    );
-  }
+  }) async =>
+      _authService.verifyNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      );
 
+  @override
   Future<String?> verifyAndLogin(
     AuthCredential credential,
     String phone,
@@ -38,16 +45,12 @@ class RegisterRepository {
     //   verificationId: verificationId,
     //   smsCode: smsCode,
     // );
-
-    final authCredential = await auth.signInWithCredential(credential);
-
+    final authCredential = await _authService.signIn(credential);
     if (authCredential.user == null) return null;
-
-    final uid = authCredential.user?.uid;
-    final userData = await _firestore.collection('users').doc(uid).get();
-
+    final uid = authCredential.user!.uid;
+    final userData = await _service.read(TableKey.users, uid);
     if (!userData.exists) {
-      await _firestore.collection('users').doc(uid).set({
+      await _service.create(TableKey.users, uid, {
         'uid': uid,
         'phone': phone,
       });
@@ -56,14 +59,17 @@ class RegisterRepository {
     return uid;
   }
 
+  @override
   Future<String?> getCredential(PhoneAuthCredential credential) async {
-    final authCredential = await auth.signInWithCredential(credential);
+    final authCredential = await _authService.signIn(credential);
     return authCredential.user?.uid;
   }
 
+  @override
   Future<String?> getPhoneNumberPrefs(String phoneNumber) async => _sharedPrefs
       .read<String>(TypeStoreKey<String>(KeyStore.entranceBy + phoneNumber));
 
+  @override
   Future<void> setLimitedTimePrefs(
       String phoneNumber, DateTime futureTime) async {
     await _sharedPrefs.write<String>(
@@ -73,9 +79,11 @@ class RegisterRepository {
         TypeStoreKey<String>(KeyStore.entranceBy + phoneNumber), phoneNumber);
   }
 
+  @override
   Future<String?> getLimtedTimePrefs(String phoneNumber) async => _sharedPrefs
       .read<String>(TypeStoreKey<String>(KeyStore.limitedTime + phoneNumber));
 
+  @override
   Future<void> setUserIdPrefs(String? uid) async =>
       await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
 }

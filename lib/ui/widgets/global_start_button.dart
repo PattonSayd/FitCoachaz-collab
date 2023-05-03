@@ -16,7 +16,7 @@ class GlobalStartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints:  BoxConstraints(
+      constraints: BoxConstraints(
         minWidth: 100.w,
         maxWidth: 234.w,
         maxHeight: 44.h,
@@ -26,6 +26,7 @@ class GlobalStartButton extends StatelessWidget {
       height: 44.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          elevation: 0,
           backgroundColor: AppColors.lightGreen,
           padding:
               const EdgeInsets.only(top: 12, left: 32, right: 32, bottom: 12).r,

@@ -7,13 +7,13 @@ class AppRoutesName {
 
   static const welcome = '/';
   static const register = '/register';
-  static const profile = '/profile';
   static const otp = '/otp';
   static const email = 'email';
+  static const accountName = 'account_name';
+  static const congratulation = '/congratulation';
   static const main = 'main';
-  static const user = 'user';
-  static const account = '/account';
   static const subscribe = '/subscribe'; // main/subscribe📍
+  static const profile = '/profile';
 }
 
 class AppRoutes {
@@ -24,11 +24,11 @@ class AppRoutes {
     AppRoutesName.register: (_) => ScreenFactory.assembleRegister(),
     AppRoutesName.otp: (_) => ScreenFactory.assembleOTP(),
     AppRoutesName.email: (_) => ScreenFactory.assembleEmail(),
+    AppRoutesName.accountName: (_) => ScreenFactory.assembleAccountName(),
+    AppRoutesName.congratulation: (_) => ScreenFactory.assembleCongratulation(),
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
-    AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
-    AppRoutesName.user: (_) => ScreenFactory.assembleUser(),
-    AppRoutesName.account: (_) => ScreenFactory.assembleUserAccount(),
     AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),
+    AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
   };
 
   // static Route<Object> onGenerateRoute(RouteSettings settings) {

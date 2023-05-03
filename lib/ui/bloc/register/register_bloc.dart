@@ -3,14 +3,11 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/app/config.dart';
-import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
-import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
-import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
+import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/register/resend_code_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -45,20 +42,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
     if (result.shouldResend) {
       emit(const RegisterStateLoading());
-
       try {
-        await _repository.verifyPhoneNumber(
+        await _repository.verifyNumber(
           phoneNumber: event.number,
-
           verificationCompleted: (PhoneAuthCredential credential) {
             add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
           },
-
           verificationFailed: (FirebaseAuthException e) {
             logger.d(e.message, e.code, e.stackTrace);
             add(OnPhoneAuthErrorEvent(error: e.code));
           },
-
           codeSent: (String verificationId, int? resendToken) async {
             _verificationId = verificationId;
             _resendToken = resendToken;
@@ -67,7 +60,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             add(OnPhoneOTPSentEvent(
                 verificationId: _verificationId, token: _resendToken));
           },
-          // forceResendingToken: _resendToken,
           codeAutoRetrievalTimeout: (String verificationId) {
             logger.w(verificationId);
           },
@@ -143,7 +135,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   String _normalizePhoneNumber(String phoneNumber) =>
-     phoneNumber.replaceAll(RegExp(r'[() ]+'), '');
+      phoneNumber.replaceAll(RegExp(r'[() ]+'), '');
 
   Future<DateTime?> _checkLimitedTime(
     String phoneNumber,

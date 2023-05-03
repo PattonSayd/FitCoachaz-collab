@@ -69,7 +69,7 @@ class _OTPScreenState extends State<OTPScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              SizedBox(height: 100.h),
+              SizedBox(height: 80.h),
               Text(
                 context.localizations.numberConfirm,
                 style: AppTextStyle.bigHeader,
@@ -201,7 +201,7 @@ class _ConfirmButton extends StatelessWidget {
         return BlocBuilder<OtpBloc, OtpState>(
           buildWhen: (prev, current) => prev.isValid != current.isValid,
           builder: (context, otpState) {
-            return GlobalButton2(
+            return GlobalButton(
               onPressed: otpState.isValid && state is! RegisterStateLoading
                   ? () => context.read<RegisterBloc>().add(VerifySentOTPEvent(
                       otpCode: otpState.otpCode,
