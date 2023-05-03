@@ -29,35 +29,3 @@ class EmailState extends Equatable {
   @override
   List<Object> get props => [status];
 }
-
-
-// enum EmailStatus { unknown, valid, invalid, loading, success }
-
-// class EmailState extends Equatable {
-//   const EmailState({
-//     this.status = EmailStatus.unknown,
-//     this.email = '',
-//     this.error,
-//   });
-
-
-//   final String email;
-//   final EmailStatus status;
-//   final String? error;
-
-//   EmailState copyWith({
-//     String? email,
-//     EmailStatus? status,
-//     String? error,
-//   }) {
-//     return EmailState(
-//       email: email ?? this.email,
-//       status: status ?? this.status,
-//       error: error ?? this.error,
-//     );
-//   }
-
-//   @override
-//   List<Object> get props => [email, status];
-// }
-

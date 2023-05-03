@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/app/config.dart';
-import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
+import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/register/resend_code_result.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +43,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     if (result.shouldResend) {
       emit(const RegisterStateLoading());
       try {
-        await _repository.verifyPhoneNumber(
+        await _repository.verifyNumber(
           phoneNumber: event.number,
           verificationCompleted: (PhoneAuthCredential credential) {
             add(OnPhoneAuthVerificationCompleteEvent(credential: credential));

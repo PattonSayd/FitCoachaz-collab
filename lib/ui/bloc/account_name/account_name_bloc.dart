@@ -5,10 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fitcoachaz/ui/formz/account_name/name.dart';
 import 'package:fitcoachaz/ui/formz/account_name/surname.dart';
-import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 
-import '../../../domain/repositories/account_name/account_name_repository.dart';
+import '../../../domain/repositories/account_name_repository.dart';
 import '../../../logger.dart';
 
 part 'account_name_event.dart';

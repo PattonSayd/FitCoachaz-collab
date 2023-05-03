@@ -4,10 +4,12 @@ import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
 import 'package:fitcoachaz/ui/widgets/global_start_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../bloc/congratulation/congratulation_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
@@ -39,12 +41,16 @@ class CongratulationScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 60.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                "${context.localizations.welcomeMessage} , Nazrin!",
-                style: AppTextStyle.user,
-              ),
+            BlocBuilder<CongratulationBloc, CongratulationState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    "${context.localizations.welcomeMessage} , ${state.name}!",
+                    style: AppTextStyle.user,
+                  ),
+                );
+              },
             ),
             SizedBox(height: 12.h),
             Padding(

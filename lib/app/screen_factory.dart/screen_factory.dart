@@ -71,6 +71,7 @@ class ScreenFactory {
 
   static Widget assembleCongratulation() {
     return BlocProvider<CongratulationBloc>(
+      lazy: false,
       create: (context) => assemble.congrBloc,
       child: const CongratulationScreen(),
     );

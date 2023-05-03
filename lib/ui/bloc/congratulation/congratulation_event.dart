@@ -6,3 +6,5 @@ abstract class CongratulationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class CongratulationGetUserName extends CongratulationEvent {}

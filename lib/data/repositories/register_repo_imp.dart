@@ -1,39 +1,40 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
 import 'package:fitcoachaz/data/services/firestore_service.dart';
-import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
+import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 
 import '../helpers/table_key.dart';
 import '../storage/sharedPrefs/key_store.dart';
 import '../storage/sharedPrefs/key_value_store.dart';
 
 class RegisterRepositoryImp extends RegisterRepository {
-  RegisterRepositoryImp(
-      {required KeyValueStore sharedPrefs, required FirestoreService service})
-      : _sharedPrefs = sharedPrefs,
-        _service = service;
+  RegisterRepositoryImp({
+    required KeyValueStore sharedPrefs,
+    required FirestoreService service,
+    required FirebaseAuthService authService,
+  })  : _sharedPrefs = sharedPrefs,
+        _service = service,
+        _authService = authService;
 
-  final auth = FirebaseAuth.instance;
   final FirestoreService _service;
-
   final KeyValueStore _sharedPrefs;
+  final FirebaseAuthService _authService;
 
   @override
-  Future<void> verifyPhoneNumber({
+  Future<void> verifyNumber({
     required String phoneNumber,
     required Function(PhoneAuthCredential) verificationCompleted,
     required Function(FirebaseAuthException) verificationFailed,
     required Function(String, int?) codeSent,
     required Function(String) codeAutoRetrievalTimeout,
-  }) async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-    );
-  }
+  }) async =>
+      _authService.verifyNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      );
 
   @override
   Future<String?> verifyAndLogin(
@@ -44,7 +45,7 @@ class RegisterRepositoryImp extends RegisterRepository {
     //   verificationId: verificationId,
     //   smsCode: smsCode,
     // );
-    final authCredential = await auth.signInWithCredential(credential);
+    final authCredential = await _authService.signIn(credential);
     if (authCredential.user == null) return null;
     final uid = authCredential.user!.uid;
     final userData = await _service.read(TableKey.users, uid);
@@ -60,7 +61,7 @@ class RegisterRepositoryImp extends RegisterRepository {
 
   @override
   Future<String?> getCredential(PhoneAuthCredential credential) async {
-    final authCredential = await auth.signInWithCredential(credential);
+    final authCredential = await _authService.signIn(credential);
     return authCredential.user?.uid;
   }
 

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitcoachaz/domain/repositories/email/email_repository.dart';
+import 'package:fitcoachaz/domain/repositories/email_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 
 part 'email_event.dart';

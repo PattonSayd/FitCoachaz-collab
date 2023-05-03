@@ -1,10 +1,14 @@
 part of 'congratulation_bloc.dart';
 
-abstract class CongratulationState extends Equatable {
-  const CongratulationState();
-  
+class CongratulationState extends Equatable {
+  const CongratulationState._({this.name = ''});
+
+  final String name;
+
+  const CongratulationState.initial() : this._();
+  const CongratulationState.loading() : this._();
+  const CongratulationState.success(name) : this._(name: name);
+
   @override
   List<Object> get props => [];
 }
-
-class CongratulationInitial extends CongratulationState {}
