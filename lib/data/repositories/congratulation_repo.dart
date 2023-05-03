@@ -1,6 +1,5 @@
 import 'package:fitcoachaz/data/helpers/table_key.dart';
 
-import '../models/user_details.dart';
 import '../services/firestore_service.dart';
 import '../storage/sharedPrefs/key_store.dart';
 import '../storage/sharedPrefs/key_value_store.dart';
