@@ -7,6 +7,9 @@ class AppRoutesName {
 
   static const welcome = '/';
   static const register = '/register';
+
+  static const splash = '/splash';
+  static const profile = '/profile';
   static const otp = '/otp';
   static const email = 'email';
   static const accountName = 'account_name';
@@ -28,6 +31,7 @@ class AppRoutes {
     AppRoutesName.congratulation: (_) => ScreenFactory.assembleCongratulation(),
     AppRoutesName.main: (_) => ScreenFactory.assembleMain(),
     AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),
+    AppRoutesName.splash: (_) => ScreenFactory.assembleSplash(),
     AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
   };
 
