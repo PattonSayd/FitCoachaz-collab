@@ -1,16 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/domain/repositories/register/register_repository.dart';
 
+import '../helpers/table_key.dart';
 import '../storage/sharedPrefs/key_store.dart';
 import '../storage/sharedPrefs/key_value_store.dart';
 
 class RegisterRepositoryImp extends RegisterRepository {
-  RegisterRepositoryImp({required KeyValueStore sharedPrefs})
-      : _sharedPrefs = sharedPrefs;
+  RegisterRepositoryImp(
+      {required KeyValueStore sharedPrefs, required FirestoreService service})
+      : _sharedPrefs = sharedPrefs,
+        _service = service;
 
   final auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
+  final FirestoreService _service;
 
   final KeyValueStore _sharedPrefs;
 
@@ -41,14 +45,11 @@ class RegisterRepositoryImp extends RegisterRepository {
     //   smsCode: smsCode,
     // );
     final authCredential = await auth.signInWithCredential(credential);
-
     if (authCredential.user == null) return null;
-
-    final uid = authCredential.user?.uid;
-    final userData = await _firestore.collection('users').doc(uid).get();
-
+    final uid = authCredential.user!.uid;
+    final userData = await _service.read(TableKey.users, uid);
     if (!userData.exists) {
-      await _firestore.collection('users').doc(uid).set({
+      await _service.create(TableKey.users, uid, {
         'uid': uid,
         'phone': phone,
       });

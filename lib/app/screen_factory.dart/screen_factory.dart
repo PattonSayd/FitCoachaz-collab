@@ -1,4 +1,3 @@
-import 'package:fitcoachaz/service_locator.dart';
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
@@ -18,6 +17,7 @@ import '../../ui/screens/account_name/account_name_screen.dart';
 import '../../ui/screens/subscribe/subscribe_screen.dart';
 import '../../ui/screens/tabs/tabs_navigator.dart';
 import '../../ui/screens/welcome/welcome_screen.dart';
+import '../assemble/assemble.dart';
 
 class ScreenFactory {
   ScreenFactory._();
@@ -33,8 +33,8 @@ class ScreenFactory {
   static Widget assembleRegister() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>.value(value: locator.register),
-        BlocProvider<PhoneFieldBloc>(create: (context) => locator.phoneField)
+        BlocProvider<RegisterBloc>.value(value: assemble.register),
+        BlocProvider<PhoneFieldBloc>(create: (context) => assemble.phoneField)
       ],
       child: const RegisterScreen(),
     );
@@ -43,9 +43,9 @@ class ScreenFactory {
   static Widget assembleOTP() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>.value(value: locator.register),
-        BlocProvider<OtpBloc>.value(value: locator.otp),
-        BlocProvider<TimerBloc>(create: (context) => locator.timer),
+        BlocProvider<RegisterBloc>.value(value: assemble.register),
+        BlocProvider<OtpBloc>.value(value: assemble.otp),
+        BlocProvider<TimerBloc>(create: (context) => assemble.timer),
       ],
       child: const OTPScreen(),
     );
@@ -53,7 +53,7 @@ class ScreenFactory {
 
   static Widget assembleEmail() {
     return BlocProvider<EmailBloc>(
-      create: (context) => locator.email,
+      create: (context) => assemble.email,
       child: const EmailScreen(),
     );
   }
@@ -64,14 +64,14 @@ class ScreenFactory {
 
   static Widget assembleAccountName() {
     return BlocProvider<AccountNameBloc>(
-      create: (context) => locator.accountName,
+      create: (context) => assemble.accountName,
       child: const AccountNameScreen(),
     );
   }
 
   static Widget assembleCongratulation() {
     return BlocProvider<CongratulationBloc>(
-      create: (context) => locator.congrBloc,
+      create: (context) => assemble.congrBloc,
       child: const CongratulationScreen(),
     );
   }

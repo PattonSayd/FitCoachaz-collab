@@ -2,12 +2,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'key_value_store.dart';
 
-class SharedPrefs implements KeyValueStore {
+class SharedPrefs extends KeyValueStore {
   late SharedPreferences _sharedPreferences;
 
+  SharedPrefs() {
+    init();
+  }
+
   @override
-  Future<void> init() async {
+  Future<bool> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
+    return true;
   }
 
   @override
