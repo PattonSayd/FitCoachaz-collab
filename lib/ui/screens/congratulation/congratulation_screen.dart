@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../app/router/app_routes.dart';
 import '../../bloc/congratulation/congratulation_bloc.dart';
+import '../../bloc/congratulation/congratulation_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 
@@ -21,56 +22,62 @@ class CongratulationScreen extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        body: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
+        body: BlocBuilder<CongratulationBloc, CongratulationState>(
+          builder: (context, state) {
+            if (state.status == CongratulationStatus.loading) {
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: AppColors.brightSilver,
+              ));
+            }
+            return Column(
               children: [
-                CustomPaint(
-                  size: Size(double.infinity, 263.h),
-                  painter: _CurvePainter(),
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    CustomPaint(
+                      size: Size(double.infinity, 263.h),
+                      painter: _CurvePainter(),
+                    ),
+                    Positioned(
+                      left: context.deviceWidth / 2 - 130.w / 2,
+                      bottom: -130.w / 2,
+                      child: SvgPicture.asset(
+                        AppAssets.congrlogo,
+                        width: 130.w,
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  left: context.deviceWidth / 2 - 130.w / 2,
-                  bottom: -130.w / 2,
-                  child: SvgPicture.asset(
-                    AppAssets.congrlogo,
-                    width: 130.w,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 60.h),
-            BlocBuilder<CongratulationBloc, CongratulationState>(
-              builder: (context, state) {
-                return Padding(
+                SizedBox(height: 60.h),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
                     "${context.localizations.welcomeMessage} , ${state.name}!",
                     style: AppTextStyle.user,
                   ),
-                );
-              },
-            ),
-            SizedBox(height: 12.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                context.localizations.welcomeUserMessage,
-                textAlign: TextAlign.center,
-                style: AppTextStyle.welcomeUserText,
-              ),
-            ),
-            const Spacer(),
-            GlobalStartButton(
-                text: context.localizations.startButtom,
-                style: AppTextStyle.startButton,
-                onPress: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, AppRoutesName.main, (route) => false);
-                }),
-            SizedBox(height: 40.h),
-          ],
+                ),
+                SizedBox(height: 12.h),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    context.localizations.welcomeUserMessage,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyle.welcomeUserText,
+                  ),
+                ),
+                const Spacer(),
+                GlobalStartButton(
+                    text: context.localizations.startButtom,
+                    style: AppTextStyle.startButton,
+                    onPress: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, AppRoutesName.main, (route) => false);
+                    }),
+                SizedBox(height: 40.h),
+              ],
+            );
+          },
         ),
       ),
     );

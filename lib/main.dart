@@ -13,7 +13,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   configureDependencies();
-  // await getIt.allReady();
   Bloc.observer = BlocsObserver();
   runApp(const App());
 }
