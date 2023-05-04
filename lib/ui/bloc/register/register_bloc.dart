@@ -45,24 +45,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       try {
         await _repository.verifyNumber(
           phoneNumber: event.number,
-          verificationCompleted: (PhoneAuthCredential credential) {
-            add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
-          },
-          verificationFailed: (FirebaseAuthException e) {
-            logger.d(e.message, e.code, e.stackTrace);
-            add(OnPhoneAuthErrorEvent(error: e.code));
-          },
-          codeSent: (String verificationId, int? resendToken) async {
-            _verificationId = verificationId;
-            _resendToken = resendToken;
-            logger.wtf(
-                'verificationId: $verificationId, resendToken: $resendToken');
-            add(OnPhoneOTPSentEvent(
-                verificationId: _verificationId, token: _resendToken));
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            logger.w(verificationId);
-          },
+          verificationCompleted: _handleVerificationCompleted,
+          verificationFailed: _handleVerificationFailed,
+          codeSent: _handleCodeSent,
+          codeAutoRetrievalTimeout: _handleCodeAutoRetrievalTimeout,
         );
       } catch (e) {
         logger.d(e.toString());
@@ -75,6 +61,26 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
                 'You already requested verify code. Wait ${result.timeRequired.toString()} seconds to request again.'),
       );
     }
+  }
+
+  void _handleVerificationCompleted(PhoneAuthCredential credential) =>
+      add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
+
+  void _handleVerificationFailed(FirebaseAuthException e) {
+    logger.d(e.message, e.code, e.stackTrace);
+    add(OnPhoneAuthErrorEvent(error: e.code));
+  }
+
+  void _handleCodeSent(String verificationId, int? resendToken) {
+    _verificationId = verificationId;
+    _resendToken = resendToken;
+    logger.wtf('verificationId: $verificationId, resendToken: $resendToken');
+    add(OnPhoneOTPSentEvent(
+        verificationId: _verificationId, token: _resendToken));
+  }
+
+  void _handleCodeAutoRetrievalTimeout(String verificationId) {
+    logger.w(verificationId);
   }
 
   void _onVerifyOtp(

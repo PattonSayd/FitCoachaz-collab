@@ -13,9 +13,7 @@ import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/register/register_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
 
-import '../../ui/screens/password/password_screen.dart';
 import '../../ui/screens/splash/splash_screen.dart';
-import '../../ui/screens/username/username_screen.dart';
 
 import '../../ui/screens/email/email_screen.dart';
 import '../../ui/screens/account_name/account_name_screen.dart';

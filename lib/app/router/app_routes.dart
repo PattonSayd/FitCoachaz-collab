@@ -16,7 +16,6 @@ class AppRoutesName {
   static const congratulation = '/congratulation';
   static const main = 'main';
   static const subscribe = '/subscribe'; // main/subscribe📍
-  static const profile = '/profile';
 }
 
 class AppRoutes {
