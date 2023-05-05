@@ -1,14 +1,16 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/app/config.dart';
 import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/register/resend_code_result.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
+part 'register_bloc.freezed.dart';
 part 'register_event.dart';
 part 'register_state.dart';
 
@@ -21,18 +23,21 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc({
     required RegisterRepository repository,
   })  : _repository = repository,
-        super(const RegisterStateInitial()) {
-    on<SendOTPToPhoneEvent>(_onSentOtpToPhone);
-    on<OnPhoneAuthVerificationCompleteEvent>(_onVerificationComplete);
-    on<OnPhoneAuthErrorEvent>(_onError);
-    on<VerifySentOTPEvent>(_onVerifyOtp);
-    on<OnPhoneOTPSentEvent>(_onOTPSentSuccess);
+        super(const RegisterState.initial()) {
+    on<RegisterEvent>((event, emit) => event.map(
+          sendOTPToPhone: (event) => _onSentOtpToPhone(event, emit),
+          onPhoneAuthVerificationComplete: (event) =>
+              _onVerificationComplete(event, emit),
+          onPhoneAuthError: (event) => _onError(event, emit),
+          verifySentOTP: (event) => _onVerifyOtp(event, emit),
+          onPhoneOTPSent: (event) => _onOTPSentSuccess(event, emit),
+        ));
   }
 
   final RegisterRepository _repository;
 
   Future<void> _onSentOtpToPhone(
-    SendOTPToPhoneEvent event,
+    _SendOTPToPhoneEvent event,
     Emitter<RegisterState> emit,
   ) async {
     _phoneNumber = _normalizePhoneNumber(event.number);
@@ -40,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         await _shouldResendCode(_phoneNumber, resendTime);
 
     if (result.shouldResend) {
-      emit(const RegisterStateLoading());
+      emit(const RegisterState.loading());
       try {
         await _repository.verifyNumber(
           phoneNumber: _phoneNumber,
@@ -48,35 +53,35 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           verificationFailed: _handleVerificationFailed,
           codeSent: _handleCodeSent,
           codeAutoRetrievalTimeout: _handleCodeAutoRetrievalTimeout,
-          timeout: const Duration(seconds: 50),
+          timeout: const Duration(seconds: 30),
           forceResendingToken: _resendToken,
         );
       } catch (e) {
         logger.d(e.toString());
-        emit(RegisterStateError(error: e.toString()));
+        emit(RegisterState.error(error: e.toString()));
       }
     } else {
       emit(
-        RegisterStateError(
+        RegisterState.error(
             error:
                 'You already requested verify code. Wait ${result.timeRequired.toString()} seconds to request again.'),
       );
     }
   }
 
-  void _handleVerificationCompleted(PhoneAuthCredential credential) =>
-      add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
+  void _handleVerificationCompleted(PhoneAuthCredential credential) => add(
+      RegisterEvent.onPhoneAuthVerificationComplete(credential: credential));
 
   void _handleVerificationFailed(FirebaseAuthException e) {
     logger.d(e.message, e.code, e.stackTrace);
-    add(OnPhoneAuthErrorEvent(error: e.code));
+    add(RegisterEvent.onPhoneAuthError(error: e.code));
   }
 
   void _handleCodeSent(String verificationId, int? resendToken) {
     _verificationId = verificationId;
     _resendToken = resendToken;
     logger.wtf('verificationId: $verificationId, resendToken: $resendToken');
-    add(OnPhoneOTPSentEvent(
+    add(RegisterEvent.onPhoneOTPSent(
         verificationId: _verificationId, token: _resendToken));
   }
 
@@ -85,58 +90,59 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   void _onVerifyOtp(
-    VerifySentOTPEvent event,
+    _VerifySentOTPEvent event,
     Emitter<RegisterState> emit,
   ) {
-    emit(const RegisterStateLoading());
+    emit(const RegisterState.loading());
     try {
       final credential = PhoneAuthProvider.credential(
-        verificationId: event.verificationId,
+        verificationId: _verificationId,
         smsCode: event.otpCode,
       );
-      add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
+      add(RegisterEvent.onPhoneAuthVerificationComplete(
+          credential: credential));
     } catch (e) {
       logger.d(e.toString());
-      emit(RegisterStateError(error: e.toString()));
+      emit(RegisterState.error(error: e.toString()));
     }
   }
 
   Future<void> _onVerificationComplete(
-    OnPhoneAuthVerificationCompleteEvent event,
+    _OnPhoneAuthVerificationCompleteEvent event,
     Emitter<RegisterState> emit,
   ) async {
     try {
       final uid = await _repository.verifyAndLogin(event.credential);
       await _repository.setUserIdPrefs(uid);
       if (uid == null) logger.e(uid);
-      emit(const RegisterStateLoaded());
+      emit(const RegisterState.loaded());
     } on FirebaseAuthException catch (e) {
       logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');
       final error = raw.replaceFirst(raw[0], raw[0].toUpperCase());
-      emit(RegisterStateError(error: error));
+      emit(RegisterState.error(error: error));
     } catch (e) {
       logger.e(e.toString());
-      emit(RegisterStateError(error: e.toString()));
+      emit(RegisterState.error(error: e.toString()));
     }
   }
 
   Future<void> _onOTPSentSuccess(
-    OnPhoneOTPSentEvent event,
+    _OnPhoneOTPSentEvent event,
     Emitter<RegisterState> emit,
   ) async {
     await _setLimitedTimeToResend(_phoneNumber, resendTime);
-    emit(RegisterStateOTPSentSuccess(verificationId: event.verificationId));
+    emit(const RegisterState.otpSentSuccess());
   }
 
   void _onError(
-    OnPhoneAuthErrorEvent event,
+    _OnPhoneAuthErrorEvent event,
     Emitter<RegisterState> emit,
   ) {
     if (event.error == 'too-many-requests') {
-      emit(const RegisterStateError(error: 'Too many requests'));
+      emit(const RegisterState.error(error: 'Too many requests'));
     } else {
-      emit(RegisterStateError(error: event.error));
+      emit(RegisterState.error(error: event.error));
     }
   }
 

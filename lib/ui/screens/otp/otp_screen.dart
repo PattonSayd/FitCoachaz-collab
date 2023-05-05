@@ -7,7 +7,7 @@ import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
-import 'package:fitcoachaz/ui/screens/otp/otp_components.dart';
+import 'package:fitcoachaz/ui/screens/otp/components.dart';
 
 import '../../../app/config.dart';
 import '../../../app/router/app_routes.dart';
@@ -32,7 +32,6 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   void initState() {
     super.initState();
-    logger.i('initStateOTP');
     otpFieldFocus = FocusNode();
     context.read<TimerBloc>().add(const TimerStarted(duration: resendTime));
   }
@@ -75,7 +74,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 style: AppTextStyle.bigHeader,
               ),
               SizedBox(height: 25.h),
-              _OtpInputs(otpFieldFocus: otpFieldFocus),
+              OtpFields(
+                otpFieldFocus: otpFieldFocus,
+                onChanged: (otpCode) =>
+                    context.read<OtpBloc>().add(OtpEvent(otpCode: otpCode)),
+              ),
               SizedBox(height: 22.h),
               const _ConfirmButton(),
               SizedBox(
@@ -100,7 +103,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         onPressed: isActive
                             ? () {
                                 context.read<RegisterBloc>().add(
-                                      SendOTPToPhoneEvent(
+                                      RegisterEvent.sendOTPToPhone(
                                         number: context
                                             .read<RegisterBloc>()
                                             .phoneNumber,
@@ -129,48 +132,6 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 }
 
-class _OtpInputs extends StatelessWidget {
-  const _OtpInputs({
-    Key? key,
-    required this.otpFieldFocus,
-  }) : super(key: key);
-
-  final FocusNode otpFieldFocus;
-
-  @override
-  Widget build(BuildContext context) {
-    return PinCodeTextField(
-        appContext: context,
-        length: otpLength,
-        autoDisposeControllers: false,
-        backgroundColor: Colors.transparent,
-        animationDuration: const Duration(milliseconds: 350),
-        animationType: AnimationType.scale,
-        keyboardType: TextInputType.number,
-        enableActiveFill: true,
-        cursorHeight: 20,
-        cursorColor: AppColors.darkBlue,
-        focusNode: otpFieldFocus,
-        autovalidateMode: AutovalidateMode.always,
-        pinTheme: PinTheme(
-          shape: PinCodeFieldShape.box,
-          borderRadius: BorderRadius.circular(8),
-          fieldHeight: 45.h,
-          fieldWidth: 45.w,
-          inactiveColor: AppColors.brightSilver,
-          activeColor: AppColors.lightGreen,
-          activeFillColor: AppColors.lightBlue,
-          selectedFillColor: AppColors.lightBlue,
-          selectedColor: AppColors.lightGreen,
-          inactiveFillColor: AppColors.lightBlue,
-          errorBorderColor: Colors.red,
-          borderWidth: 2,
-        ),
-        onChanged: (otpCode) =>
-            context.read<OtpBloc>().add(OtpEvent(otpCode: otpCode)));
-  }
-}
-
 class _ConfirmButton extends StatelessWidget {
   const _ConfirmButton({Key? key}) : super(key: key);
 
@@ -178,49 +139,44 @@ class _ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
-        logger.d(state);
-        if (state is RegisterStateLoaded) {
-          Navigator.pushNamedAndRemoveUntil(
+        logger.i(state);
+        state.whenOrNull(
+          loaded: () => Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutesName.email,
             (route) => false,
-          );
-        } else if (state is RegisterStateError) {
-          showDialog(
+          ),
+          error: (error) => showDialog(
             context: context,
-            builder: (context) => NotificationWindow(alertText: state.error),
-          );
-        }
+            builder: (context) => NotificationWindow(alertText: error),
+          ),
+        );
       },
       builder: (context, state) {
-        logger.d(state);
-        String verificationId = '';
-        if (state is RegisterStateOTPSentSuccess) {
-          verificationId = state.verificationId;
-        }
+        logger.i(state);
         return BlocBuilder<OtpBloc, OtpState>(
           buildWhen: (prev, current) => prev.isValid != current.isValid,
-          builder: (context, otpState) {
+          builder: (context, otp) {
             return GlobalButton(
-              onPressed: otpState.isValid && state is! RegisterStateLoading
-                  ? () => context.read<RegisterBloc>().add(VerifySentOTPEvent(
-                      otpCode: otpState.otpCode,
-                      verificationId: verificationId))
+              onPressed: otp.isValid
+                  ? () => context
+                      .read<RegisterBloc>()
+                      .add(RegisterEvent.verifySentOTP(otpCode: otp.otpCode))
                   : null,
-              child: state is RegisterStateLoading
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator.adaptive(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.silver),
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      context.localizations.confirmText,
-                      style: AppTextStyle.verifyButton,
-                    ),
+              child: state.whenOrNull(
+                initial: () => Text(
+                  context.localizations.confirmText,
+                  style: AppTextStyle.verifyButton,
+                ),
+                loading: () => const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                    strokeWidth: 2,
+                  ),
+                ),
+              ),
             );
           },
         );

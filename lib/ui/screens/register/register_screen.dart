@@ -112,55 +112,51 @@ class ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
-        logger.i(
-            'LISENER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
-        if (state is RegisterStateOTPSentSuccess) {
-          logger.i('Navigator');
-          Navigator.pushNamedAndRemoveUntil(
+        logger.i('LISENER $state -> hasCode: ${state.hashCode}');
+        state.whenOrNull(
+          otpSentSuccess: () => Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutesName.otp,
             (route) => false,
-          );
-        }
-        if (state is RegisterStateError) {
-          showDialog(
+          ),
+          error: (error) => showDialog(
             context: context,
-            builder: (context) => NotificationWindow(alertText: state.error),
-          );
-        }
+            builder: (context) => NotificationWindow(alertText: error),
+          ),
+        );
       },
       builder: (context, state) {
-        logger.i(
-            'BUILDER $state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
+        logger.i('BUILDER $state -> hasCode: ${state.hashCode}');
         return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
           buildWhen: (previous, current) =>
               current.phone.isValid != previous.phone.isValid,
           builder: (context, fieldState) {
-            logger.i(
-                '$fieldState -> hasCode: ${fieldState.hashCode}, runtimeType ${fieldState.runtimeType}');
+            logger.i('$fieldState -> hasCode: ${fieldState.hashCode}');
             return GlobalButton(
-              onPressed: fieldState.phone.isValid &&
-                      state is! RegisterStateLoading
+              onPressed: fieldState.phone.isValid
                   ? () {
-                      context.read<RegisterBloc>().add(SendOTPToPhoneEvent(
-                          number: fieldState.prefix + fieldState.phone.value));
+                      context
+                          .read<RegisterBloc>()
+                          .add(RegisterEvent.sendOTPToPhone(
+                            number: fieldState.prefix + fieldState.phone.value,
+                          ));
                       FocusScope.of(context).unfocus();
                     }
                   : null,
-              child: state is RegisterStateLoading
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator.adaptive(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.silver),
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      context.localizations.confirmText,
-                      style: AppTextStyle.verifyButton,
-                    ),
+              child: state.whenOrNull(
+                initial: () => Text(
+                  context.localizations.confirmText,
+                  style: AppTextStyle.verifyButton,
+                ),
+                loading: () => const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                    strokeWidth: 2,
+                  ),
+                ),
+              ),
             );
           },
         );
