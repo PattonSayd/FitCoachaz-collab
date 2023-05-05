@@ -9,7 +9,7 @@ class Surname extends FormzInput<String, String> {
 
   @override
   String? validator(String value) {
-    if (value.length < 4) {
+    if (value.length < 3) {
       return 'Entered too short';
     }
 

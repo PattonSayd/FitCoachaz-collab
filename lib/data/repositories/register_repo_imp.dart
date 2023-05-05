@@ -3,8 +3,8 @@ import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
 import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 
-import '../helpers/table_key.dart';
-import '../storage/sharedPrefs/key_store.dart';
+import '../storage/table_key.dart';
+import '../storage/key_store.dart';
 import '../storage/sharedPrefs/key_value_store.dart';
 
 class RegisterRepositoryImp extends RegisterRepository {
@@ -27,27 +27,27 @@ class RegisterRepositoryImp extends RegisterRepository {
     required Function(FirebaseAuthException) verificationFailed,
     required Function(String, int?) codeSent,
     required Function(String) codeAutoRetrievalTimeout,
+    required Duration timeout,
+    int? forceResendingToken,
   }) async =>
       _authService.verifyNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
         codeSent: codeSent,
+        timeout: timeout,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        forceResendingToken: forceResendingToken,
       );
 
   @override
   Future<String?> verifyAndLogin(
     AuthCredential credential,
-    String phone,
   ) async {
-    // PhoneAuthCredential credential = PhoneAuthProvider.credential(
-    //   verificationId: verificationId,
-    //   smsCode: smsCode,
-    // );
     final authCredential = await _authService.signIn(credential);
     if (authCredential.user == null) return null;
     final uid = authCredential.user!.uid;
+    final phone = authCredential.user!.phoneNumber;
     final userData = await _service.read(TableKey.users, uid);
     if (!userData.exists) {
       await _service.create(TableKey.users, uid, {

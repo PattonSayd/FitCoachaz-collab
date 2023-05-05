@@ -16,7 +16,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   String _phoneNumber = '';
   int? _resendToken;
   String _verificationId = '';
-
   String get phoneNumber => _phoneNumber;
 
   RegisterBloc({
@@ -26,8 +25,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<SendOTPToPhoneEvent>(_onSentOtpToPhone);
     on<OnPhoneAuthVerificationCompleteEvent>(_onVerificationComplete);
     on<OnPhoneAuthErrorEvent>(_onError);
-    on<OnPhoneOTPSentEvent>(_onOTPSentSuccess);
     on<VerifySentOTPEvent>(_onVerifyOtp);
+    on<OnPhoneOTPSentEvent>(_onOTPSentSuccess);
   }
 
   final RegisterRepository _repository;
@@ -44,11 +43,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(const RegisterStateLoading());
       try {
         await _repository.verifyNumber(
-          phoneNumber: event.number,
+          phoneNumber: _phoneNumber,
           verificationCompleted: _handleVerificationCompleted,
           verificationFailed: _handleVerificationFailed,
           codeSent: _handleCodeSent,
           codeAutoRetrievalTimeout: _handleCodeAutoRetrievalTimeout,
+          timeout: const Duration(seconds: 50),
+          forceResendingToken: _resendToken,
         );
       } catch (e) {
         logger.d(e.toString());
@@ -105,8 +106,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      final uid =
-          await _repository.verifyAndLogin(event.credential, _phoneNumber);
+      final uid = await _repository.verifyAndLogin(event.credential);
       await _repository.setUserIdPrefs(uid);
       if (uid == null) logger.e(uid);
       emit(const RegisterStateLoaded());
