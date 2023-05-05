@@ -18,7 +18,6 @@ import '../../ui/bloc/account_name/account_name_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
-import '../../ui/formz/phone_field/phone_field_bloc.dart';
 
 @module
 abstract class AssembleModule {
@@ -46,12 +45,9 @@ abstract class AssembleModule {
         authService: authService,
       );
 
-  @lazySingleton
+  @injectable
   RegisterBloc providerRegisterBloc(RegisterRepository repository) =>
       RegisterBloc(repository: repository);
-
-  @injectable
-  PhoneFieldBloc providerPhoneFieldBloc() => PhoneFieldBloc();
 
   @injectable
   TimerBloc providerTimerBloc(Ticker ticker) => TimerBloc(ticker: ticker);

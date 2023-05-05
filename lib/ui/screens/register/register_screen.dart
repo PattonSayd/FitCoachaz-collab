@@ -6,9 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/bloc/register/register_bloc.dart';
 import 'package:fitcoachaz/ui/screens/register/register_components.dart';
+import 'package:formz/formz.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../formz/phone_field/phone_field_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/global_button.dart';
@@ -19,23 +19,11 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.i('buildw');
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: AppColors.black,
-            ),
-          ),
-        ),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -67,12 +55,16 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  late final FocusNode _focusNode;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        context.read<RegisterBloc>().add(const RegisterEvent.phoneUnfocused());
+      }
+    });
   }
 
   @override
@@ -83,21 +75,27 @@ class _InputState extends State<Input> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
+    return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
         logger.i(
             '$state -> hasCode: ${state.hashCode}, runtimeType ${state.runtimeType}');
-        return PhoneInput(
+        return PhoneField(
           seletedPrefix: state.prefix,
           hintText: 'Phone number',
-          errorText: state.phone.isNotValid ? state.phone.displayError : null,
+          errorText: state.phoneField.isNotValid
+              ? state.phoneField.displayError
+              : null,
           focus: _focusNode,
           keyboardType: TextInputType.phone,
           onChanged: (value) {
-            context.read<PhoneFieldBloc>().add(PhoneFieldEvent(phone: value));
+            context
+                .read<RegisterBloc>()
+                .add(RegisterEvent.phoneChanged(phone: value));
           },
           onSelected: (prefix) {
-            context.read<PhoneFieldBloc>().add(PrefixEvent(prefix: prefix));
+            context
+                .read<RegisterBloc>()
+                .add(RegisterEvent.phoneChangedPrefix(prefix: prefix));
           },
         );
       },
@@ -113,52 +111,44 @@ class ConfirmButton extends StatelessWidget {
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
         logger.i('LISENER $state -> hasCode: ${state.hashCode}');
-        state.whenOrNull(
-          otpSentSuccess: () => Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutesName.otp,
-            (route) => false,
-          ),
-          error: (error) => showDialog(
-            context: context,
-            builder: (context) => NotificationWindow(alertText: error),
-          ),
-        );
+        state.registerStatus == RegisterStatus.otpSentSuccess
+            ? Navigator.pushReplacementNamed(context, AppRoutesName.otp,
+                arguments: {
+                    'phoneNumber': state.phoneNumber,
+                    'verificationId': state.verificationId
+                  })
+            : state.registerStatus == RegisterStatus.error
+                ? showDialog(
+                    context: context,
+                    builder: (context) =>
+                        NotificationWindow(alertText: state.error),
+                  )
+                : null;
       },
+      buildWhen: (pre, curr) => pre.submissionStatus != curr.submissionStatus,
       builder: (context, state) {
         logger.i('BUILDER $state -> hasCode: ${state.hashCode}');
-        return BlocBuilder<PhoneFieldBloc, PhoneFieldState>(
-          buildWhen: (previous, current) =>
-              current.phone.isValid != previous.phone.isValid,
-          builder: (context, fieldState) {
-            logger.i('$fieldState -> hasCode: ${fieldState.hashCode}');
-            return GlobalButton(
-              onPressed: fieldState.phone.isValid
-                  ? () {
-                      context
-                          .read<RegisterBloc>()
-                          .add(RegisterEvent.sendOTPToPhone(
-                            number: fieldState.prefix + fieldState.phone.value,
-                          ));
-                      FocusScope.of(context).unfocus();
-                    }
-                  : null,
-              child: state.whenOrNull(
-                initial: () => Text(
-                  context.localizations.confirmText,
-                  style: AppTextStyle.verifyButton,
-                ),
-                loading: () => const SizedBox(
+        return GlobalButton(
+          onPressed: state.submissionStatus == FormzSubmissionStatus.initial
+              ? () {
+                  context.read<RegisterBloc>().add(RegisterEvent.sendOTPToPhone(
+                      number: state.prefix + state.phoneField.value));
+                  FocusScope.of(context).unfocus();
+                }
+              : null,
+          child: state.submissionStatus == FormzSubmissionStatus.inProgress
+              ? const SizedBox(
                   width: 20,
                   height: 20,
                   child: CircularProgressIndicator.adaptive(
                     valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
                     strokeWidth: 2,
                   ),
+                )
+              : Text(
+                  context.localizations.confirmText,
+                  style: AppTextStyle.verifyButton,
                 ),
-              ),
-            );
-          },
         );
       },
     );

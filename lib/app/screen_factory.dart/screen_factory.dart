@@ -1,7 +1,6 @@
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
-import 'package:fitcoachaz/ui/formz/phone_field/phone_field_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,27 +36,32 @@ class ScreenFactory {
   static Widget assembleRegister() {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>.value(value: assemble.register),
-        BlocProvider<PhoneFieldBloc>(create: (context) => assemble.phoneField)
+        BlocProvider<RegisterBloc>(create: (_) => assemble.register),
       ],
       child: const RegisterScreen(),
     );
   }
 
-  static Widget assembleOTP() {
+  static Widget assembleOTP({
+    required String phoneNumber,
+    required String verificationId,
+  }) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>.value(value: assemble.register),
+        BlocProvider<RegisterBloc>(create: (_) => assemble.register),
         BlocProvider<OtpBloc>.value(value: assemble.otp),
-        BlocProvider<TimerBloc>(create: (context) => assemble.timer),
+        BlocProvider<TimerBloc>(create: (_) => assemble.timer),
       ],
-      child: const OTPScreen(),
+      child: OTPScreen(
+        phoneNumber: phoneNumber,
+        verificationId: verificationId,
+      ),
     );
   }
 
   static Widget assembleEmail() {
     return BlocProvider<EmailBloc>(
-      create: (context) => assemble.email,
+      create: (_) => assemble.email,
       child: const EmailScreen(),
     );
   }
@@ -68,7 +72,7 @@ class ScreenFactory {
 
   static Widget assembleAccountName() {
     return BlocProvider<AccountNameBloc>(
-      create: (context) => assemble.accountName,
+      create: (_) => assemble.accountName,
       child: const AccountNameScreen(),
     );
   }
@@ -76,7 +80,7 @@ class ScreenFactory {
   static Widget assembleCongratulation() {
     return BlocProvider<CongratulationBloc>(
       lazy: false,
-      create: (context) => assemble.congrBloc,
+      create: (_) => assemble.congrBloc,
       child: const CongratulationScreen(),
     );
   }

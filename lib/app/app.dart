@@ -40,6 +40,7 @@ class App extends StatelessWidget {
             ],
             initialRoute: AppRoutesName.splash,
             routes: AppRoutes.routes,
+            onGenerateRoute: AppRoutes.onGenerateRoute,
           );
         });
   }

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fitcoachaz/ui/formz/account_name/name.dart';
-import 'package:fitcoachaz/ui/formz/account_name/surname.dart';
+import 'package:fitcoachaz/ui/formz/account_name/name_formz.dart';
+import 'package:fitcoachaz/ui/formz/account_name/surname_formz.dart';
 import 'package:formz/formz.dart';
 
 import '../../../domain/repositories/account_name_repository.dart';
@@ -30,9 +30,9 @@ class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
     NameChangedEvent event,
     Emitter<AccountNameState> emit,
   ) {
-    final name = Name.dirty(event.name);
+    final name = NameFormz.dirty(event.name);
     emit(state.copyWith(
-      name: name.isValid ? name : Name.pure(event.name),
+      name: name.isValid ? name : NameFormz.pure(event.name),
       status: Formz.validate([name, state.surn])
           ? FormzSubmissionStatus.initial
           : FormzSubmissionStatus.canceled,
@@ -43,9 +43,9 @@ class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
     SurnChangedEvent event,
     Emitter<AccountNameState> emit,
   ) {
-    final surn = Surname.dirty(event.surn);
+    final surn = SurnameFormz.dirty(event.surn);
     emit(state.copyWith(
-      surn: surn.isValid ? surn : Surname.pure(event.surn),
+      surn: surn.isValid ? surn : SurnameFormz.pure(event.surn),
       status: Formz.validate([state.name, surn])
           ? FormzSubmissionStatus.initial
           : FormzSubmissionStatus.canceled,
@@ -56,7 +56,7 @@ class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
     NameUnfocusedEvent event,
     Emitter<AccountNameState> emit,
   ) {
-    final name = Name.dirty(state.name.value);
+    final name = NameFormz.dirty(state.name.value);
     emit(state.copyWith(
       name: name,
       status: Formz.validate([name, state.surn])
@@ -69,7 +69,7 @@ class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
     SurnUnfocusedEvent event,
     Emitter<AccountNameState> emit,
   ) {
-    final surn = Surname.dirty(state.surn.value);
+    final surn = SurnameFormz.dirty(state.surn.value);
     emit(state.copyWith(
       surn: surn,
       status: Formz.validate([state.name, surn])

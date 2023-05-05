@@ -7,30 +7,36 @@ import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/register/resend_code_result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
+
+import '../../formz/phone_field/phone_formz.dart';
 
 part 'register_bloc.freezed.dart';
 part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  String _phoneNumber = '';
-  int? _resendToken;
-  String _verificationId = '';
-  String get phoneNumber => _phoneNumber;
+  // String _phoneNumber = '';
+  // String _verificationId = '';
+  // String get phoneNumber => _phoneNumber;
 
   RegisterBloc({
     required RegisterRepository repository,
   })  : _repository = repository,
-        super(const RegisterState.initial()) {
+        super(const RegisterState()) {
     on<RegisterEvent>((event, emit) => event.map(
           sendOTPToPhone: (event) => _onSentOtpToPhone(event, emit),
           onPhoneAuthVerificationComplete: (event) =>
               _onVerificationComplete(event, emit),
-          onPhoneAuthError: (event) => _onError(event, emit),
-          verifySentOTP: (event) => _onVerifyOtp(event, emit),
-          onPhoneOTPSent: (event) => _onOTPSentSuccess(event, emit),
+          onPhoneAuthError: (e) => _onError(e, emit),
+          verifySentOTP: (e) => _onVerifyOtp(e, emit),
+          onPhoneOTPSent: (e) => _onOTPSentSuccess(e, emit),
+          phoneChangedPrefix: (e) => _onphoneChangedPrefix(e, emit),
+          phoneChanged: (e) => _onPhoneChanged(e, emit),
+          phoneUnfocused: (_) => _onPhoneUnfocused(emit),
+          phoneFormSubmitted: (_) => _onPhoneFormSubmitted(emit),
         ));
   }
 
@@ -40,70 +46,76 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     _SendOTPToPhoneEvent event,
     Emitter<RegisterState> emit,
   ) async {
-    _phoneNumber = _normalizePhoneNumber(event.number);
+    final phoneNumber = _normalizePhoneNumber(event.number);
     final ResendCodeResult result =
-        await _shouldResendCode(_phoneNumber, resendTime);
+        await _shouldResendCode(phoneNumber, resendTime);
 
     if (result.shouldResend) {
-      emit(const RegisterState.loading());
+      emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
       try {
         await _repository.verifyNumber(
-          phoneNumber: _phoneNumber,
-          verificationCompleted: _handleVerificationCompleted,
-          verificationFailed: _handleVerificationFailed,
-          codeSent: _handleCodeSent,
-          codeAutoRetrievalTimeout: _handleCodeAutoRetrievalTimeout,
+          phoneNumber: phoneNumber,
+          verificationCompleted: (PhoneAuthCredential credential) => add(
+              RegisterEvent.onPhoneAuthVerificationComplete(
+                  credential: credential)),
+          verificationFailed: (FirebaseAuthException e) {
+            logger.d(e.message, e.code, e.stackTrace);
+            add(RegisterEvent.onPhoneAuthError(error: e.code));
+          },
+          codeSent: (String verificationId, int? resendToken) {
+            logger.wtf(
+                'verificationId: $verificationId, resendToken: $resendToken');
+            add(RegisterEvent.onPhoneOTPSent(
+                verificationId: verificationId,
+                token: resendToken,
+                phoneNumber: phoneNumber));
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            logger.w(verificationId);
+          },
           timeout: const Duration(seconds: 30),
-          forceResendingToken: _resendToken,
+          // forceResendingToken: _resendToken,
         );
       } catch (e) {
         logger.d(e.toString());
-        emit(RegisterState.error(error: e.toString()));
+        emit(
+          state.copyWith(
+            registerStatus: RegisterStatus.error,
+            error: e.toString(),
+          ),
+        );
       }
     } else {
       emit(
-        RegisterState.error(
-            error:
-                'You already requested verify code. Wait ${result.timeRequired.toString()} seconds to request again.'),
+        state.copyWith(
+          registerStatus: RegisterStatus.error,
+          error:
+              'You already requested verify code. Wait ${result.timeRequired.toString()} seconds to request again.',
+        ),
       );
     }
-  }
-
-  void _handleVerificationCompleted(PhoneAuthCredential credential) => add(
-      RegisterEvent.onPhoneAuthVerificationComplete(credential: credential));
-
-  void _handleVerificationFailed(FirebaseAuthException e) {
-    logger.d(e.message, e.code, e.stackTrace);
-    add(RegisterEvent.onPhoneAuthError(error: e.code));
-  }
-
-  void _handleCodeSent(String verificationId, int? resendToken) {
-    _verificationId = verificationId;
-    _resendToken = resendToken;
-    logger.wtf('verificationId: $verificationId, resendToken: $resendToken');
-    add(RegisterEvent.onPhoneOTPSent(
-        verificationId: _verificationId, token: _resendToken));
-  }
-
-  void _handleCodeAutoRetrievalTimeout(String verificationId) {
-    logger.w(verificationId);
   }
 
   void _onVerifyOtp(
     _VerifySentOTPEvent event,
     Emitter<RegisterState> emit,
   ) {
-    emit(const RegisterState.loading());
+    emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
     try {
       final credential = PhoneAuthProvider.credential(
-        verificationId: _verificationId,
+        verificationId: event.verificationId,
         smsCode: event.otpCode,
       );
       add(RegisterEvent.onPhoneAuthVerificationComplete(
           credential: credential));
     } catch (e) {
       logger.d(e.toString());
-      emit(RegisterState.error(error: e.toString()));
+      emit(
+        state.copyWith(
+          registerStatus: RegisterStatus.error,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
@@ -115,15 +127,20 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       final uid = await _repository.verifyAndLogin(event.credential);
       await _repository.setUserIdPrefs(uid);
       if (uid == null) logger.e(uid);
-      emit(const RegisterState.loaded());
+      emit(state.copyWith(registerStatus: RegisterStatus.loaded));
     } on FirebaseAuthException catch (e) {
       logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');
       final error = raw.replaceFirst(raw[0], raw[0].toUpperCase());
-      emit(RegisterState.error(error: error));
+      emit(state.copyWith(registerStatus: RegisterStatus.error, error: error));
     } catch (e) {
       logger.e(e.toString());
-      emit(RegisterState.error(error: e.toString()));
+      emit(
+        state.copyWith(
+          registerStatus: RegisterStatus.error,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
@@ -131,8 +148,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     _OnPhoneOTPSentEvent event,
     Emitter<RegisterState> emit,
   ) async {
-    await _setLimitedTimeToResend(_phoneNumber, resendTime);
-    emit(const RegisterState.otpSentSuccess());
+    await _setLimitedTimeToResend(event.phoneNumber, resendTime);
+    emit(state.copyWith(
+        registerStatus: RegisterStatus.otpSentSuccess,
+        phoneNumber: event.phoneNumber,
+        verificationId: event.verificationId));
   }
 
   void _onError(
@@ -140,9 +160,20 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) {
     if (event.error == 'too-many-requests') {
-      emit(const RegisterState.error(error: 'Too many requests'));
+      emit(
+        state.copyWith(
+          registerStatus: RegisterStatus.error,
+          error: 'Too many requests',
+        ),
+      );
     } else {
-      emit(RegisterState.error(error: event.error));
+      emit(
+        state.copyWith(
+          registerStatus: RegisterStatus.error,
+          error: event.error,
+        ),
+      );
+      ;
     }
   }
 
@@ -166,11 +197,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     int resendTime,
   ) async {
     final futureTime = await _checkLimitedTime(phoneNumber, resendTime);
-
     if (futureTime != null) {
       final now = DateTime.now();
       final Duration timeRequired = futureTime.difference(now);
-      final number = await _repository.getPhoneNumberPrefs(_phoneNumber);
+      final number = await _repository.getPhoneNumberPrefs(phoneNumber);
       final shouldResend = number == null || timeRequired.inSeconds <= 0;
       return ResendCodeResult(
         shouldResend: shouldResend,
@@ -188,5 +218,41 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final now = DateTime.now();
     final addingFutureTime = now.add(Duration(seconds: resendTime));
     await _repository.setLimitedTimePrefs(phoneNumber, addingFutureTime);
+  }
+
+  _onphoneChangedPrefix(
+    _PhoneChangedPrefixEvent event,
+    Emitter<RegisterState> emit,
+  ) {
+    emit(state.copyWith(prefix: event.prefix));
+  }
+
+  _onPhoneChanged(
+    _PhoneChangedEvent event,
+    Emitter<RegisterState> emit,
+  ) {
+    final phone = PhoneFormz.dirty(event.phone);
+    emit(
+      state.copyWith(
+        phoneField: phone.isValid ? phone : PhoneFormz.pure(event.phone),
+        submissionStatus: Formz.validate([phone])
+            ? FormzSubmissionStatus.initial
+            : FormzSubmissionStatus.canceled,
+      ),
+    );
+  }
+
+  _onPhoneUnfocused(Emitter<RegisterState> emit) {
+    final phone = PhoneFormz.dirty(state.phoneField.value);
+    emit(state.copyWith(
+      phoneField: phone,
+      submissionStatus: Formz.validate([phone])
+          ? FormzSubmissionStatus.initial
+          : FormzSubmissionStatus.canceled,
+    ));
+  }
+
+  _onPhoneFormSubmitted(Emitter<RegisterState> emit) {
+    emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
   }
 }

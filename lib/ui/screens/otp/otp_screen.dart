@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:formz/formz.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
@@ -18,10 +19,14 @@ import '../../widgets/global_button.dart';
 import '../../widgets/notification_window.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key, this.registerContext});
+  const OTPScreen({
+    Key? key,
+    required this.phoneNumber,
+    required this.verificationId,
+  }) : super(key: key);
 
-  final BuildContext? registerContext;
-
+  final String phoneNumber;
+  final String verificationId;
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
@@ -48,22 +53,7 @@ class _OTPScreenState extends State<OTPScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRoutesName.welcome,
-                (route) => false,
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: AppColors.black,
-            ),
-          ),
-        ),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -80,17 +70,19 @@ class _OTPScreenState extends State<OTPScreen> {
                     context.read<OtpBloc>().add(OtpEvent(otpCode: otpCode)),
               ),
               SizedBox(height: 22.h),
-              const _ConfirmButton(),
+              _ConfirmButton(
+                verificationId: widget.verificationId,
+              ),
               SizedBox(
                 height: 18.h,
               ),
               BlocBuilder<TimerBloc, TimerState>(
                 buildWhen: (prev, state) {
-                  logger.wtf(prev.runtimeType != state.runtimeType);
+                  // logger.wtf(prev.runtimeType != state.runtimeType);
                   return prev.runtimeType != state.runtimeType;
                 },
                 builder: (context, state) {
-                  logger.i(state);
+                  // logger.i(state);
                   bool isActive = false;
                   if (state is TimerRunComplete) isActive = !isActive;
                   return Row(
@@ -104,9 +96,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             ? () {
                                 context.read<RegisterBloc>().add(
                                       RegisterEvent.sendOTPToPhone(
-                                        number: context
-                                            .read<RegisterBloc>()
-                                            .phoneNumber,
+                                        number: widget.phoneNumber,
                                       ),
                                     );
                                 context.read<TimerBloc>().add(
@@ -133,24 +123,31 @@ class _OTPScreenState extends State<OTPScreen> {
 }
 
 class _ConfirmButton extends StatelessWidget {
-  const _ConfirmButton({Key? key}) : super(key: key);
+  const _ConfirmButton({
+    Key? key,
+    required this.verificationId,
+  }) : super(key: key);
+
+  final String verificationId;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterState>(
       listener: (context, state) {
         logger.i(state);
-        state.whenOrNull(
-          loaded: () => Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutesName.email,
-            (route) => false,
-          ),
-          error: (error) => showDialog(
-            context: context,
-            builder: (context) => NotificationWindow(alertText: error),
-          ),
-        );
+        state.registerStatus == RegisterStatus.loaded
+            ? Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutesName.email,
+                (route) => false,
+              )
+            : state.registerStatus == RegisterStatus.error
+                ? showDialog(
+                    context: context,
+                    builder: (context) =>
+                        NotificationWindow(alertText: state.error),
+                  )
+                : null;
       },
       builder: (context, state) {
         logger.i(state);
@@ -159,24 +156,24 @@ class _ConfirmButton extends StatelessWidget {
           builder: (context, otp) {
             return GlobalButton(
               onPressed: otp.isValid
-                  ? () => context
-                      .read<RegisterBloc>()
-                      .add(RegisterEvent.verifySentOTP(otpCode: otp.otpCode))
+                  ? () => context.read<RegisterBloc>().add(
+                      RegisterEvent.verifySentOTP(
+                          otpCode: otp.otpCode, verificationId: verificationId))
                   : null,
-              child: state.whenOrNull(
-                initial: () => Text(
-                  context.localizations.confirmText,
-                  style: AppTextStyle.verifyButton,
-                ),
-                loading: () => const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator.adaptive(
-                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
-                    strokeWidth: 2,
-                  ),
-                ),
-              ),
+              child: state.submissionStatus == FormzSubmissionStatus.inProgress
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator.adaptive(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.silver),
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : Text(
+                      context.localizations.confirmText,
+                      style: AppTextStyle.verifyButton,
+                    ),
             );
           },
         );

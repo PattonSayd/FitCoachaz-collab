@@ -19,31 +19,48 @@ mixin _$RegisterEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String number) sendOTPToPhone,
-    required TResult Function(String otpCode) verifySentOTP,
-    required TResult Function(String verificationId, int? token) onPhoneOTPSent,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
     required TResult Function(String error) onPhoneAuthError,
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String number)? sendOTPToPhone,
-    TResult? Function(String otpCode)? verifySentOTP,
-    TResult? Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult? Function(String error)? onPhoneAuthError,
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? sendOTPToPhone,
-    TResult Function(String otpCode)? verifySentOTP,
-    TResult Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult Function(String error)? onPhoneAuthError,
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +72,12 @@ mixin _$RegisterEvent {
     required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +88,10 @@ mixin _$RegisterEvent {
     TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +102,10 @@ mixin _$RegisterEvent {
     TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -174,11 +205,18 @@ class _$_SendOTPToPhoneEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String number) sendOTPToPhone,
-    required TResult Function(String otpCode) verifySentOTP,
-    required TResult Function(String verificationId, int? token) onPhoneOTPSent,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
     required TResult Function(String error) onPhoneAuthError,
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
   }) {
     return sendOTPToPhone(number);
   }
@@ -187,11 +225,16 @@ class _$_SendOTPToPhoneEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String number)? sendOTPToPhone,
-    TResult? Function(String otpCode)? verifySentOTP,
-    TResult? Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult? Function(String error)? onPhoneAuthError,
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
   }) {
     return sendOTPToPhone?.call(number);
   }
@@ -200,11 +243,16 @@ class _$_SendOTPToPhoneEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? sendOTPToPhone,
-    TResult Function(String otpCode)? verifySentOTP,
-    TResult Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult Function(String error)? onPhoneAuthError,
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (sendOTPToPhone != null) {
@@ -222,6 +270,12 @@ class _$_SendOTPToPhoneEvent
     required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
   }) {
     return sendOTPToPhone(this);
   }
@@ -235,6 +289,10 @@ class _$_SendOTPToPhoneEvent
     TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
   }) {
     return sendOTPToPhone?.call(this);
   }
@@ -248,6 +306,10 @@ class _$_SendOTPToPhoneEvent
     TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (sendOTPToPhone != null) {
@@ -273,7 +335,7 @@ abstract class _$$_VerifySentOTPEventCopyWith<$Res> {
           $Res Function(_$_VerifySentOTPEvent) then) =
       __$$_VerifySentOTPEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({String otpCode});
+  $Res call({String otpCode, String verificationId});
 }
 
 /// @nodoc
@@ -288,11 +350,16 @@ class __$$_VerifySentOTPEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? otpCode = null,
+    Object? verificationId = null,
   }) {
     return _then(_$_VerifySentOTPEvent(
       otpCode: null == otpCode
           ? _value.otpCode
           : otpCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      verificationId: null == verificationId
+          ? _value.verificationId
+          : verificationId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -303,14 +370,17 @@ class __$$_VerifySentOTPEventCopyWithImpl<$Res>
 class _$_VerifySentOTPEvent
     with DiagnosticableTreeMixin
     implements _VerifySentOTPEvent {
-  const _$_VerifySentOTPEvent({required this.otpCode});
+  const _$_VerifySentOTPEvent(
+      {required this.otpCode, required this.verificationId});
 
   @override
   final String otpCode;
+  @override
+  final String verificationId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterEvent.verifySentOTP(otpCode: $otpCode)';
+    return 'RegisterEvent.verifySentOTP(otpCode: $otpCode, verificationId: $verificationId)';
   }
 
   @override
@@ -318,7 +388,8 @@ class _$_VerifySentOTPEvent
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'RegisterEvent.verifySentOTP'))
-      ..add(DiagnosticsProperty('otpCode', otpCode));
+      ..add(DiagnosticsProperty('otpCode', otpCode))
+      ..add(DiagnosticsProperty('verificationId', verificationId));
   }
 
   @override
@@ -326,11 +397,13 @@ class _$_VerifySentOTPEvent
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_VerifySentOTPEvent &&
-            (identical(other.otpCode, otpCode) || other.otpCode == otpCode));
+            (identical(other.otpCode, otpCode) || other.otpCode == otpCode) &&
+            (identical(other.verificationId, verificationId) ||
+                other.verificationId == verificationId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, otpCode);
+  int get hashCode => Object.hash(runtimeType, otpCode, verificationId);
 
   @JsonKey(ignore: true)
   @override
@@ -343,41 +416,58 @@ class _$_VerifySentOTPEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String number) sendOTPToPhone,
-    required TResult Function(String otpCode) verifySentOTP,
-    required TResult Function(String verificationId, int? token) onPhoneOTPSent,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
     required TResult Function(String error) onPhoneAuthError,
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
   }) {
-    return verifySentOTP(otpCode);
+    return verifySentOTP(otpCode, verificationId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String number)? sendOTPToPhone,
-    TResult? Function(String otpCode)? verifySentOTP,
-    TResult? Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult? Function(String error)? onPhoneAuthError,
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
   }) {
-    return verifySentOTP?.call(otpCode);
+    return verifySentOTP?.call(otpCode, verificationId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? sendOTPToPhone,
-    TResult Function(String otpCode)? verifySentOTP,
-    TResult Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult Function(String error)? onPhoneAuthError,
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (verifySentOTP != null) {
-      return verifySentOTP(otpCode);
+      return verifySentOTP(otpCode, verificationId);
     }
     return orElse();
   }
@@ -391,6 +481,12 @@ class _$_VerifySentOTPEvent
     required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
   }) {
     return verifySentOTP(this);
   }
@@ -404,6 +500,10 @@ class _$_VerifySentOTPEvent
     TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
   }) {
     return verifySentOTP?.call(this);
   }
@@ -417,6 +517,10 @@ class _$_VerifySentOTPEvent
     TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (verifySentOTP != null) {
@@ -427,10 +531,12 @@ class _$_VerifySentOTPEvent
 }
 
 abstract class _VerifySentOTPEvent implements RegisterEvent {
-  const factory _VerifySentOTPEvent({required final String otpCode}) =
-      _$_VerifySentOTPEvent;
+  const factory _VerifySentOTPEvent(
+      {required final String otpCode,
+      required final String verificationId}) = _$_VerifySentOTPEvent;
 
   String get otpCode;
+  String get verificationId;
   @JsonKey(ignore: true)
   _$$_VerifySentOTPEventCopyWith<_$_VerifySentOTPEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -442,7 +548,7 @@ abstract class _$$_OnPhoneOTPSentEventCopyWith<$Res> {
           $Res Function(_$_OnPhoneOTPSentEvent) then) =
       __$$_OnPhoneOTPSentEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({String verificationId, int? token});
+  $Res call({String verificationId, int? token, String phoneNumber});
 }
 
 /// @nodoc
@@ -458,6 +564,7 @@ class __$$_OnPhoneOTPSentEventCopyWithImpl<$Res>
   $Res call({
     Object? verificationId = null,
     Object? token = freezed,
+    Object? phoneNumber = null,
   }) {
     return _then(_$_OnPhoneOTPSentEvent(
       verificationId: null == verificationId
@@ -468,6 +575,10 @@ class __$$_OnPhoneOTPSentEventCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as int?,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -477,16 +588,19 @@ class __$$_OnPhoneOTPSentEventCopyWithImpl<$Res>
 class _$_OnPhoneOTPSentEvent
     with DiagnosticableTreeMixin
     implements _OnPhoneOTPSentEvent {
-  const _$_OnPhoneOTPSentEvent({required this.verificationId, this.token});
+  const _$_OnPhoneOTPSentEvent(
+      {required this.verificationId, this.token, required this.phoneNumber});
 
   @override
   final String verificationId;
   @override
   final int? token;
+  @override
+  final String phoneNumber;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterEvent.onPhoneOTPSent(verificationId: $verificationId, token: $token)';
+    return 'RegisterEvent.onPhoneOTPSent(verificationId: $verificationId, token: $token, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -495,7 +609,8 @@ class _$_OnPhoneOTPSentEvent
     properties
       ..add(DiagnosticsProperty('type', 'RegisterEvent.onPhoneOTPSent'))
       ..add(DiagnosticsProperty('verificationId', verificationId))
-      ..add(DiagnosticsProperty('token', token));
+      ..add(DiagnosticsProperty('token', token))
+      ..add(DiagnosticsProperty('phoneNumber', phoneNumber));
   }
 
   @override
@@ -505,11 +620,14 @@ class _$_OnPhoneOTPSentEvent
             other is _$_OnPhoneOTPSentEvent &&
             (identical(other.verificationId, verificationId) ||
                 other.verificationId == verificationId) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, verificationId, token);
+  int get hashCode =>
+      Object.hash(runtimeType, verificationId, token, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -522,41 +640,58 @@ class _$_OnPhoneOTPSentEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String number) sendOTPToPhone,
-    required TResult Function(String otpCode) verifySentOTP,
-    required TResult Function(String verificationId, int? token) onPhoneOTPSent,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
     required TResult Function(String error) onPhoneAuthError,
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
   }) {
-    return onPhoneOTPSent(verificationId, token);
+    return onPhoneOTPSent(verificationId, token, phoneNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String number)? sendOTPToPhone,
-    TResult? Function(String otpCode)? verifySentOTP,
-    TResult? Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult? Function(String error)? onPhoneAuthError,
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
   }) {
-    return onPhoneOTPSent?.call(verificationId, token);
+    return onPhoneOTPSent?.call(verificationId, token, phoneNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? sendOTPToPhone,
-    TResult Function(String otpCode)? verifySentOTP,
-    TResult Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult Function(String error)? onPhoneAuthError,
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (onPhoneOTPSent != null) {
-      return onPhoneOTPSent(verificationId, token);
+      return onPhoneOTPSent(verificationId, token, phoneNumber);
     }
     return orElse();
   }
@@ -570,6 +705,12 @@ class _$_OnPhoneOTPSentEvent
     required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
   }) {
     return onPhoneOTPSent(this);
   }
@@ -583,6 +724,10 @@ class _$_OnPhoneOTPSentEvent
     TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
   }) {
     return onPhoneOTPSent?.call(this);
   }
@@ -596,6 +741,10 @@ class _$_OnPhoneOTPSentEvent
     TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (onPhoneOTPSent != null) {
@@ -608,10 +757,12 @@ class _$_OnPhoneOTPSentEvent
 abstract class _OnPhoneOTPSentEvent implements RegisterEvent {
   const factory _OnPhoneOTPSentEvent(
       {required final String verificationId,
-      final int? token}) = _$_OnPhoneOTPSentEvent;
+      final int? token,
+      required final String phoneNumber}) = _$_OnPhoneOTPSentEvent;
 
   String get verificationId;
   int? get token;
+  String get phoneNumber;
   @JsonKey(ignore: true)
   _$$_OnPhoneOTPSentEventCopyWith<_$_OnPhoneOTPSentEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -693,11 +844,18 @@ class _$_OnPhoneAuthErrorEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String number) sendOTPToPhone,
-    required TResult Function(String otpCode) verifySentOTP,
-    required TResult Function(String verificationId, int? token) onPhoneOTPSent,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
     required TResult Function(String error) onPhoneAuthError,
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
   }) {
     return onPhoneAuthError(error);
   }
@@ -706,11 +864,16 @@ class _$_OnPhoneAuthErrorEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String number)? sendOTPToPhone,
-    TResult? Function(String otpCode)? verifySentOTP,
-    TResult? Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult? Function(String error)? onPhoneAuthError,
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
   }) {
     return onPhoneAuthError?.call(error);
   }
@@ -719,11 +882,16 @@ class _$_OnPhoneAuthErrorEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? sendOTPToPhone,
-    TResult Function(String otpCode)? verifySentOTP,
-    TResult Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult Function(String error)? onPhoneAuthError,
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (onPhoneAuthError != null) {
@@ -741,6 +909,12 @@ class _$_OnPhoneAuthErrorEvent
     required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
   }) {
     return onPhoneAuthError(this);
   }
@@ -754,6 +928,10 @@ class _$_OnPhoneAuthErrorEvent
     TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
   }) {
     return onPhoneAuthError?.call(this);
   }
@@ -767,6 +945,10 @@ class _$_OnPhoneAuthErrorEvent
     TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (onPhoneAuthError != null) {
@@ -868,11 +1050,18 @@ class _$_OnPhoneAuthVerificationCompleteEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String number) sendOTPToPhone,
-    required TResult Function(String otpCode) verifySentOTP,
-    required TResult Function(String verificationId, int? token) onPhoneOTPSent,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
     required TResult Function(String error) onPhoneAuthError,
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
   }) {
     return onPhoneAuthVerificationComplete(credential);
   }
@@ -881,11 +1070,16 @@ class _$_OnPhoneAuthVerificationCompleteEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String number)? sendOTPToPhone,
-    TResult? Function(String otpCode)? verifySentOTP,
-    TResult? Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult? Function(String error)? onPhoneAuthError,
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
   }) {
     return onPhoneAuthVerificationComplete?.call(credential);
   }
@@ -894,11 +1088,16 @@ class _$_OnPhoneAuthVerificationCompleteEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String number)? sendOTPToPhone,
-    TResult Function(String otpCode)? verifySentOTP,
-    TResult Function(String verificationId, int? token)? onPhoneOTPSent,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
     TResult Function(String error)? onPhoneAuthError,
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (onPhoneAuthVerificationComplete != null) {
@@ -916,6 +1115,12 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
   }) {
     return onPhoneAuthVerificationComplete(this);
   }
@@ -929,6 +1134,10 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
   }) {
     return onPhoneAuthVerificationComplete?.call(this);
   }
@@ -942,6 +1151,10 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
   }) {
     if (onPhoneAuthVerificationComplete != null) {
@@ -964,62 +1177,751 @@ abstract class _OnPhoneAuthVerificationCompleteEvent implements RegisterEvent {
 }
 
 /// @nodoc
-mixin _$RegisterState {
+abstract class _$$_PhoneChangedEventCopyWith<$Res> {
+  factory _$$_PhoneChangedEventCopyWith(_$_PhoneChangedEvent value,
+          $Res Function(_$_PhoneChangedEvent) then) =
+      __$$_PhoneChangedEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String phone});
+}
+
+/// @nodoc
+class __$$_PhoneChangedEventCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_PhoneChangedEvent>
+    implements _$$_PhoneChangedEventCopyWith<$Res> {
+  __$$_PhoneChangedEventCopyWithImpl(
+      _$_PhoneChangedEvent _value, $Res Function(_$_PhoneChangedEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? phone = null,
+  }) {
+    return _then(_$_PhoneChangedEvent(
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_PhoneChangedEvent
+    with DiagnosticableTreeMixin
+    implements _PhoneChangedEvent {
+  const _$_PhoneChangedEvent({required this.phone});
+
+  @override
+  final String phone;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RegisterEvent.phoneChanged(phone: $phone)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegisterEvent.phoneChanged'))
+      ..add(DiagnosticsProperty('phone', phone));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PhoneChangedEvent &&
+            (identical(other.phone, phone) || other.phone == phone));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, phone);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PhoneChangedEventCopyWith<_$_PhoneChangedEvent> get copyWith =>
+      __$$_PhoneChangedEventCopyWithImpl<_$_PhoneChangedEvent>(
+          this, _$identity);
+
+  @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String error) error,
-    required TResult Function() otpSentSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
+    required TResult Function(String number) sendOTPToPhone,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
+    required TResult Function(String error) onPhoneAuthError,
+    required TResult Function(AuthCredential credential)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
+  }) {
+    return phoneChanged(phone);
+  }
+
+  @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String error)? error,
-    TResult? Function()? otpSentSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
+    TResult? Function(String number)? sendOTPToPhone,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult? Function(String error)? onPhoneAuthError,
+    TResult? Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
+  }) {
+    return phoneChanged?.call(phone);
+  }
+
+  @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String error)? error,
-    TResult Function()? otpSentSuccess,
+    TResult Function(String number)? sendOTPToPhone,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult Function(String error)? onPhoneAuthError,
+    TResult Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) {
+    if (phoneChanged != null) {
+      return phoneChanged(phone);
+    }
+    return orElse();
+  }
+
+  @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RegistetrInitial value) initial,
-    required TResult Function(_RegistetrLoading value) loading,
-    required TResult Function(_RegistetrLoaded value) loaded,
-    required TResult Function(_RegistetrError value) error,
-    required TResult Function(_RegistetrOtpSentSuccess value) otpSentSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
+    required TResult Function(_SendOTPToPhoneEvent value) sendOTPToPhone,
+    required TResult Function(_VerifySentOTPEvent value) verifySentOTP,
+    required TResult Function(_OnPhoneOTPSentEvent value) onPhoneOTPSent,
+    required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
+    required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
+  }) {
+    return phoneChanged(this);
+  }
+
+  @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegistetrInitial value)? initial,
-    TResult? Function(_RegistetrLoading value)? loading,
-    TResult? Function(_RegistetrLoaded value)? loaded,
-    TResult? Function(_RegistetrError value)? error,
-    TResult? Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
+    TResult? Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult? Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult? Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+  }) {
+    return phoneChanged?.call(this);
+  }
+
+  @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegistetrInitial value)? initial,
-    TResult Function(_RegistetrLoading value)? loading,
-    TResult Function(_RegistetrLoaded value)? loaded,
-    TResult Function(_RegistetrError value)? error,
-    TResult Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
+    TResult Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
     required TResult orElse(),
-  }) =>
+  }) {
+    if (phoneChanged != null) {
+      return phoneChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PhoneChangedEvent implements RegisterEvent {
+  const factory _PhoneChangedEvent({required final String phone}) =
+      _$_PhoneChangedEvent;
+
+  String get phone;
+  @JsonKey(ignore: true)
+  _$$_PhoneChangedEventCopyWith<_$_PhoneChangedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_PhoneChangedPrefixEventCopyWith<$Res> {
+  factory _$$_PhoneChangedPrefixEventCopyWith(_$_PhoneChangedPrefixEvent value,
+          $Res Function(_$_PhoneChangedPrefixEvent) then) =
+      __$$_PhoneChangedPrefixEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String prefix});
+}
+
+/// @nodoc
+class __$$_PhoneChangedPrefixEventCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_PhoneChangedPrefixEvent>
+    implements _$$_PhoneChangedPrefixEventCopyWith<$Res> {
+  __$$_PhoneChangedPrefixEventCopyWithImpl(_$_PhoneChangedPrefixEvent _value,
+      $Res Function(_$_PhoneChangedPrefixEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? prefix = null,
+  }) {
+    return _then(_$_PhoneChangedPrefixEvent(
+      prefix: null == prefix
+          ? _value.prefix
+          : prefix // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_PhoneChangedPrefixEvent
+    with DiagnosticableTreeMixin
+    implements _PhoneChangedPrefixEvent {
+  const _$_PhoneChangedPrefixEvent({required this.prefix});
+
+  @override
+  final String prefix;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RegisterEvent.phoneChangedPrefix(prefix: $prefix)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegisterEvent.phoneChangedPrefix'))
+      ..add(DiagnosticsProperty('prefix', prefix));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PhoneChangedPrefixEvent &&
+            (identical(other.prefix, prefix) || other.prefix == prefix));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, prefix);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PhoneChangedPrefixEventCopyWith<_$_PhoneChangedPrefixEvent>
+      get copyWith =>
+          __$$_PhoneChangedPrefixEventCopyWithImpl<_$_PhoneChangedPrefixEvent>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String number) sendOTPToPhone,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
+    required TResult Function(String error) onPhoneAuthError,
+    required TResult Function(AuthCredential credential)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
+  }) {
+    return phoneChangedPrefix(prefix);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String number)? sendOTPToPhone,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult? Function(String error)? onPhoneAuthError,
+    TResult? Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
+  }) {
+    return phoneChangedPrefix?.call(prefix);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String number)? sendOTPToPhone,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult Function(String error)? onPhoneAuthError,
+    TResult Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (phoneChangedPrefix != null) {
+      return phoneChangedPrefix(prefix);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendOTPToPhoneEvent value) sendOTPToPhone,
+    required TResult Function(_VerifySentOTPEvent value) verifySentOTP,
+    required TResult Function(_OnPhoneOTPSentEvent value) onPhoneOTPSent,
+    required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
+    required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
+  }) {
+    return phoneChangedPrefix(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult? Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult? Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+  }) {
+    return phoneChangedPrefix?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (phoneChangedPrefix != null) {
+      return phoneChangedPrefix(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PhoneChangedPrefixEvent implements RegisterEvent {
+  const factory _PhoneChangedPrefixEvent({required final String prefix}) =
+      _$_PhoneChangedPrefixEvent;
+
+  String get prefix;
+  @JsonKey(ignore: true)
+  _$$_PhoneChangedPrefixEventCopyWith<_$_PhoneChangedPrefixEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_PhoneUnfocusedEventCopyWith<$Res> {
+  factory _$$_PhoneUnfocusedEventCopyWith(_$_PhoneUnfocusedEvent value,
+          $Res Function(_$_PhoneUnfocusedEvent) then) =
+      __$$_PhoneUnfocusedEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_PhoneUnfocusedEventCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_PhoneUnfocusedEvent>
+    implements _$$_PhoneUnfocusedEventCopyWith<$Res> {
+  __$$_PhoneUnfocusedEventCopyWithImpl(_$_PhoneUnfocusedEvent _value,
+      $Res Function(_$_PhoneUnfocusedEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_PhoneUnfocusedEvent
+    with DiagnosticableTreeMixin
+    implements _PhoneUnfocusedEvent {
+  const _$_PhoneUnfocusedEvent();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RegisterEvent.phoneUnfocused()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'RegisterEvent.phoneUnfocused'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_PhoneUnfocusedEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String number) sendOTPToPhone,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
+    required TResult Function(String error) onPhoneAuthError,
+    required TResult Function(AuthCredential credential)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
+  }) {
+    return phoneUnfocused();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String number)? sendOTPToPhone,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult? Function(String error)? onPhoneAuthError,
+    TResult? Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
+  }) {
+    return phoneUnfocused?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String number)? sendOTPToPhone,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult Function(String error)? onPhoneAuthError,
+    TResult Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (phoneUnfocused != null) {
+      return phoneUnfocused();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendOTPToPhoneEvent value) sendOTPToPhone,
+    required TResult Function(_VerifySentOTPEvent value) verifySentOTP,
+    required TResult Function(_OnPhoneOTPSentEvent value) onPhoneOTPSent,
+    required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
+    required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
+  }) {
+    return phoneUnfocused(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult? Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult? Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+  }) {
+    return phoneUnfocused?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (phoneUnfocused != null) {
+      return phoneUnfocused(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PhoneUnfocusedEvent implements RegisterEvent {
+  const factory _PhoneUnfocusedEvent() = _$_PhoneUnfocusedEvent;
+}
+
+/// @nodoc
+abstract class _$$_PhoneFormSubmittedEventCopyWith<$Res> {
+  factory _$$_PhoneFormSubmittedEventCopyWith(_$_PhoneFormSubmittedEvent value,
+          $Res Function(_$_PhoneFormSubmittedEvent) then) =
+      __$$_PhoneFormSubmittedEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_PhoneFormSubmittedEventCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_PhoneFormSubmittedEvent>
+    implements _$$_PhoneFormSubmittedEventCopyWith<$Res> {
+  __$$_PhoneFormSubmittedEventCopyWithImpl(_$_PhoneFormSubmittedEvent _value,
+      $Res Function(_$_PhoneFormSubmittedEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_PhoneFormSubmittedEvent
+    with DiagnosticableTreeMixin
+    implements _PhoneFormSubmittedEvent {
+  const _$_PhoneFormSubmittedEvent();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RegisterEvent.phoneFormSubmitted()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'RegisterEvent.phoneFormSubmitted'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PhoneFormSubmittedEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String number) sendOTPToPhone,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
+    required TResult Function(String error) onPhoneAuthError,
+    required TResult Function(AuthCredential credential)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
+  }) {
+    return phoneFormSubmitted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String number)? sendOTPToPhone,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult? Function(String error)? onPhoneAuthError,
+    TResult? Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
+  }) {
+    return phoneFormSubmitted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String number)? sendOTPToPhone,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult Function(String error)? onPhoneAuthError,
+    TResult Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (phoneFormSubmitted != null) {
+      return phoneFormSubmitted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendOTPToPhoneEvent value) sendOTPToPhone,
+    required TResult Function(_VerifySentOTPEvent value) verifySentOTP,
+    required TResult Function(_OnPhoneOTPSentEvent value) onPhoneOTPSent,
+    required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
+    required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
+  }) {
+    return phoneFormSubmitted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult? Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult? Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+  }) {
+    return phoneFormSubmitted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (phoneFormSubmitted != null) {
+      return phoneFormSubmitted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PhoneFormSubmittedEvent implements RegisterEvent {
+  const factory _PhoneFormSubmittedEvent() = _$_PhoneFormSubmittedEvent;
+}
+
+/// @nodoc
+mixin _$RegisterState {
+  PhoneFormz get phoneField => throw _privateConstructorUsedError;
+  FormzSubmissionStatus? get submissionStatus =>
+      throw _privateConstructorUsedError;
+  RegisterStatus get registerStatus => throw _privateConstructorUsedError;
+  String get prefix => throw _privateConstructorUsedError;
+  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get verificationId => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RegisterStateCopyWith<RegisterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1028,6 +1930,15 @@ abstract class $RegisterStateCopyWith<$Res> {
   factory $RegisterStateCopyWith(
           RegisterState value, $Res Function(RegisterState) then) =
       _$RegisterStateCopyWithImpl<$Res, RegisterState>;
+  @useResult
+  $Res call(
+      {PhoneFormz phoneField,
+      FormzSubmissionStatus? submissionStatus,
+      RegisterStatus registerStatus,
+      String prefix,
+      String? phoneNumber,
+      String? verificationId,
+      String? error});
 }
 
 /// @nodoc
@@ -1039,443 +1950,168 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? phoneField = null,
+    Object? submissionStatus = freezed,
+    Object? registerStatus = null,
+    Object? prefix = null,
+    Object? phoneNumber = freezed,
+    Object? verificationId = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      phoneField: null == phoneField
+          ? _value.phoneField
+          : phoneField // ignore: cast_nullable_to_non_nullable
+              as PhoneFormz,
+      submissionStatus: freezed == submissionStatus
+          ? _value.submissionStatus
+          : submissionStatus // ignore: cast_nullable_to_non_nullable
+              as FormzSubmissionStatus?,
+      registerStatus: null == registerStatus
+          ? _value.registerStatus
+          : registerStatus // ignore: cast_nullable_to_non_nullable
+              as RegisterStatus,
+      prefix: null == prefix
+          ? _value.prefix
+          : prefix // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: freezed == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      verificationId: freezed == verificationId
+          ? _value.verificationId
+          : verificationId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_RegistetrInitialCopyWith<$Res> {
-  factory _$$_RegistetrInitialCopyWith(
-          _$_RegistetrInitial value, $Res Function(_$_RegistetrInitial) then) =
-      __$$_RegistetrInitialCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_RegistetrInitialCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$_RegistetrInitial>
-    implements _$$_RegistetrInitialCopyWith<$Res> {
-  __$$_RegistetrInitialCopyWithImpl(
-      _$_RegistetrInitial _value, $Res Function(_$_RegistetrInitial) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_RegistetrInitial
-    with DiagnosticableTreeMixin
-    implements _RegistetrInitial {
-  const _$_RegistetrInitial();
-
+abstract class _$$_RegisterStateCopyWith<$Res>
+    implements $RegisterStateCopyWith<$Res> {
+  factory _$$_RegisterStateCopyWith(
+          _$_RegisterState value, $Res Function(_$_RegisterState) then) =
+      __$$_RegisterStateCopyWithImpl<$Res>;
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState.initial()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'RegisterState.initial'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_RegistetrInitial);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String error) error,
-    required TResult Function() otpSentSuccess,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String error)? error,
-    TResult? Function()? otpSentSuccess,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String error)? error,
-    TResult Function()? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RegistetrInitial value) initial,
-    required TResult Function(_RegistetrLoading value) loading,
-    required TResult Function(_RegistetrLoaded value) loaded,
-    required TResult Function(_RegistetrError value) error,
-    required TResult Function(_RegistetrOtpSentSuccess value) otpSentSuccess,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegistetrInitial value)? initial,
-    TResult? Function(_RegistetrLoading value)? loading,
-    TResult? Function(_RegistetrLoaded value)? loaded,
-    TResult? Function(_RegistetrError value)? error,
-    TResult? Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegistetrInitial value)? initial,
-    TResult Function(_RegistetrLoading value)? loading,
-    TResult Function(_RegistetrLoaded value)? loaded,
-    TResult Function(_RegistetrError value)? error,
-    TResult Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RegistetrInitial implements RegisterState {
-  const factory _RegistetrInitial() = _$_RegistetrInitial;
-}
-
-/// @nodoc
-abstract class _$$_RegistetrLoadingCopyWith<$Res> {
-  factory _$$_RegistetrLoadingCopyWith(
-          _$_RegistetrLoading value, $Res Function(_$_RegistetrLoading) then) =
-      __$$_RegistetrLoadingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_RegistetrLoadingCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$_RegistetrLoading>
-    implements _$$_RegistetrLoadingCopyWith<$Res> {
-  __$$_RegistetrLoadingCopyWithImpl(
-      _$_RegistetrLoading _value, $Res Function(_$_RegistetrLoading) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_RegistetrLoading
-    with DiagnosticableTreeMixin
-    implements _RegistetrLoading {
-  const _$_RegistetrLoading();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'RegisterState.loading'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_RegistetrLoading);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String error) error,
-    required TResult Function() otpSentSuccess,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String error)? error,
-    TResult? Function()? otpSentSuccess,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String error)? error,
-    TResult Function()? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RegistetrInitial value) initial,
-    required TResult Function(_RegistetrLoading value) loading,
-    required TResult Function(_RegistetrLoaded value) loaded,
-    required TResult Function(_RegistetrError value) error,
-    required TResult Function(_RegistetrOtpSentSuccess value) otpSentSuccess,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegistetrInitial value)? initial,
-    TResult? Function(_RegistetrLoading value)? loading,
-    TResult? Function(_RegistetrLoaded value)? loaded,
-    TResult? Function(_RegistetrError value)? error,
-    TResult? Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegistetrInitial value)? initial,
-    TResult Function(_RegistetrLoading value)? loading,
-    TResult Function(_RegistetrLoaded value)? loaded,
-    TResult Function(_RegistetrError value)? error,
-    TResult Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RegistetrLoading implements RegisterState {
-  const factory _RegistetrLoading() = _$_RegistetrLoading;
-}
-
-/// @nodoc
-abstract class _$$_RegistetrLoadedCopyWith<$Res> {
-  factory _$$_RegistetrLoadedCopyWith(
-          _$_RegistetrLoaded value, $Res Function(_$_RegistetrLoaded) then) =
-      __$$_RegistetrLoadedCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_RegistetrLoadedCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$_RegistetrLoaded>
-    implements _$$_RegistetrLoadedCopyWith<$Res> {
-  __$$_RegistetrLoadedCopyWithImpl(
-      _$_RegistetrLoaded _value, $Res Function(_$_RegistetrLoaded) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_RegistetrLoaded
-    with DiagnosticableTreeMixin
-    implements _RegistetrLoaded {
-  const _$_RegistetrLoaded();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState.loaded()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'RegisterState.loaded'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_RegistetrLoaded);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String error) error,
-    required TResult Function() otpSentSuccess,
-  }) {
-    return loaded();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String error)? error,
-    TResult? Function()? otpSentSuccess,
-  }) {
-    return loaded?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String error)? error,
-    TResult Function()? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RegistetrInitial value) initial,
-    required TResult Function(_RegistetrLoading value) loading,
-    required TResult Function(_RegistetrLoaded value) loaded,
-    required TResult Function(_RegistetrError value) error,
-    required TResult Function(_RegistetrOtpSentSuccess value) otpSentSuccess,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegistetrInitial value)? initial,
-    TResult? Function(_RegistetrLoading value)? loading,
-    TResult? Function(_RegistetrLoaded value)? loaded,
-    TResult? Function(_RegistetrError value)? error,
-    TResult? Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegistetrInitial value)? initial,
-    TResult Function(_RegistetrLoading value)? loading,
-    TResult Function(_RegistetrLoaded value)? loaded,
-    TResult Function(_RegistetrError value)? error,
-    TResult Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RegistetrLoaded implements RegisterState {
-  const factory _RegistetrLoaded() = _$_RegistetrLoaded;
-}
-
-/// @nodoc
-abstract class _$$_RegistetrErrorCopyWith<$Res> {
-  factory _$$_RegistetrErrorCopyWith(
-          _$_RegistetrError value, $Res Function(_$_RegistetrError) then) =
-      __$$_RegistetrErrorCopyWithImpl<$Res>;
   @useResult
-  $Res call({String error});
+  $Res call(
+      {PhoneFormz phoneField,
+      FormzSubmissionStatus? submissionStatus,
+      RegisterStatus registerStatus,
+      String prefix,
+      String? phoneNumber,
+      String? verificationId,
+      String? error});
 }
 
 /// @nodoc
-class __$$_RegistetrErrorCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$_RegistetrError>
-    implements _$$_RegistetrErrorCopyWith<$Res> {
-  __$$_RegistetrErrorCopyWithImpl(
-      _$_RegistetrError _value, $Res Function(_$_RegistetrError) _then)
+class __$$_RegisterStateCopyWithImpl<$Res>
+    extends _$RegisterStateCopyWithImpl<$Res, _$_RegisterState>
+    implements _$$_RegisterStateCopyWith<$Res> {
+  __$$_RegisterStateCopyWithImpl(
+      _$_RegisterState _value, $Res Function(_$_RegisterState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = null,
+    Object? phoneField = null,
+    Object? submissionStatus = freezed,
+    Object? registerStatus = null,
+    Object? prefix = null,
+    Object? phoneNumber = freezed,
+    Object? verificationId = freezed,
+    Object? error = freezed,
   }) {
-    return _then(_$_RegistetrError(
-      error: null == error
+    return _then(_$_RegisterState(
+      phoneField: null == phoneField
+          ? _value.phoneField
+          : phoneField // ignore: cast_nullable_to_non_nullable
+              as PhoneFormz,
+      submissionStatus: freezed == submissionStatus
+          ? _value.submissionStatus
+          : submissionStatus // ignore: cast_nullable_to_non_nullable
+              as FormzSubmissionStatus?,
+      registerStatus: null == registerStatus
+          ? _value.registerStatus
+          : registerStatus // ignore: cast_nullable_to_non_nullable
+              as RegisterStatus,
+      prefix: null == prefix
+          ? _value.prefix
+          : prefix // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: freezed == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      verificationId: freezed == verificationId
+          ? _value.verificationId
+          : verificationId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_RegistetrError
-    with DiagnosticableTreeMixin
-    implements _RegistetrError {
-  const _$_RegistetrError({required this.error});
+class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
+  const _$_RegisterState(
+      {this.phoneField = const PhoneFormz.pure(),
+      this.submissionStatus = FormzSubmissionStatus.canceled,
+      this.registerStatus = RegisterStatus.initial,
+      this.prefix = '+994',
+      this.phoneNumber,
+      this.verificationId,
+      this.error});
 
   @override
-  final String error;
+  @JsonKey()
+  final PhoneFormz phoneField;
+  @override
+  @JsonKey()
+  final FormzSubmissionStatus? submissionStatus;
+  @override
+  @JsonKey()
+  final RegisterStatus registerStatus;
+  @override
+  @JsonKey()
+  final String prefix;
+  @override
+  final String? phoneNumber;
+  @override
+  final String? verificationId;
+  @override
+  final String? error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState.error(error: $error)';
+    return 'RegisterState(phoneField: $phoneField, submissionStatus: $submissionStatus, registerStatus: $registerStatus, prefix: $prefix, phoneNumber: $phoneNumber, verificationId: $verificationId, error: $error)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'RegisterState.error'))
+      ..add(DiagnosticsProperty('type', 'RegisterState'))
+      ..add(DiagnosticsProperty('phoneField', phoneField))
+      ..add(DiagnosticsProperty('submissionStatus', submissionStatus))
+      ..add(DiagnosticsProperty('registerStatus', registerStatus))
+      ..add(DiagnosticsProperty('prefix', prefix))
+      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('verificationId', verificationId))
       ..add(DiagnosticsProperty('error', error));
   }
 
@@ -1483,235 +2119,58 @@ class _$_RegistetrError
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RegistetrError &&
+            other is _$_RegisterState &&
+            (identical(other.phoneField, phoneField) ||
+                other.phoneField == phoneField) &&
+            (identical(other.submissionStatus, submissionStatus) ||
+                other.submissionStatus == submissionStatus) &&
+            (identical(other.registerStatus, registerStatus) ||
+                other.registerStatus == registerStatus) &&
+            (identical(other.prefix, prefix) || other.prefix == prefix) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.verificationId, verificationId) ||
+                other.verificationId == verificationId) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, phoneField, submissionStatus,
+      registerStatus, prefix, phoneNumber, verificationId, error);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegistetrErrorCopyWith<_$_RegistetrError> get copyWith =>
-      __$$_RegistetrErrorCopyWithImpl<_$_RegistetrError>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String error) error,
-    required TResult Function() otpSentSuccess,
-  }) {
-    return error(this.error);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String error)? error,
-    TResult? Function()? otpSentSuccess,
-  }) {
-    return error?.call(this.error);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String error)? error,
-    TResult Function()? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this.error);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RegistetrInitial value) initial,
-    required TResult Function(_RegistetrLoading value) loading,
-    required TResult Function(_RegistetrLoaded value) loaded,
-    required TResult Function(_RegistetrError value) error,
-    required TResult Function(_RegistetrOtpSentSuccess value) otpSentSuccess,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegistetrInitial value)? initial,
-    TResult? Function(_RegistetrLoading value)? loading,
-    TResult? Function(_RegistetrLoaded value)? loaded,
-    TResult? Function(_RegistetrError value)? error,
-    TResult? Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegistetrInitial value)? initial,
-    TResult Function(_RegistetrLoading value)? loading,
-    TResult Function(_RegistetrLoaded value)? loaded,
-    TResult Function(_RegistetrError value)? error,
-    TResult Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
+  _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
+      __$$_RegisterStateCopyWithImpl<_$_RegisterState>(this, _$identity);
 }
 
-abstract class _RegistetrError implements RegisterState {
-  const factory _RegistetrError({required final String error}) =
-      _$_RegistetrError;
+abstract class _RegisterState implements RegisterState {
+  const factory _RegisterState(
+      {final PhoneFormz phoneField,
+      final FormzSubmissionStatus? submissionStatus,
+      final RegisterStatus registerStatus,
+      final String prefix,
+      final String? phoneNumber,
+      final String? verificationId,
+      final String? error}) = _$_RegisterState;
 
-  String get error;
+  @override
+  PhoneFormz get phoneField;
+  @override
+  FormzSubmissionStatus? get submissionStatus;
+  @override
+  RegisterStatus get registerStatus;
+  @override
+  String get prefix;
+  @override
+  String? get phoneNumber;
+  @override
+  String? get verificationId;
+  @override
+  String? get error;
+  @override
   @JsonKey(ignore: true)
-  _$$_RegistetrErrorCopyWith<_$_RegistetrError> get copyWith =>
+  _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_RegistetrOtpSentSuccessCopyWith<$Res> {
-  factory _$$_RegistetrOtpSentSuccessCopyWith(_$_RegistetrOtpSentSuccess value,
-          $Res Function(_$_RegistetrOtpSentSuccess) then) =
-      __$$_RegistetrOtpSentSuccessCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_RegistetrOtpSentSuccessCopyWithImpl<$Res>
-    extends _$RegisterStateCopyWithImpl<$Res, _$_RegistetrOtpSentSuccess>
-    implements _$$_RegistetrOtpSentSuccessCopyWith<$Res> {
-  __$$_RegistetrOtpSentSuccessCopyWithImpl(_$_RegistetrOtpSentSuccess _value,
-      $Res Function(_$_RegistetrOtpSentSuccess) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_RegistetrOtpSentSuccess
-    with DiagnosticableTreeMixin
-    implements _RegistetrOtpSentSuccess {
-  const _$_RegistetrOtpSentSuccess();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState.otpSentSuccess()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'RegisterState.otpSentSuccess'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_RegistetrOtpSentSuccess);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() loaded,
-    required TResult Function(String error) error,
-    required TResult Function() otpSentSuccess,
-  }) {
-    return otpSentSuccess();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? loaded,
-    TResult? Function(String error)? error,
-    TResult? Function()? otpSentSuccess,
-  }) {
-    return otpSentSuccess?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? loaded,
-    TResult Function(String error)? error,
-    TResult Function()? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (otpSentSuccess != null) {
-      return otpSentSuccess();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RegistetrInitial value) initial,
-    required TResult Function(_RegistetrLoading value) loading,
-    required TResult Function(_RegistetrLoaded value) loaded,
-    required TResult Function(_RegistetrError value) error,
-    required TResult Function(_RegistetrOtpSentSuccess value) otpSentSuccess,
-  }) {
-    return otpSentSuccess(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RegistetrInitial value)? initial,
-    TResult? Function(_RegistetrLoading value)? loading,
-    TResult? Function(_RegistetrLoaded value)? loaded,
-    TResult? Function(_RegistetrError value)? error,
-    TResult? Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-  }) {
-    return otpSentSuccess?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RegistetrInitial value)? initial,
-    TResult Function(_RegistetrLoading value)? loading,
-    TResult Function(_RegistetrLoaded value)? loaded,
-    TResult Function(_RegistetrError value)? error,
-    TResult Function(_RegistetrOtpSentSuccess value)? otpSentSuccess,
-    required TResult orElse(),
-  }) {
-    if (otpSentSuccess != null) {
-      return otpSentSuccess(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _RegistetrOtpSentSuccess implements RegisterState {
-  const factory _RegistetrOtpSentSuccess() = _$_RegistetrOtpSentSuccess;
 }
