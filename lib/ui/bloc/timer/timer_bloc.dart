@@ -20,6 +20,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       : _ticker = ticker,
         super(const TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
+    on<TimerResending>(_onResending);
     on<_TimerTicked>(_onTicked);
   }
 
@@ -49,4 +50,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
           : const TimerRunComplete(),
     );
   }
+
+  void _onResending(
+    TimerResending event,
+    Emitter<TimerState> emit,
+  ) =>
+      emit(const TimerRunResending());
 }

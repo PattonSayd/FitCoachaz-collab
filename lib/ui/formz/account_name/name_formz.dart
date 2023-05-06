@@ -1,15 +1,15 @@
 import 'package:formz/formz.dart';
 
-class Name extends FormzInput<String, String> {
-  const Name.pure([super.value = '']) : super.pure();
-  const Name.dirty([super.value = '']) : super.dirty();
+class NameFormz extends FormzInput<String, String> {
+  const NameFormz.pure([super.value = '']) : super.pure();
+  const NameFormz.dirty([super.value = '']) : super.dirty();
 
   static final RegExp _regExp =
       RegExp(r"^[\p{L}]*$", caseSensitive: false, unicode: true, dotAll: true);
 
   @override
   String? validator(String value) {
-    if (value.length < 4) {
+    if (value.length < 3) {
       return 'Entered too short';
     }
 

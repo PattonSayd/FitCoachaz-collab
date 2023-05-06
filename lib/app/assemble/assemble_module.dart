@@ -4,7 +4,6 @@ import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
 import 'package:fitcoachaz/domain/repositories/email_repository.dart';
-import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -18,7 +17,6 @@ import '../../ui/bloc/account_name/account_name_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
-import '../../ui/formz/phone_field/phone_field_bloc.dart';
 
 @module
 abstract class AssembleModule {
@@ -46,18 +44,12 @@ abstract class AssembleModule {
         authService: authService,
       );
 
-  @lazySingleton
+  @injectable
   RegisterBloc providerRegisterBloc(RegisterRepository repository) =>
       RegisterBloc(repository: repository);
 
   @injectable
-  PhoneFieldBloc providerPhoneFieldBloc() => PhoneFieldBloc();
-
-  @injectable
   TimerBloc providerTimerBloc(Ticker ticker) => TimerBloc(ticker: ticker);
-
-  @lazySingleton
-  OtpBloc providerOtpBloc() => OtpBloc();
 
   @injectable
   EmailRepository providerEmailRepository(

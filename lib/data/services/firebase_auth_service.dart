@@ -14,7 +14,7 @@ class FirebaseAuthService {
     required void Function(String, int?) codeSent,
     required void Function(String) codeAutoRetrievalTimeout,
     String? autoRetrievedSmsCodeForTesting,
-    Duration timeout = const Duration(seconds: 30),
+    required Duration timeout,
     int? forceResendingToken,
     MultiFactorSession? multiFactorSession,
   }) async {
@@ -23,7 +23,9 @@ class FirebaseAuthService {
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
       codeSent: codeSent,
+      timeout: timeout,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      forceResendingToken: forceResendingToken,
     );
   }
 }

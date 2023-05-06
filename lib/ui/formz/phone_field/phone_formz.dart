@@ -1,8 +1,8 @@
 import 'package:formz/formz.dart';
 
-class PhoneField extends FormzInput<String, String> {
-  const PhoneField.pure([super.value = '']) : super.pure();
-  const PhoneField.dirty([super.value = '']) : super.dirty();
+class PhoneFormz extends FormzInput<String, String> {
+  const PhoneFormz.pure([super.value = '']) : super.pure();
+  const PhoneFormz.dirty([super.value = '']) : super.dirty();
 
   static final _phoneNumRegex =
       RegExp(r"\(50\)|\(51\)|\(55\)|\(77\)|\(70\)|\(10\)\(99\)");

@@ -9,6 +9,7 @@ import 'package:fitcoachaz/logger.dart';
 part 'email_event.dart';
 part 'email_state.dart';
 
+//change to freezed and Formz
 class EmailBloc extends Bloc<EmailEvent, EmailState> {
   EmailBloc({required EmailRepository repository})
       : _repository = repository,

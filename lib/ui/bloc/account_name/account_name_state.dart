@@ -4,14 +4,14 @@ enum AccStatus { unknown, valid, invalid, loading, success }
 
 class AccountNameState extends Equatable {
   const AccountNameState._({
-    this.name = const Name.pure(),
-    this.surn = const Surname.pure(),
+    this.name = const NameFormz.pure(),
+    this.surn = const SurnameFormz.pure(),
     this.status = FormzSubmissionStatus.canceled,
     this.error,
   });
 
-  final Name name;
-  final Surname surn;
+  final NameFormz name;
+  final SurnameFormz surn;
   final FormzSubmissionStatus status;
   final String? error;
 
@@ -21,8 +21,8 @@ class AccountNameState extends Equatable {
   List<Object> get props => [name, surn, status];
 
   AccountNameState copyWith({
-    Name? name,
-    Surname? surn,
+    NameFormz? name,
+    SurnameFormz? surn,
     FormzSubmissionStatus? status,
     String? error,
   }) {
@@ -34,11 +34,3 @@ class AccountNameState extends Equatable {
     );
   }
 }
-
-  // const AccountNameState.valid(Formify name)
-  //     : this._(name: name, status: AccStatus.valid);
-  // const AccountNameState.invalid() : this._(status: AccStatus.invalid);
-  // const AccountNameState.loading() : this._(status: AccStatus.loading);
-  // const AccountNameState.success() : this._(status: AccStatus.success);
-  // const AccountNameState.error(String? msg)
-  //     : this._(msg: msg, status: AccStatus.invalid);

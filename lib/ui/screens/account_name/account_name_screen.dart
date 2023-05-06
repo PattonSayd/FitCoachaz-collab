@@ -50,7 +50,22 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            FocusScope.of(context).unfocus();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutesName.welcome,
+              (route) => false,
+            );
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.black,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

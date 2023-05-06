@@ -1,7 +1,7 @@
-import 'package:fitcoachaz/data/helpers/table_key.dart';
+import 'package:fitcoachaz/data/storage/table_key.dart';
 
 import '../services/firestore_service.dart';
-import '../storage/sharedPrefs/key_store.dart';
+import '../storage/key_store.dart';
 import '../storage/sharedPrefs/key_value_store.dart';
 import '../../domain/repositories/congratulation_repository.dart';
 

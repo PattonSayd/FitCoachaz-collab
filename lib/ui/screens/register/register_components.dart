@@ -11,7 +11,7 @@ var maskFormatter = MaskTextInputFormatter(
   filter: {"#": RegExp(r'[0-9]')},
 );
 
-class PhoneInput extends StatelessWidget {
+class PhoneField extends StatelessWidget {
   final FocusNode focus;
   final void Function(String) onChanged;
   final void Function(String)? onSelected;
@@ -22,7 +22,7 @@ class PhoneInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
 
-  const PhoneInput({
+  const PhoneField({
     Key? key,
     required this.focus,
     required this.onChanged,

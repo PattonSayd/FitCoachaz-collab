@@ -1,5 +1,6 @@
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
+import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,6 +16,7 @@ class WelcomeScreen extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
+        backgroundColor: AppColors.black,
         resizeToAvoidBottomInset: false,
         body: Container(
           decoration: BoxDecoration(

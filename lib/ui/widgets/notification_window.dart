@@ -5,10 +5,10 @@ import '../theme/app_colors.dart';
 class NotificationWindow extends StatelessWidget {
   const NotificationWindow({
     Key? key,
-    required this.alertText,
+    this.alertText,
   }) : super(key: key);
 
-  final String alertText;
+  final String? alertText;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class NotificationWindow extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Text(
-                      alertText,
+                      alertText ?? 'Opps',
                       softWrap: true,
                     ),
                   ),
