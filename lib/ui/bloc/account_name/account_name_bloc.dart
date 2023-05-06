@@ -13,6 +13,7 @@ import '../../../logger.dart';
 part 'account_name_event.dart';
 part 'account_name_state.dart';
 
+//change to freezed and Formz
 class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
   AccountNameBloc({required AccountNameRepository repository})
       : _repository = repository,
