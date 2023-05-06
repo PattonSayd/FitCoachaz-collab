@@ -9,6 +9,10 @@ class TimerStarted extends TimerEvent {
   final int duration;
 }
 
+class TimerResending extends TimerEvent {
+  const TimerResending();
+}
+
 class _TimerTicked extends TimerEvent {
   const _TimerTicked({required this.duration});
   final int duration;

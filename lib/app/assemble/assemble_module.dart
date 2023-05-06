@@ -4,7 +4,6 @@ import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
 import 'package:fitcoachaz/domain/repositories/email_repository.dart';
-import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -51,9 +50,6 @@ abstract class AssembleModule {
 
   @injectable
   TimerBloc providerTimerBloc(Ticker ticker) => TimerBloc(ticker: ticker);
-
-  @lazySingleton
-  OtpBloc providerOtpBloc() => OtpBloc();
 
   @injectable
   EmailRepository providerEmailRepository(

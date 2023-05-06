@@ -28,6 +28,7 @@ mixin _$RegisterEvent {
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -43,6 +44,7 @@ mixin _$RegisterEvent {
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -58,6 +60,7 @@ mixin _$RegisterEvent {
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -73,6 +76,7 @@ mixin _$RegisterEvent {
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -89,6 +93,7 @@ mixin _$RegisterEvent {
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -103,6 +108,7 @@ mixin _$RegisterEvent {
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -214,6 +220,7 @@ class _$_SendOTPToPhoneEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -232,6 +239,7 @@ class _$_SendOTPToPhoneEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -250,6 +258,7 @@ class _$_SendOTPToPhoneEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -271,6 +280,7 @@ class _$_SendOTPToPhoneEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -290,6 +300,7 @@ class _$_SendOTPToPhoneEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -307,6 +318,7 @@ class _$_SendOTPToPhoneEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -425,6 +437,7 @@ class _$_VerifySentOTPEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -443,6 +456,7 @@ class _$_VerifySentOTPEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -461,6 +475,7 @@ class _$_VerifySentOTPEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -482,6 +497,7 @@ class _$_VerifySentOTPEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -501,6 +517,7 @@ class _$_VerifySentOTPEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -518,6 +535,7 @@ class _$_VerifySentOTPEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -649,6 +667,7 @@ class _$_OnPhoneOTPSentEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -667,6 +686,7 @@ class _$_OnPhoneOTPSentEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -685,6 +705,7 @@ class _$_OnPhoneOTPSentEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -706,6 +727,7 @@ class _$_OnPhoneOTPSentEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -725,6 +747,7 @@ class _$_OnPhoneOTPSentEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -742,6 +765,7 @@ class _$_OnPhoneOTPSentEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -853,6 +877,7 @@ class _$_OnPhoneAuthErrorEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -871,6 +896,7 @@ class _$_OnPhoneAuthErrorEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -889,6 +915,7 @@ class _$_OnPhoneAuthErrorEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -910,6 +937,7 @@ class _$_OnPhoneAuthErrorEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -929,6 +957,7 @@ class _$_OnPhoneAuthErrorEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -946,6 +975,7 @@ class _$_OnPhoneAuthErrorEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1059,6 +1089,7 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -1077,6 +1108,7 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -1095,6 +1127,7 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -1116,6 +1149,7 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -1135,6 +1169,7 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1152,6 +1187,7 @@ class _$_OnPhoneAuthVerificationCompleteEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1261,6 +1297,7 @@ class _$_PhoneChangedEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -1279,6 +1316,7 @@ class _$_PhoneChangedEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -1297,6 +1335,7 @@ class _$_PhoneChangedEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -1318,6 +1357,7 @@ class _$_PhoneChangedEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -1337,6 +1377,7 @@ class _$_PhoneChangedEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1354,6 +1395,7 @@ class _$_PhoneChangedEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1373,6 +1415,211 @@ abstract class _PhoneChangedEvent implements RegisterEvent {
   String get phone;
   @JsonKey(ignore: true)
   _$$_PhoneChangedEventCopyWith<_$_PhoneChangedEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OtpChangedEventCopyWith<$Res> {
+  factory _$$_OtpChangedEventCopyWith(
+          _$_OtpChangedEvent value, $Res Function(_$_OtpChangedEvent) then) =
+      __$$_OtpChangedEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String otpCode});
+}
+
+/// @nodoc
+class __$$_OtpChangedEventCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_OtpChangedEvent>
+    implements _$$_OtpChangedEventCopyWith<$Res> {
+  __$$_OtpChangedEventCopyWithImpl(
+      _$_OtpChangedEvent _value, $Res Function(_$_OtpChangedEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? otpCode = null,
+  }) {
+    return _then(_$_OtpChangedEvent(
+      otpCode: null == otpCode
+          ? _value.otpCode
+          : otpCode // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_OtpChangedEvent
+    with DiagnosticableTreeMixin
+    implements _OtpChangedEvent {
+  const _$_OtpChangedEvent({required this.otpCode});
+
+  @override
+  final String otpCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RegisterEvent.otpChanged(otpCode: $otpCode)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RegisterEvent.otpChanged'))
+      ..add(DiagnosticsProperty('otpCode', otpCode));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OtpChangedEvent &&
+            (identical(other.otpCode, otpCode) || other.otpCode == otpCode));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, otpCode);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OtpChangedEventCopyWith<_$_OtpChangedEvent> get copyWith =>
+      __$$_OtpChangedEventCopyWithImpl<_$_OtpChangedEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String number) sendOTPToPhone,
+    required TResult Function(String otpCode, String verificationId)
+        verifySentOTP,
+    required TResult Function(
+            String verificationId, int? token, String phoneNumber)
+        onPhoneOTPSent,
+    required TResult Function(String error) onPhoneAuthError,
+    required TResult Function(AuthCredential credential)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
+    required TResult Function(String prefix) phoneChangedPrefix,
+    required TResult Function() phoneUnfocused,
+    required TResult Function() phoneFormSubmitted,
+  }) {
+    return otpChanged(otpCode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String number)? sendOTPToPhone,
+    TResult? Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult? Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult? Function(String error)? onPhoneAuthError,
+    TResult? Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
+    TResult? Function(String prefix)? phoneChangedPrefix,
+    TResult? Function()? phoneUnfocused,
+    TResult? Function()? phoneFormSubmitted,
+  }) {
+    return otpChanged?.call(otpCode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String number)? sendOTPToPhone,
+    TResult Function(String otpCode, String verificationId)? verifySentOTP,
+    TResult Function(String verificationId, int? token, String phoneNumber)?
+        onPhoneOTPSent,
+    TResult Function(String error)? onPhoneAuthError,
+    TResult Function(AuthCredential credential)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
+    TResult Function(String prefix)? phoneChangedPrefix,
+    TResult Function()? phoneUnfocused,
+    TResult Function()? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (otpChanged != null) {
+      return otpChanged(otpCode);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendOTPToPhoneEvent value) sendOTPToPhone,
+    required TResult Function(_VerifySentOTPEvent value) verifySentOTP,
+    required TResult Function(_OnPhoneOTPSentEvent value) onPhoneOTPSent,
+    required TResult Function(_OnPhoneAuthErrorEvent value) onPhoneAuthError,
+    required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
+        onPhoneAuthVerificationComplete,
+    required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
+    required TResult Function(_PhoneChangedPrefixEvent value)
+        phoneChangedPrefix,
+    required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
+    required TResult Function(_PhoneFormSubmittedEvent value)
+        phoneFormSubmitted,
+  }) {
+    return otpChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult? Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult? Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult? Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
+    TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+  }) {
+    return otpChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendOTPToPhoneEvent value)? sendOTPToPhone,
+    TResult Function(_VerifySentOTPEvent value)? verifySentOTP,
+    TResult Function(_OnPhoneOTPSentEvent value)? onPhoneOTPSent,
+    TResult Function(_OnPhoneAuthErrorEvent value)? onPhoneAuthError,
+    TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
+        onPhoneAuthVerificationComplete,
+    TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
+    TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
+    TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
+    TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
+    required TResult orElse(),
+  }) {
+    if (otpChanged != null) {
+      return otpChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OtpChangedEvent implements RegisterEvent {
+  const factory _OtpChangedEvent({required final String otpCode}) =
+      _$_OtpChangedEvent;
+
+  String get otpCode;
+  @JsonKey(ignore: true)
+  _$$_OtpChangedEventCopyWith<_$_OtpChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1462,6 +1709,7 @@ class _$_PhoneChangedPrefixEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -1480,6 +1728,7 @@ class _$_PhoneChangedPrefixEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -1498,6 +1747,7 @@ class _$_PhoneChangedPrefixEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -1519,6 +1769,7 @@ class _$_PhoneChangedPrefixEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -1538,6 +1789,7 @@ class _$_PhoneChangedPrefixEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1555,6 +1807,7 @@ class _$_PhoneChangedPrefixEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1633,6 +1886,7 @@ class _$_PhoneUnfocusedEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -1651,6 +1905,7 @@ class _$_PhoneUnfocusedEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -1669,6 +1924,7 @@ class _$_PhoneUnfocusedEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -1690,6 +1946,7 @@ class _$_PhoneUnfocusedEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -1709,6 +1966,7 @@ class _$_PhoneUnfocusedEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1726,6 +1984,7 @@ class _$_PhoneUnfocusedEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1800,6 +2059,7 @@ class _$_PhoneFormSubmittedEvent
     required TResult Function(AuthCredential credential)
         onPhoneAuthVerificationComplete,
     required TResult Function(String phone) phoneChanged,
+    required TResult Function(String otpCode) otpChanged,
     required TResult Function(String prefix) phoneChangedPrefix,
     required TResult Function() phoneUnfocused,
     required TResult Function() phoneFormSubmitted,
@@ -1818,6 +2078,7 @@ class _$_PhoneFormSubmittedEvent
     TResult? Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult? Function(String phone)? phoneChanged,
+    TResult? Function(String otpCode)? otpChanged,
     TResult? Function(String prefix)? phoneChangedPrefix,
     TResult? Function()? phoneUnfocused,
     TResult? Function()? phoneFormSubmitted,
@@ -1836,6 +2097,7 @@ class _$_PhoneFormSubmittedEvent
     TResult Function(AuthCredential credential)?
         onPhoneAuthVerificationComplete,
     TResult Function(String phone)? phoneChanged,
+    TResult Function(String otpCode)? otpChanged,
     TResult Function(String prefix)? phoneChangedPrefix,
     TResult Function()? phoneUnfocused,
     TResult Function()? phoneFormSubmitted,
@@ -1857,6 +2119,7 @@ class _$_PhoneFormSubmittedEvent
     required TResult Function(_OnPhoneAuthVerificationCompleteEvent value)
         onPhoneAuthVerificationComplete,
     required TResult Function(_PhoneChangedEvent value) phoneChanged,
+    required TResult Function(_OtpChangedEvent value) otpChanged,
     required TResult Function(_PhoneChangedPrefixEvent value)
         phoneChangedPrefix,
     required TResult Function(_PhoneUnfocusedEvent value) phoneUnfocused,
@@ -1876,6 +2139,7 @@ class _$_PhoneFormSubmittedEvent
     TResult? Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult? Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult? Function(_OtpChangedEvent value)? otpChanged,
     TResult? Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult? Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult? Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1893,6 +2157,7 @@ class _$_PhoneFormSubmittedEvent
     TResult Function(_OnPhoneAuthVerificationCompleteEvent value)?
         onPhoneAuthVerificationComplete,
     TResult Function(_PhoneChangedEvent value)? phoneChanged,
+    TResult Function(_OtpChangedEvent value)? otpChanged,
     TResult Function(_PhoneChangedPrefixEvent value)? phoneChangedPrefix,
     TResult Function(_PhoneUnfocusedEvent value)? phoneUnfocused,
     TResult Function(_PhoneFormSubmittedEvent value)? phoneFormSubmitted,
@@ -1912,6 +2177,7 @@ abstract class _PhoneFormSubmittedEvent implements RegisterEvent {
 /// @nodoc
 mixin _$RegisterState {
   PhoneFormz get phoneField => throw _privateConstructorUsedError;
+  OtpFormz get otpField => throw _privateConstructorUsedError;
   FormzSubmissionStatus? get submissionStatus =>
       throw _privateConstructorUsedError;
   RegisterStatus get registerStatus => throw _privateConstructorUsedError;
@@ -1933,6 +2199,7 @@ abstract class $RegisterStateCopyWith<$Res> {
   @useResult
   $Res call(
       {PhoneFormz phoneField,
+      OtpFormz otpField,
       FormzSubmissionStatus? submissionStatus,
       RegisterStatus registerStatus,
       String prefix,
@@ -1955,6 +2222,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
   @override
   $Res call({
     Object? phoneField = null,
+    Object? otpField = null,
     Object? submissionStatus = freezed,
     Object? registerStatus = null,
     Object? prefix = null,
@@ -1967,6 +2235,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
           ? _value.phoneField
           : phoneField // ignore: cast_nullable_to_non_nullable
               as PhoneFormz,
+      otpField: null == otpField
+          ? _value.otpField
+          : otpField // ignore: cast_nullable_to_non_nullable
+              as OtpFormz,
       submissionStatus: freezed == submissionStatus
           ? _value.submissionStatus
           : submissionStatus // ignore: cast_nullable_to_non_nullable
@@ -2005,6 +2277,7 @@ abstract class _$$_RegisterStateCopyWith<$Res>
   @useResult
   $Res call(
       {PhoneFormz phoneField,
+      OtpFormz otpField,
       FormzSubmissionStatus? submissionStatus,
       RegisterStatus registerStatus,
       String prefix,
@@ -2025,6 +2298,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? phoneField = null,
+    Object? otpField = null,
     Object? submissionStatus = freezed,
     Object? registerStatus = null,
     Object? prefix = null,
@@ -2037,6 +2311,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
           ? _value.phoneField
           : phoneField // ignore: cast_nullable_to_non_nullable
               as PhoneFormz,
+      otpField: null == otpField
+          ? _value.otpField
+          : otpField // ignore: cast_nullable_to_non_nullable
+              as OtpFormz,
       submissionStatus: freezed == submissionStatus
           ? _value.submissionStatus
           : submissionStatus // ignore: cast_nullable_to_non_nullable
@@ -2070,6 +2348,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
 class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
   const _$_RegisterState(
       {this.phoneField = const PhoneFormz.pure(),
+      this.otpField = const OtpFormz.pure(),
       this.submissionStatus = FormzSubmissionStatus.canceled,
       this.registerStatus = RegisterStatus.initial,
       this.prefix = '+994',
@@ -2080,6 +2359,9 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
   @override
   @JsonKey()
   final PhoneFormz phoneField;
+  @override
+  @JsonKey()
+  final OtpFormz otpField;
   @override
   @JsonKey()
   final FormzSubmissionStatus? submissionStatus;
@@ -2098,7 +2380,7 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState(phoneField: $phoneField, submissionStatus: $submissionStatus, registerStatus: $registerStatus, prefix: $prefix, phoneNumber: $phoneNumber, verificationId: $verificationId, error: $error)';
+    return 'RegisterState(phoneField: $phoneField, otpField: $otpField, submissionStatus: $submissionStatus, registerStatus: $registerStatus, prefix: $prefix, phoneNumber: $phoneNumber, verificationId: $verificationId, error: $error)';
   }
 
   @override
@@ -2107,6 +2389,7 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
     properties
       ..add(DiagnosticsProperty('type', 'RegisterState'))
       ..add(DiagnosticsProperty('phoneField', phoneField))
+      ..add(DiagnosticsProperty('otpField', otpField))
       ..add(DiagnosticsProperty('submissionStatus', submissionStatus))
       ..add(DiagnosticsProperty('registerStatus', registerStatus))
       ..add(DiagnosticsProperty('prefix', prefix))
@@ -2122,6 +2405,8 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
             other is _$_RegisterState &&
             (identical(other.phoneField, phoneField) ||
                 other.phoneField == phoneField) &&
+            (identical(other.otpField, otpField) ||
+                other.otpField == otpField) &&
             (identical(other.submissionStatus, submissionStatus) ||
                 other.submissionStatus == submissionStatus) &&
             (identical(other.registerStatus, registerStatus) ||
@@ -2135,8 +2420,16 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phoneField, submissionStatus,
-      registerStatus, prefix, phoneNumber, verificationId, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      phoneField,
+      otpField,
+      submissionStatus,
+      registerStatus,
+      prefix,
+      phoneNumber,
+      verificationId,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -2148,6 +2441,7 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
 abstract class _RegisterState implements RegisterState {
   const factory _RegisterState(
       {final PhoneFormz phoneField,
+      final OtpFormz otpField,
       final FormzSubmissionStatus? submissionStatus,
       final RegisterStatus registerStatus,
       final String prefix,
@@ -2157,6 +2451,8 @@ abstract class _RegisterState implements RegisterState {
 
   @override
   PhoneFormz get phoneField;
+  @override
+  OtpFormz get otpField;
   @override
   FormzSubmissionStatus? get submissionStatus;
   @override
@@ -2172,5 +2468,154 @@ abstract class _RegisterState implements RegisterState {
   @override
   @JsonKey(ignore: true)
   _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ResendCodeResult {
+  bool get shouldResend => throw _privateConstructorUsedError;
+  int get timeRequired => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ResendCodeResultCopyWith<ResendCodeResult> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResendCodeResultCopyWith<$Res> {
+  factory $ResendCodeResultCopyWith(
+          ResendCodeResult value, $Res Function(ResendCodeResult) then) =
+      _$ResendCodeResultCopyWithImpl<$Res, ResendCodeResult>;
+  @useResult
+  $Res call({bool shouldResend, int timeRequired});
+}
+
+/// @nodoc
+class _$ResendCodeResultCopyWithImpl<$Res, $Val extends ResendCodeResult>
+    implements $ResendCodeResultCopyWith<$Res> {
+  _$ResendCodeResultCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shouldResend = null,
+    Object? timeRequired = null,
+  }) {
+    return _then(_value.copyWith(
+      shouldResend: null == shouldResend
+          ? _value.shouldResend
+          : shouldResend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      timeRequired: null == timeRequired
+          ? _value.timeRequired
+          : timeRequired // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ResendCodeResultCopyWith<$Res>
+    implements $ResendCodeResultCopyWith<$Res> {
+  factory _$$_ResendCodeResultCopyWith(
+          _$_ResendCodeResult value, $Res Function(_$_ResendCodeResult) then) =
+      __$$_ResendCodeResultCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool shouldResend, int timeRequired});
+}
+
+/// @nodoc
+class __$$_ResendCodeResultCopyWithImpl<$Res>
+    extends _$ResendCodeResultCopyWithImpl<$Res, _$_ResendCodeResult>
+    implements _$$_ResendCodeResultCopyWith<$Res> {
+  __$$_ResendCodeResultCopyWithImpl(
+      _$_ResendCodeResult _value, $Res Function(_$_ResendCodeResult) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shouldResend = null,
+    Object? timeRequired = null,
+  }) {
+    return _then(_$_ResendCodeResult(
+      shouldResend: null == shouldResend
+          ? _value.shouldResend
+          : shouldResend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      timeRequired: null == timeRequired
+          ? _value.timeRequired
+          : timeRequired // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ResendCodeResult
+    with DiagnosticableTreeMixin
+    implements _ResendCodeResult {
+  const _$_ResendCodeResult(
+      {required this.shouldResend, required this.timeRequired});
+
+  @override
+  final bool shouldResend;
+  @override
+  final int timeRequired;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ResendCodeResult(shouldResend: $shouldResend, timeRequired: $timeRequired)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ResendCodeResult'))
+      ..add(DiagnosticsProperty('shouldResend', shouldResend))
+      ..add(DiagnosticsProperty('timeRequired', timeRequired));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ResendCodeResult &&
+            (identical(other.shouldResend, shouldResend) ||
+                other.shouldResend == shouldResend) &&
+            (identical(other.timeRequired, timeRequired) ||
+                other.timeRequired == timeRequired));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, shouldResend, timeRequired);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ResendCodeResultCopyWith<_$_ResendCodeResult> get copyWith =>
+      __$$_ResendCodeResultCopyWithImpl<_$_ResendCodeResult>(this, _$identity);
+}
+
+abstract class _ResendCodeResult implements ResendCodeResult {
+  const factory _ResendCodeResult(
+      {required final bool shouldResend,
+      required final int timeRequired}) = _$_ResendCodeResult;
+
+  @override
+  bool get shouldResend;
+  @override
+  int get timeRequired;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ResendCodeResultCopyWith<_$_ResendCodeResult> get copyWith =>
       throw _privateConstructorUsedError;
 }

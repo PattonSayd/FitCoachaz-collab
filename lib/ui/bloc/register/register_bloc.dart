@@ -4,13 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/app/config.dart';
 import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 import 'package:fitcoachaz/logger.dart';
-import 'package:fitcoachaz/ui/bloc/register/resend_code_result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
+import '../../formz/otp/otp_formz.dart';
 import '../../formz/phone_field/phone_formz.dart';
 
 part 'register_bloc.freezed.dart';
@@ -18,10 +18,6 @@ part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  // String _phoneNumber = '';
-  // String _verificationId = '';
-  // String get phoneNumber => _phoneNumber;
-
   RegisterBloc({
     required RegisterRepository repository,
   })  : _repository = repository,
@@ -37,6 +33,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           phoneChanged: (e) => _onPhoneChanged(e, emit),
           phoneUnfocused: (_) => _onPhoneUnfocused(emit),
           phoneFormSubmitted: (_) => _onPhoneFormSubmitted(emit),
+          otpChanged: (e) => _onOtpChanged(e, emit),
         ));
   }
 
@@ -51,7 +48,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         await _shouldResendCode(phoneNumber, resendTime);
 
     if (result.shouldResend) {
-      emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
+      emit(
+        state.copyWith(
+          submissionStatus: FormzSubmissionStatus.inProgress,
+          registerStatus: RegisterStatus.initial,
+        ),
+      );
       try {
         await _repository.verifyNumber(
           phoneNumber: phoneNumber,
@@ -132,12 +134,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');
       final error = raw.replaceFirst(raw[0], raw[0].toUpperCase());
-      emit(state.copyWith(registerStatus: RegisterStatus.error, error: error));
+      emit(state.copyWith(
+        registerStatus: RegisterStatus.error,
+        error: error,
+        submissionStatus: FormzSubmissionStatus.canceled,
+      ));
     } catch (e) {
       logger.e(e.toString());
       emit(
         state.copyWith(
           registerStatus: RegisterStatus.error,
+          submissionStatus: FormzSubmissionStatus.initial,
           error: e.toString(),
         ),
       );
@@ -151,6 +158,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     await _setLimitedTimeToResend(event.phoneNumber, resendTime);
     emit(state.copyWith(
         registerStatus: RegisterStatus.otpSentSuccess,
+        submissionStatus: FormzSubmissionStatus.canceled,
         phoneNumber: event.phoneNumber,
         verificationId: event.verificationId));
   }
@@ -220,14 +228,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     await _repository.setLimitedTimePrefs(phoneNumber, addingFutureTime);
   }
 
-  _onphoneChangedPrefix(
+  void _onphoneChangedPrefix(
     _PhoneChangedPrefixEvent event,
     Emitter<RegisterState> emit,
   ) {
     emit(state.copyWith(prefix: event.prefix));
   }
 
-  _onPhoneChanged(
+  void _onPhoneChanged(
     _PhoneChangedEvent event,
     Emitter<RegisterState> emit,
   ) {
@@ -242,7 +250,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     );
   }
 
-  _onPhoneUnfocused(Emitter<RegisterState> emit) {
+  void _onPhoneUnfocused(Emitter<RegisterState> emit) {
     final phone = PhoneFormz.dirty(state.phoneField.value);
     emit(state.copyWith(
       phoneField: phone,
@@ -252,7 +260,23 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     ));
   }
 
-  _onPhoneFormSubmitted(Emitter<RegisterState> emit) {
+  void _onPhoneFormSubmitted(Emitter<RegisterState> emit) {
     emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
+  }
+
+  void _onOtpChanged(
+    _OtpChangedEvent event,
+    Emitter<RegisterState> emit,
+  ) {
+    final otp = OtpFormz.dirty(event.otpCode);
+    emit(
+      state.copyWith(
+        otpField: otp.isValid ? otp : OtpFormz.pure(event.otpCode),
+        registerStatus: RegisterStatus.initial,
+        submissionStatus: Formz.validate([otp])
+            ? FormzSubmissionStatus.initial
+            : FormzSubmissionStatus.canceled,
+      ),
+    );
   }
 }

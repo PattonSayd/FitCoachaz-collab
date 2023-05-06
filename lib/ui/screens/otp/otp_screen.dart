@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:formz/formz.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/logger.dart';
-import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:fitcoachaz/ui/screens/otp/components.dart';
 
@@ -66,8 +64,9 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(height: 25.h),
               OtpFields(
                 otpFieldFocus: otpFieldFocus,
-                onChanged: (otpCode) =>
-                    context.read<OtpBloc>().add(OtpEvent(otpCode: otpCode)),
+                onChanged: (otpCode) => context
+                    .read<RegisterBloc>()
+                    .add(RegisterEvent.otpChanged(otpCode: otpCode)),
               ),
               SizedBox(height: 22.h),
               _ConfirmButton(
@@ -76,48 +75,66 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(
                 height: 18.h,
               ),
-              BlocBuilder<TimerBloc, TimerState>(
-                buildWhen: (prev, state) {
-                  // logger.wtf(prev.runtimeType != state.runtimeType);
-                  return prev.runtimeType != state.runtimeType;
-                },
-                builder: (context, state) {
-                  // logger.i(state);
-                  bool isActive = false;
-                  if (state is TimerRunComplete) isActive = !isActive;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.lightGreen,
-                        ),
-                        onPressed: isActive
-                            ? () {
-                                context.read<RegisterBloc>().add(
-                                      RegisterEvent.sendOTPToPhone(
-                                        number: widget.phoneNumber,
-                                      ),
-                                    );
-                                context.read<TimerBloc>().add(
-                                    const TimerStarted(duration: resendTime));
-                              }
-                            : null,
-                        child: Text(
-                          context.localizations.resendText,
-                          style: AppTextStyle.resendText,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const TimerText()
-                    ],
-                  );
-                },
-              ),
+              _ResendTime(phoneNumber: widget.phoneNumber),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ResendTime extends StatefulWidget {
+  const _ResendTime({
+    Key? key,
+    required this.phoneNumber,
+  }) : super(key: key);
+
+  final String phoneNumber;
+
+  @override
+  State<_ResendTime> createState() => __ResendTimeState();
+}
+
+class __ResendTimeState extends State<_ResendTime> {
+  bool isActive = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TimerBloc, TimerState>(
+      buildWhen: (prev, state) => prev.runtimeType != state.runtimeType,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.lightGreen,
+              ),
+              onPressed: state is TimerRunComplete
+                  ? () {
+                      context.read<TimerBloc>().add(const TimerResending());
+                      context.read<RegisterBloc>().add(
+                            RegisterEvent.sendOTPToPhone(
+                              number: widget.phoneNumber,
+                            ),
+                          );
+                    }
+                  : null,
+              child: Text(
+                state is TimerRunResending
+                    ? 'Resending...'
+                    : context.localizations.resendText,
+                style: AppTextStyle.resendText,
+              ),
+            ),
+            const SizedBox(width: 8),
+            state is TimerRunResending
+                ? const SizedBox.shrink()
+                : const TimerText()
+          ],
+        );
+      },
     );
   }
 }
@@ -133,13 +150,14 @@ class _ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterState>(
+      listenWhen: (previous, current) =>
+          previous.registerStatus != current.registerStatus,
       listener: (context, state) {
         logger.i(state);
         state.registerStatus == RegisterStatus.loaded
-            ? Navigator.pushNamedAndRemoveUntil(
+            ? Navigator.pushReplacementNamed(
                 context,
                 AppRoutesName.email,
-                (route) => false,
               )
             : state.registerStatus == RegisterStatus.error
                 ? showDialog(
@@ -147,35 +165,38 @@ class _ConfirmButton extends StatelessWidget {
                     builder: (context) =>
                         NotificationWindow(alertText: state.error),
                   )
-                : null;
+                : state.registerStatus == RegisterStatus.otpSentSuccess
+                    ? context
+                        .read<TimerBloc>()
+                        .add(const TimerStarted(duration: resendTime))
+                    : null;
       },
+      buildWhen: (previous, current) =>
+          previous.submissionStatus != current.submissionStatus,
       builder: (context, state) {
         logger.i(state);
-        return BlocBuilder<OtpBloc, OtpState>(
-          buildWhen: (prev, current) => prev.isValid != current.isValid,
-          builder: (context, otp) {
-            return GlobalButton(
-              onPressed: otp.isValid
-                  ? () => context.read<RegisterBloc>().add(
-                      RegisterEvent.verifySentOTP(
-                          otpCode: otp.otpCode, verificationId: verificationId))
-                  : null,
-              child: state.submissionStatus == FormzSubmissionStatus.inProgress
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator.adaptive(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.silver),
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      context.localizations.confirmText,
-                      style: AppTextStyle.verifyButton,
+        return GlobalButton(
+          onPressed: state.submissionStatus == FormzSubmissionStatus.initial
+              ? () => context.read<RegisterBloc>().add(
+                    RegisterEvent.verifySentOTP(
+                      otpCode: state.otpField.value,
+                      verificationId: verificationId,
                     ),
-            );
-          },
+                  )
+              : null,
+          child: state.submissionStatus == FormzSubmissionStatus.inProgress
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                    strokeWidth: 2,
+                  ),
+                )
+              : Text(
+                  context.localizations.confirmText,
+                  style: AppTextStyle.verifyButton,
+                ),
         );
       },
     );
