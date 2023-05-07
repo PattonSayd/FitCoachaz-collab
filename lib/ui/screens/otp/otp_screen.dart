@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:formz/formz.dart';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/logger.dart';
-import 'package:fitcoachaz/ui/bloc/otp/otp_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
-import 'package:fitcoachaz/ui/screens/otp/otp_components.dart';
+import 'package:fitcoachaz/ui/screens/otp/components.dart';
 
 import '../../../app/config.dart';
 import '../../../app/router/app_routes.dart';
@@ -18,10 +17,14 @@ import '../../widgets/global_button.dart';
 import '../../widgets/notification_window.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key, this.registerContext});
+  const OTPScreen({
+    Key? key,
+    required this.phoneNumber,
+    required this.verificationId,
+  }) : super(key: key);
 
-  final BuildContext? registerContext;
-
+  final String phoneNumber;
+  final String verificationId;
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
@@ -32,7 +35,6 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   void initState() {
     super.initState();
-    logger.i('initStateOTP');
     otpFieldFocus = FocusNode();
     context.read<TimerBloc>().add(const TimerStarted(duration: resendTime));
   }
@@ -49,22 +51,7 @@ class _OTPScreenState extends State<OTPScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRoutesName.welcome,
-                (route) => false,
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: AppColors.black,
-            ),
-          ),
-        ),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -75,52 +62,20 @@ class _OTPScreenState extends State<OTPScreen> {
                 style: AppTextStyle.bigHeader,
               ),
               SizedBox(height: 25.h),
-              _OtpInputs(otpFieldFocus: otpFieldFocus),
+              OtpFields(
+                otpFieldFocus: otpFieldFocus,
+                onChanged: (otpCode) => context
+                    .read<RegisterBloc>()
+                    .add(RegisterEvent.otpChanged(otpCode: otpCode)),
+              ),
               SizedBox(height: 22.h),
-              const _ConfirmButton(),
+              _ConfirmButton(
+                verificationId: widget.verificationId,
+              ),
               SizedBox(
                 height: 18.h,
               ),
-              BlocBuilder<TimerBloc, TimerState>(
-                buildWhen: (prev, state) {
-                  logger.wtf(prev.runtimeType != state.runtimeType);
-                  return prev.runtimeType != state.runtimeType;
-                },
-                builder: (context, state) {
-                  logger.i(state);
-                  bool isActive = false;
-                  if (state is TimerRunComplete) isActive = !isActive;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.lightGreen,
-                        ),
-                        onPressed: isActive
-                            ? () {
-                                context.read<RegisterBloc>().add(
-                                      SendOTPToPhoneEvent(
-                                        number: context
-                                            .read<RegisterBloc>()
-                                            .phoneNumber,
-                                      ),
-                                    );
-                                context.read<TimerBloc>().add(
-                                    const TimerStarted(duration: resendTime));
-                              }
-                            : null,
-                        child: Text(
-                          context.localizations.resendText,
-                          style: AppTextStyle.resendText,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const TimerText()
-                    ],
-                  );
-                },
-              ),
+              _ResendTime(phoneNumber: widget.phoneNumber),
             ],
           ),
         ),
@@ -129,100 +84,119 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 }
 
-class _OtpInputs extends StatelessWidget {
-  const _OtpInputs({
+class _ResendTime extends StatefulWidget {
+  const _ResendTime({
     Key? key,
-    required this.otpFieldFocus,
+    required this.phoneNumber,
   }) : super(key: key);
 
-  final FocusNode otpFieldFocus;
+  final String phoneNumber;
+
+  @override
+  State<_ResendTime> createState() => __ResendTimeState();
+}
+
+class __ResendTimeState extends State<_ResendTime> {
+  bool isActive = false;
 
   @override
   Widget build(BuildContext context) {
-    return PinCodeTextField(
-        appContext: context,
-        length: otpLength,
-        autoDisposeControllers: false,
-        backgroundColor: Colors.transparent,
-        animationDuration: const Duration(milliseconds: 350),
-        animationType: AnimationType.scale,
-        keyboardType: TextInputType.number,
-        enableActiveFill: true,
-        cursorHeight: 20,
-        cursorColor: AppColors.darkBlue,
-        focusNode: otpFieldFocus,
-        autovalidateMode: AutovalidateMode.always,
-        pinTheme: PinTheme(
-          shape: PinCodeFieldShape.box,
-          borderRadius: BorderRadius.circular(8),
-          fieldHeight: 45.h,
-          fieldWidth: 45.w,
-          inactiveColor: AppColors.brightSilver,
-          activeColor: AppColors.lightGreen,
-          activeFillColor: AppColors.lightBlue,
-          selectedFillColor: AppColors.lightBlue,
-          selectedColor: AppColors.lightGreen,
-          inactiveFillColor: AppColors.lightBlue,
-          errorBorderColor: Colors.red,
-          borderWidth: 2,
-        ),
-        onChanged: (otpCode) =>
-            context.read<OtpBloc>().add(OtpEvent(otpCode: otpCode)));
+    return BlocBuilder<TimerBloc, TimerState>(
+      buildWhen: (prev, state) => prev.runtimeType != state.runtimeType,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.lightGreen,
+              ),
+              onPressed: state is TimerRunComplete
+                  ? () {
+                      context.read<TimerBloc>().add(const TimerResending());
+                      context.read<RegisterBloc>().add(
+                            RegisterEvent.sendOTPToPhone(
+                              number: widget.phoneNumber,
+                            ),
+                          );
+                    }
+                  : null,
+              child: Text(
+                state is TimerRunResending
+                    ? 'Resending...'
+                    : context.localizations.resendText,
+                style: AppTextStyle.resendText,
+              ),
+            ),
+            const SizedBox(width: 8),
+            state is TimerRunResending
+                ? const SizedBox.shrink()
+                : const TimerText()
+          ],
+        );
+      },
+    );
   }
 }
 
 class _ConfirmButton extends StatelessWidget {
-  const _ConfirmButton({Key? key}) : super(key: key);
+  const _ConfirmButton({
+    Key? key,
+    required this.verificationId,
+  }) : super(key: key);
+
+  final String verificationId;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc, RegisterState>(
+      listenWhen: (previous, current) =>
+          previous.registerStatus != current.registerStatus,
       listener: (context, state) {
-        logger.d(state);
-        if (state is RegisterStateLoaded) {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutesName.email,
-            (route) => false,
-          );
-        } else if (state is RegisterStateError) {
-          showDialog(
-            context: context,
-            builder: (context) => NotificationWindow(alertText: state.error),
-          );
-        }
+        logger.i(state);
+        state.registerStatus == RegisterStatus.loaded
+            ? Navigator.pushReplacementNamed(
+                context,
+                AppRoutesName.email,
+              )
+            : state.registerStatus == RegisterStatus.error
+                ? showDialog(
+                    context: context,
+                    builder: (context) =>
+                        NotificationWindow(alertText: state.error),
+                  )
+                : state.registerStatus == RegisterStatus.otpSentSuccess
+                    ? context
+                        .read<TimerBloc>()
+                        .add(const TimerStarted(duration: resendTime))
+                    : null;
       },
+      buildWhen: (previous, current) =>
+          previous.submissionStatus != current.submissionStatus,
       builder: (context, state) {
-        logger.d(state);
-        String verificationId = '';
-        if (state is RegisterStateOTPSentSuccess) {
-          verificationId = state.verificationId;
-        }
-        return BlocBuilder<OtpBloc, OtpState>(
-          buildWhen: (prev, current) => prev.isValid != current.isValid,
-          builder: (context, otpState) {
-            return GlobalButton(
-              onPressed: otpState.isValid && state is! RegisterStateLoading
-                  ? () => context.read<RegisterBloc>().add(VerifySentOTPEvent(
-                      otpCode: otpState.otpCode,
-                      verificationId: verificationId))
-                  : null,
-              child: state is RegisterStateLoading
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator.adaptive(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.silver),
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      context.localizations.confirmText,
-                      style: AppTextStyle.verifyButton,
+        logger.i(state);
+        return GlobalButton(
+          onPressed: state.submissionStatus == FormzSubmissionStatus.initial
+              ? () => context.read<RegisterBloc>().add(
+                    RegisterEvent.verifySentOTP(
+                      otpCode: state.otpField.value,
+                      verificationId: verificationId,
                     ),
-            );
-          },
+                  )
+              : null,
+          child: state.submissionStatus == FormzSubmissionStatus.inProgress
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator.adaptive(
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.silver),
+                    strokeWidth: 2,
+                  ),
+                )
+              : Text(
+                  context.localizations.confirmText,
+                  style: AppTextStyle.verifyButton,
+                ),
         );
       },
     );

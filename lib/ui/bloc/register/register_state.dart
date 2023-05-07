@@ -1,48 +1,39 @@
 part of 'register_bloc.dart';
 
-@immutable
-abstract class RegisterState extends Equatable {
-  const RegisterState();
-
-  @override
-  List<Object?> get props => [];
+enum RegisterStatus {
+  initial,
+  otpSentSuccess,
+  loaded,
+  error,
 }
 
-class RegisterStateInitial extends RegisterState {
-  const RegisterStateInitial();
+@freezed
+class RegisterState with _$RegisterState {
+  const factory RegisterState({
+    @Default(PhoneFormz.pure()) PhoneFormz phoneField,
+    @Default(OtpFormz.pure()) OtpFormz otpField,
+    @Default(FormzSubmissionStatus.canceled)
+        FormzSubmissionStatus? submissionStatus,
+    @Default(RegisterStatus.initial) RegisterStatus registerStatus,
+    @Default('+994') String prefix,
+    String? phoneNumber,
+    String? verificationId,
+    String? error,
+  }) = _RegisterState;
 
-  @override
-  List<Object?> get props => [];
+  // const factory RegisterState.e({
+  //   @Default(RegisterStatus.error) required RegisterStatus registerStatus,
+  //   required String errorMsg,
+  // }) = _RegisterStateError;
 }
 
-class RegisterStateLoading extends RegisterState {
-  const RegisterStateLoading();
+@freezed
+abstract class ResendCodeResult with _$ResendCodeResult {
+  const factory ResendCodeResult({
+    required bool shouldResend,
+    required int timeRequired,
+  }) = _ResendCodeResult;
 
-  @override
-  List<Object?> get props => [];
-}
-
-class RegisterStateLoaded extends RegisterState {
-  const RegisterStateLoaded();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class RegisterStateError extends RegisterState {
-  const RegisterStateError({required this.error});
-
-  final String error;
-
-  @override
-  List<Object?> get props => [error];
-}
-
-class RegisterStateOTPSentSuccess extends RegisterState {
-  const RegisterStateOTPSentSuccess({required this.verificationId});
-
-  final String verificationId;
-
-  @override
-  List<Object?> get props => [verificationId];
+  static ResendCodeResult get defaulting =>
+      const ResendCodeResult(shouldResend: true, timeRequired: 0);
 }

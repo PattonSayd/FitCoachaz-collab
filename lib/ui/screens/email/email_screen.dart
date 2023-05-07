@@ -47,7 +47,22 @@ class _EmailScreenState extends State<EmailScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutesName.welcome,
+                (route) => false,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColors.black,
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -1,7 +1,7 @@
 import '../../domain/repositories/email_repository.dart';
-import '../helpers/table_key.dart';
+import '../storage/table_key.dart';
 import '../services/firestore_service.dart';
-import '../storage/sharedPrefs/key_store.dart';
+import '../storage/key_store.dart';
 import '../storage/sharedPrefs/key_value_store.dart';
 
 class EmailRepositoryImp extends EmailRepository {
