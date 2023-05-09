@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
+import '../../ui/bloc/session/session_bloc.dart';
 import '../../ui/bloc/timer/timer_bloc.dart';
 import '../../ui/screens/congratulation/congratulation_screen.dart';
 import '../../ui/screens/profile/profile_screen.dart';
@@ -78,7 +79,7 @@ class ScreenFactory {
   static Widget assembleCongratulation() {
     return BlocProvider<CongratulationBloc>(
       lazy: false,
-      create: (_) => assemble.congrBloc,
+      create: (_) => assemble.congratulation,
       child: const CongratulationScreen(),
     );
   }
@@ -88,6 +89,10 @@ class ScreenFactory {
   }
 
   static Widget assembleSplash() {
-    return const SplashScreen();
+    return BlocProvider<SessionBloc>(
+      lazy: false,
+      create: (_) => assemble.session,
+      child: const SplashScreen(),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,14 +13,16 @@ final getIt = GetIt.I;
 const assemble = Assemble._();
 
 @injectableInit
-void configureDependencies() => getIt.init(environment: Environment.prod);
+Future<void> configureDependencies() async =>
+    getIt.init(environment: Environment.prod);
 
 class Assemble {
   RegisterBloc get register => getIt.get<RegisterBloc>();
   AccountNameBloc get accountName => getIt.get<AccountNameBloc>();
   TimerBloc get timer => getIt.get<TimerBloc>();
   EmailBloc get email => getIt.get<EmailBloc>();
-  CongratulationBloc get congrBloc => getIt.get<CongratulationBloc>();
+  CongratulationBloc get congratulation => getIt.get<CongratulationBloc>();
+  SessionBloc get session => getIt.get<SessionBloc>();
 
   const Assemble._();
 }

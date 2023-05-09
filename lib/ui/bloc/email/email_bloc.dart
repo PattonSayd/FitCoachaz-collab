@@ -11,8 +11,9 @@ part 'email_state.dart';
 
 //change to freezed and Formz
 class EmailBloc extends Bloc<EmailEvent, EmailState> {
-  EmailBloc({required EmailRepository repository})
-      : _repository = repository,
+  EmailBloc({
+    required final EmailRepository repository,
+  })  : _repository = repository,
         super(const EmailState.initial()) {
     on<EmailChanged>(_onEmailChanged);
     on<EmailUnfocused>(_onEmailUnfocused);

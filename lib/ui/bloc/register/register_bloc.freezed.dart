@@ -2183,6 +2183,7 @@ mixin _$RegisterState {
   RegisterStatus get registerStatus => throw _privateConstructorUsedError;
   String get prefix => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
+  bool get isVerified => throw _privateConstructorUsedError;
   String? get verificationId => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -2204,6 +2205,7 @@ abstract class $RegisterStateCopyWith<$Res> {
       RegisterStatus registerStatus,
       String prefix,
       String? phoneNumber,
+      bool isVerified,
       String? verificationId,
       String? error});
 }
@@ -2227,6 +2229,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? registerStatus = null,
     Object? prefix = null,
     Object? phoneNumber = freezed,
+    Object? isVerified = null,
     Object? verificationId = freezed,
     Object? error = freezed,
   }) {
@@ -2255,6 +2258,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      isVerified: null == isVerified
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
       verificationId: freezed == verificationId
           ? _value.verificationId
           : verificationId // ignore: cast_nullable_to_non_nullable
@@ -2282,6 +2289,7 @@ abstract class _$$_RegisterStateCopyWith<$Res>
       RegisterStatus registerStatus,
       String prefix,
       String? phoneNumber,
+      bool isVerified,
       String? verificationId,
       String? error});
 }
@@ -2303,6 +2311,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? registerStatus = null,
     Object? prefix = null,
     Object? phoneNumber = freezed,
+    Object? isVerified = null,
     Object? verificationId = freezed,
     Object? error = freezed,
   }) {
@@ -2331,6 +2340,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      isVerified: null == isVerified
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
       verificationId: freezed == verificationId
           ? _value.verificationId
           : verificationId // ignore: cast_nullable_to_non_nullable
@@ -2353,6 +2366,7 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
       this.registerStatus = RegisterStatus.initial,
       this.prefix = '+994',
       this.phoneNumber,
+      this.isVerified = false,
       this.verificationId,
       this.error});
 
@@ -2374,13 +2388,16 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
   @override
   final String? phoneNumber;
   @override
+  @JsonKey()
+  final bool isVerified;
+  @override
   final String? verificationId;
   @override
   final String? error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegisterState(phoneField: $phoneField, otpField: $otpField, submissionStatus: $submissionStatus, registerStatus: $registerStatus, prefix: $prefix, phoneNumber: $phoneNumber, verificationId: $verificationId, error: $error)';
+    return 'RegisterState(phoneField: $phoneField, otpField: $otpField, submissionStatus: $submissionStatus, registerStatus: $registerStatus, prefix: $prefix, phoneNumber: $phoneNumber, isVerified: $isVerified, verificationId: $verificationId, error: $error)';
   }
 
   @override
@@ -2394,6 +2411,7 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
       ..add(DiagnosticsProperty('registerStatus', registerStatus))
       ..add(DiagnosticsProperty('prefix', prefix))
       ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('isVerified', isVerified))
       ..add(DiagnosticsProperty('verificationId', verificationId))
       ..add(DiagnosticsProperty('error', error));
   }
@@ -2414,6 +2432,8 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
             (identical(other.prefix, prefix) || other.prefix == prefix) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
+            (identical(other.isVerified, isVerified) ||
+                other.isVerified == isVerified) &&
             (identical(other.verificationId, verificationId) ||
                 other.verificationId == verificationId) &&
             (identical(other.error, error) || other.error == error));
@@ -2428,6 +2448,7 @@ class _$_RegisterState with DiagnosticableTreeMixin implements _RegisterState {
       registerStatus,
       prefix,
       phoneNumber,
+      isVerified,
       verificationId,
       error);
 
@@ -2446,6 +2467,7 @@ abstract class _RegisterState implements RegisterState {
       final RegisterStatus registerStatus,
       final String prefix,
       final String? phoneNumber,
+      final bool isVerified,
       final String? verificationId,
       final String? error}) = _$_RegisterState;
 
@@ -2461,6 +2483,8 @@ abstract class _RegisterState implements RegisterState {
   String get prefix;
   @override
   String? get phoneNumber;
+  @override
+  bool get isVerified;
   @override
   String? get verificationId;
   @override

@@ -9,9 +9,9 @@ import '../storage/sharedPrefs/key_value_store.dart';
 
 class RegisterRepositoryImp extends RegisterRepository {
   RegisterRepositoryImp({
-    required KeyValueStore sharedPrefs,
-    required FirestoreService service,
-    required FirebaseAuthService authService,
+    required final KeyValueStore sharedPrefs,
+    required final FirestoreService service,
+    required final FirebaseAuthService authService,
   })  : _sharedPrefs = sharedPrefs,
         _service = service,
         _authService = authService;
@@ -41,13 +41,14 @@ class RegisterRepositoryImp extends RegisterRepository {
       );
 
   @override
-  Future<String?> verifyAndLogin(
+  Future<String?> createCredential(
     AuthCredential credential,
   ) async {
-    final authCredential = await _authService.signIn(credential);
+    final authCredential = await _authService.getCredential(credential);
     if (authCredential.user == null) return null;
     final uid = authCredential.user!.uid;
     final phone = authCredential.user!.phoneNumber;
+    await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
     final userData = await _service.read(TableKey.users, uid);
     if (!userData.exists) {
       await _service.create(TableKey.users, uid, {
@@ -55,13 +56,23 @@ class RegisterRepositoryImp extends RegisterRepository {
         'phone': phone,
       });
     }
-
     return uid;
   }
 
   @override
+  Future<void> setUserIdPrefs(String uid) async =>
+      await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
+
+  @override
+  Future<bool> checkAccountVerification(String uid) async {
+    final rawData = await _service.getUserData(TableKey.users, uid);
+    final data = rawData as Map<String, dynamic>;
+    return data['isVerified'] ?? false;
+  }
+
+  @override
   Future<String?> getCredential(PhoneAuthCredential credential) async {
-    final authCredential = await _authService.signIn(credential);
+    final authCredential = await _authService.getCredential(credential);
     return authCredential.user?.uid;
   }
 
@@ -82,8 +93,4 @@ class RegisterRepositoryImp extends RegisterRepository {
   @override
   Future<String?> getLimtedTimePrefs(String phoneNumber) async => _sharedPrefs
       .read<String>(TypeStoreKey<String>(KeyStore.limitedTime + phoneNumber));
-
-  @override
-  Future<void> setUserIdPrefs(String? uid) async =>
-      await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
 }

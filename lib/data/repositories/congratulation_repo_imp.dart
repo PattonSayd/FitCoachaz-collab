@@ -7,8 +7,8 @@ import '../../domain/repositories/congratulation_repository.dart';
 
 class CongratulationRepositoryImp extends CongratulationRepository {
   CongratulationRepositoryImp({
-    required KeyValueStore sharedPrefs,
-    required FirestoreService service,
+    required final KeyValueStore sharedPrefs,
+    required final FirestoreService service,
   })  : _sharedPrefs = sharedPrefs,
         _service = service;
 

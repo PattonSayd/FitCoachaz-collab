@@ -17,14 +17,10 @@ class RegisterState with _$RegisterState {
     @Default(RegisterStatus.initial) RegisterStatus registerStatus,
     @Default('+994') String prefix,
     String? phoneNumber,
+    @Default(false) bool isVerified,
     String? verificationId,
     String? error,
   }) = _RegisterState;
-
-  // const factory RegisterState.e({
-  //   @Default(RegisterStatus.error) required RegisterStatus registerStatus,
-  //   required String errorMsg,
-  // }) = _RegisterStateError;
 }
 
 @freezed

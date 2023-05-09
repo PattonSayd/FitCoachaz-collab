@@ -19,7 +19,7 @@ part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc({
-    required RegisterRepository repository,
+    required final RegisterRepository repository,
   })  : _repository = repository,
         super(const RegisterState()) {
     on<RegisterEvent>((event, emit) => event.map(
@@ -46,7 +46,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final phoneNumber = _normalizePhoneNumber(event.number);
     final ResendCodeResult result =
         await _shouldResendCode(phoneNumber, resendTime);
-
     if (result.shouldResend) {
       emit(
         state.copyWith(
@@ -126,10 +125,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      final uid = await _repository.verifyAndLogin(event.credential);
+      final uid = await _repository.createCredential(event.credential);
+      if (uid == null) {
+        throw StateError('User ID is null');
+      }
       await _repository.setUserIdPrefs(uid);
-      if (uid == null) logger.e(uid);
-      emit(state.copyWith(registerStatus: RegisterStatus.loaded));
+      final isVerified = await _repository.checkAccountVerification(uid);
+      emit(state.copyWith(
+          registerStatus: RegisterStatus.loaded, isVerified: isVerified));
     } on FirebaseAuthException catch (e) {
       logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');

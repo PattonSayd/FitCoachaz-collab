@@ -23,6 +23,22 @@ class FirestoreService {
     String uid,
     Map<Object, Object?> data,
   ) async {
-    await FirebaseFirestore.instance.collection(table).doc(uid).update(data);
+    await _firestore.collection(table).doc(uid).update(data);
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getDocumnets(
+    String table,
+    String field,
+    int limit,
+  ) async {
+    return await _firestore.collection(table).where(field).limit(limit).get();
+  }
+
+  Future<Map<String, dynamic>?> getUserData(String table, String uid) async {
+    return await _firestore
+        .collection(table)
+        .doc(uid)
+        .get()
+        .then((v) => v.data());
   }
 }

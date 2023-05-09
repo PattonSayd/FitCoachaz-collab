@@ -6,8 +6,10 @@ enum CongratulationStatus {
 }
 
 class CongratulationState extends Equatable {
-  const CongratulationState._(
-      {this.name = '', this.status = CongratulationStatus.loading});
+  const CongratulationState._({
+    this.name = '',
+    this.status = CongratulationStatus.loading,
+  });
 
   final String name;
   final CongratulationStatus status;

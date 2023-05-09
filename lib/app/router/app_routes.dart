@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import '../screen_factory.dart/screen_factory.dart';
@@ -9,8 +7,7 @@ class AppRoutesName {
 
   static const welcome = '/';
   static const register = '/register';
-
-  static const splash = '/splash';
+  static const splash = 'splash';
   static const profile = '/profile';
   static const otp = '/otp';
   static const email = 'email';

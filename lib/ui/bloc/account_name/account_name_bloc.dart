@@ -15,8 +15,9 @@ part 'account_name_state.dart';
 
 //change to freezed and Formz
 class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
-  AccountNameBloc({required AccountNameRepository repository})
-      : _repository = repository,
+  AccountNameBloc({
+    required final AccountNameRepository repository,
+  })  : _repository = repository,
         super(const AccountNameState.initial()) {
     on<NameChangedEvent>(_onNameChanged);
     on<SurnChangedEvent>(_onSurnChanged);
