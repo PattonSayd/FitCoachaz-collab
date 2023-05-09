@@ -11,7 +11,7 @@ part 'congratulation_state.dart';
 class CongratulationBloc
     extends Bloc<CongratulationEvent, CongratulationState> {
   CongratulationBloc({
-    required CongratulationRepository repository,
+    required final CongratulationRepository repository,
   })  : _repository = repository,
         super(const CongratulationState.initial()) {
     on<CongratulationGetUserName>(_onGetUserName);

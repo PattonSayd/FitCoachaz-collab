@@ -6,8 +6,8 @@ import '../storage/sharedPrefs/key_value_store.dart';
 
 class EmailRepositoryImp extends EmailRepository {
   EmailRepositoryImp({
-    required KeyValueStore sharedPrefs,
-    required FirestoreService service,
+    required final KeyValueStore sharedPrefs,
+    required final FirestoreService service,
   })  : _sharedPrefs = sharedPrefs,
         _service = service;
 

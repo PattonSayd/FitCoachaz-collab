@@ -7,9 +7,10 @@ import '../storage/sharedPrefs/key_value_store.dart';
 import '../storage/table_key.dart';
 
 class AccountNameRepositoryImp extends AccountNameRepository {
-  AccountNameRepositoryImp(
-      {required KeyValueStore sharedPrefs, required FirestoreService service})
-      : _sharedPrefs = sharedPrefs,
+  AccountNameRepositoryImp({
+    required final KeyValueStore sharedPrefs,
+    required final FirestoreService service,
+  })  : _sharedPrefs = sharedPrefs,
         _service = service;
 
   final KeyValueStore _sharedPrefs;

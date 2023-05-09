@@ -9,14 +9,17 @@ import 'package:injectable/injectable.dart';
 
 import '../../data/repositories/account_name_repo_imp.dart';
 import '../../data/repositories/email_repo_imp.dart';
+import '../../data/repositories/session_repo_imp.dart';
 import '../../domain/repositories/account_name_repository.dart';
-import '../../data/repositories/congratulation_repo.dart';
+import '../../data/repositories/congratulation_repo_imp.dart';
 import '../../domain/repositories/congratulation_repository.dart';
 import '../../domain/repositories/register_repository.dart';
+import '../../domain/repositories/session_repository.dart';
 import '../../ui/bloc/account_name/account_name_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
+import '../../ui/bloc/session/session_bloc.dart';
 
 @module
 abstract class AssembleModule {
@@ -24,7 +27,12 @@ abstract class AssembleModule {
   Ticker providerTicker() => const Ticker();
 
   @singleton
-  KeyValueStore providerKeyValueStore() => SharedPrefs();
+  @preResolve
+  Future<KeyValueStore> providerKeyValueStore() async {
+    final prefs = SharedPrefs();
+    await prefs.init();
+    return prefs;
+  }
 
   @injectable
   FirestoreService providerFirestoreService() => FirestoreService();
@@ -53,7 +61,9 @@ abstract class AssembleModule {
 
   @injectable
   EmailRepository providerEmailRepository(
-          KeyValueStore sharedPrefs, FirestoreService service) =>
+    KeyValueStore sharedPrefs,
+    FirestoreService service,
+  ) =>
       EmailRepositoryImp(sharedPrefs: sharedPrefs, service: service);
 
   @injectable
@@ -62,7 +72,9 @@ abstract class AssembleModule {
 
   @injectable
   AccountNameRepository providerAccountNameRepository(
-          KeyValueStore sharedPrefs, FirestoreService service) =>
+    KeyValueStore sharedPrefs,
+    FirestoreService service,
+  ) =>
       AccountNameRepositoryImp(sharedPrefs: sharedPrefs, service: service);
 
   @injectable
@@ -71,11 +83,28 @@ abstract class AssembleModule {
 
   @injectable
   CongratulationRepository providerCongratulationRepository(
-          KeyValueStore sharedPrefs, FirestoreService service) =>
+    KeyValueStore sharedPrefs,
+    FirestoreService service,
+  ) =>
       CongratulationRepositoryImp(sharedPrefs: sharedPrefs, service: service);
 
   @injectable
   CongratulationBloc providerCongratulationBloc(
           CongratulationRepository repository) =>
       CongratulationBloc(repository: repository);
+
+  @injectable
+  SessionRepository providerSessionRepo(
+    KeyValueStore sharedPrefs,
+    FirestoreService service,
+    FirebaseAuthService authService,
+  ) =>
+      SessionRepositoryImp(
+        sharedPrefs: sharedPrefs,
+        service: service,
+      );
+
+  @injectable
+  SessionBloc providerSessionBloc(SessionRepository repository) =>
+      SessionBloc(repository: repository);
 }

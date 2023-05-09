@@ -1,5 +1,8 @@
 import 'package:fitcoachaz/app/router/app_routes.dart';
+import 'package:fitcoachaz/logger.dart';
+import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,7 +14,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late VideoPlayerController _controller;
-  late BuildContext _context;
 
   @override
   void initState() {
@@ -28,13 +30,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _playVideo() async {
+    logger.w('_controller.play()');
+
     //playing video
     _controller.play();
     //add delay till video is complite
-    await Future.delayed(const Duration(seconds: 4));
+    logger.w('Future');
+
+    await Future.delayed(const Duration(milliseconds: 350));
     //Next Page
     if (context.mounted) {
-      Navigator.of(context).popAndPushNamed(AppRoutesName.welcome);
+      logger.w('Route');
+      context.read<SessionBloc>().state.maybeWhen(
+            authorized: () => Navigator.pushNamedAndRemoveUntil(
+                context, AppRoutesName.main, (route) => false),
+            unauthorized: () =>
+                Navigator.pushReplacementNamed(context, AppRoutesName.welcome),
+            orElse: () => const Center(child: CircularProgressIndicator()),
+          );
     }
   }
 
@@ -46,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
+    logger.w('splash');
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
