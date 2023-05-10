@@ -47,17 +47,20 @@ class ActionAppBar extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              Container(
-                width: 32.w,
-                constraints: const BoxConstraints(
-                  maxWidth: 32,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.light,
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage(AppAssets.profilePhoto),
-                    fit: BoxFit.scaleDown,
+              GestureDetector(
+                // onTap: () => ,
+                child: Container(
+                  width: 32.w,
+                  constraints: const BoxConstraints(
+                    maxWidth: 32,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.light,
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage(AppAssets.profilePhoto),
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
               ),

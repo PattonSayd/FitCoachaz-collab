@@ -4,6 +4,7 @@ import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
 import 'package:fitcoachaz/domain/repositories/email_repository.dart';
+import 'package:fitcoachaz/ui/bloc/main/main_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,6 +14,7 @@ import '../../data/repositories/session_repo_imp.dart';
 import '../../domain/repositories/account_name_repository.dart';
 import '../../data/repositories/congratulation_repo_imp.dart';
 import '../../domain/repositories/congratulation_repository.dart';
+import '../../domain/repositories/main_repository.dart';
 import '../../domain/repositories/register_repository.dart';
 import '../../domain/repositories/session_repository.dart';
 import '../../ui/bloc/account_name/account_name_bloc.dart';
@@ -104,7 +106,11 @@ abstract class AssembleModule {
         service: service,
       );
 
-  @injectable
+  @singleton
   SessionBloc providerSessionBloc(SessionRepository repository) =>
       SessionBloc(repository: repository);
+
+  @lazySingleton
+  MainBloc providerMainBloc(MainRepository repository) =>
+      MainBloc(repository: repository);
 }

@@ -66,7 +66,10 @@ class ScreenFactory {
   }
 
   static Widget assembleMain() {
-    return const TabsNavigator();
+    return BlocProvider.value(
+      value: assemble.session,
+      child: const TabsNavigator(),
+    );
   }
 
   static Widget assembleAccountName() {
@@ -89,9 +92,8 @@ class ScreenFactory {
   }
 
   static Widget assembleSplash() {
-    return BlocProvider<SessionBloc>(
-      lazy: false,
-      create: (_) => assemble.session,
+    return BlocProvider<SessionBloc>.value(
+      value: assemble.session,
       child: const SplashScreen(),
     );
   }
