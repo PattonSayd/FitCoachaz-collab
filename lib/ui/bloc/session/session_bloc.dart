@@ -27,10 +27,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
   void _onChechSession(
     Emitter<SessionState> emit,
   ) async {
-    logger.w('bloc');
     final session = await _repository.checkSession();
-    logger.w('bloc2');
-
     if (session) {
       emit(const SessionState.authorized());
     } else {
