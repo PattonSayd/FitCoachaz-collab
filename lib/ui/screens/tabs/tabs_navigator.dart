@@ -1,3 +1,5 @@
+import 'package:fitcoachaz/app/router/app_routes.dart';
+import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,11 @@ class _TabsNavigatorState extends State<TabsNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SessionBloc, SessionState>(
+    return BlocConsumer<SessionBloc, SessionState>(
+      listener: (context, state) => state.mapOrNull(
+        unauthorized: (value) => Navigator.pushNamedAndRemoveUntil(
+            context, AppRoutesName.welcome, (route) => false),
+      ),
       builder: (context, state) {
         return Scaffold(
             body: IndexedStack(

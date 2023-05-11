@@ -1,6 +1,11 @@
 part of 'main_bloc.dart';
 
+// @freezed
+// // class MainEvent with _$MainEvent {
+// //   const factory MainEvent.logout() = _LogoutEvent;
+// // }
+
 @freezed
-class MainEvent with _$MainEvent {
-  const factory MainEvent.logout() = _Logout;
+abstract class MainEvent with _$MainEvent {
+  const factory MainEvent.logout() = _LogoutEvent;
 }

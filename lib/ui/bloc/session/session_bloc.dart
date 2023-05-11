@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,6 +17,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     on<SessionEvent>(
       (event, emit) => event.map(
         checkSession: (_) => _onChechSession(emit),
+        logout: (_) => _onLogout(emit),
       ),
     );
 
@@ -33,5 +35,14 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     } else {
       emit(const SessionState.unauthorized());
     }
+  }
+
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void _onLogout(Emitter<SessionState> emit) async {
+    // await _auth.signOut();
+
+    _repository.logout();
+    emit(const SessionState.unauthorized());
   }
 }

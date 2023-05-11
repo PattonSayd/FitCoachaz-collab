@@ -12,9 +12,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   })  : _repository = repository,
         super(const MainState.initial()) {
     on<MainEvent>((event, emit) => event.map(
-          logout: logout,
+          logout: (_) => _onLogout(emit),
         ));
   }
 
   final MainRepository _repository;
+
+  void _onLogout(Emitter<MainState> emit) {}
 }

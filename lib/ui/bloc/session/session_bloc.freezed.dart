@@ -408,32 +408,38 @@ mixin _$SessionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() checkSession,
+    required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? checkSession,
+    TResult? Function()? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? checkSession,
+    TResult Function()? logout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CheckSessionEvent value) checkSession,
+    required TResult Function(_LogoutSessionEvent value) logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CheckSessionEvent value)? checkSession,
+    TResult? Function(_LogoutSessionEvent value)? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CheckSessionEvent value)? checkSession,
+    TResult Function(_LogoutSessionEvent value)? logout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -496,6 +502,7 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() checkSession,
+    required TResult Function() logout,
   }) {
     return checkSession();
   }
@@ -504,6 +511,7 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? checkSession,
+    TResult? Function()? logout,
   }) {
     return checkSession?.call();
   }
@@ -512,6 +520,7 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? checkSession,
+    TResult Function()? logout,
     required TResult orElse(),
   }) {
     if (checkSession != null) {
@@ -524,6 +533,7 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_CheckSessionEvent value) checkSession,
+    required TResult Function(_LogoutSessionEvent value) logout,
   }) {
     return checkSession(this);
   }
@@ -532,6 +542,7 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_CheckSessionEvent value)? checkSession,
+    TResult? Function(_LogoutSessionEvent value)? logout,
   }) {
     return checkSession?.call(this);
   }
@@ -540,6 +551,7 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_CheckSessionEvent value)? checkSession,
+    TResult Function(_LogoutSessionEvent value)? logout,
     required TResult orElse(),
   }) {
     if (checkSession != null) {
@@ -551,4 +563,106 @@ class _$_CheckSessionEvent implements _CheckSessionEvent {
 
 abstract class _CheckSessionEvent implements SessionEvent {
   const factory _CheckSessionEvent() = _$_CheckSessionEvent;
+}
+
+/// @nodoc
+abstract class _$$_LogoutSessionEventCopyWith<$Res> {
+  factory _$$_LogoutSessionEventCopyWith(_$_LogoutSessionEvent value,
+          $Res Function(_$_LogoutSessionEvent) then) =
+      __$$_LogoutSessionEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_LogoutSessionEventCopyWithImpl<$Res>
+    extends _$SessionEventCopyWithImpl<$Res, _$_LogoutSessionEvent>
+    implements _$$_LogoutSessionEventCopyWith<$Res> {
+  __$$_LogoutSessionEventCopyWithImpl(
+      _$_LogoutSessionEvent _value, $Res Function(_$_LogoutSessionEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_LogoutSessionEvent implements _LogoutSessionEvent {
+  const _$_LogoutSessionEvent();
+
+  @override
+  String toString() {
+    return 'SessionEvent.logout()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_LogoutSessionEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkSession,
+    required TResult Function() logout,
+  }) {
+    return logout();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkSession,
+    TResult? Function()? logout,
+  }) {
+    return logout?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkSession,
+    TResult Function()? logout,
+    required TResult orElse(),
+  }) {
+    if (logout != null) {
+      return logout();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CheckSessionEvent value) checkSession,
+    required TResult Function(_LogoutSessionEvent value) logout,
+  }) {
+    return logout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CheckSessionEvent value)? checkSession,
+    TResult? Function(_LogoutSessionEvent value)? logout,
+  }) {
+    return logout?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CheckSessionEvent value)? checkSession,
+    TResult Function(_LogoutSessionEvent value)? logout,
+    required TResult orElse(),
+  }) {
+    if (logout != null) {
+      return logout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LogoutSessionEvent implements SessionEvent {
+  const factory _LogoutSessionEvent() = _$_LogoutSessionEvent;
 }

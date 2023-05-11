@@ -31,7 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _playVideo() async {
     _controller.play();
-    await Future.delayed(const Duration(milliseconds: 350));
+    while (_controller.value.isPlaying) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
     if (context.mounted) {
       context.read<SessionBloc>().state.maybeWhen(
             authorized: () => Navigator.pushNamedAndRemoveUntil(

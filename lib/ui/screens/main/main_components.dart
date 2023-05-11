@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
+import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,6 +25,7 @@ class ActionAppBar extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: AppColors.transparent,
             titleSpacing: 0,
             elevation: 0,
@@ -48,7 +51,9 @@ class ActionAppBar extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               GestureDetector(
-                // onTap: () => ,
+                onTap: () => context
+                    .read<SessionBloc>()
+                    .add(const SessionEvent.logout()),
                 child: Container(
                   width: 32.w,
                   constraints: const BoxConstraints(

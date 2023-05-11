@@ -40,4 +40,8 @@ class SessionRepositoryImp extends SessionRepository {
       return false;
     }
   }
+
+  @override
+  Future<void> logout() async =>
+      _sharedPrefs.write(TypeStoreKey(KeyStore.uid), null);
 }

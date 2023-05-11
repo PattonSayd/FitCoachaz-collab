@@ -7,13 +7,13 @@ class AppRoutesName {
 
   static const welcome = '/';
   static const register = '/register';
-  static const splash = 'splash';
+  static const splash = '/splash';
   static const profile = '/profile';
   static const otp = '/otp';
-  static const email = 'email';
-  static const accountName = 'account_name';
+  static const email = '/email';
+  static const accountName = '/account_name';
   static const congratulation = '/congratulation';
-  static const main = 'main';
+  static const main = '/main';
   static const subscribe = '/subscribe'; // main/subscribe📍
 }
 

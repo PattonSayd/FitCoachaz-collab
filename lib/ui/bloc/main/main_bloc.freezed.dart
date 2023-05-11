@@ -18,39 +18,33 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MainEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
     required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
     TResult? Function()? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
     TResult Function()? logout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_Logout value) logout,
+    required TResult Function(_LogoutEvent value) logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_Logout value)? logout,
+    TResult? Function(_LogoutEvent value)? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_Logout value)? logout,
+    TResult Function(_LogoutEvent value)? logout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -74,124 +68,25 @@ class _$MainEventCopyWithImpl<$Res, $Val extends MainEvent>
 }
 
 /// @nodoc
-abstract class _$$_StartedCopyWith<$Res> {
-  factory _$$_StartedCopyWith(
-          _$_Started value, $Res Function(_$_Started) then) =
-      __$$_StartedCopyWithImpl<$Res>;
+abstract class _$$_LogoutEventCopyWith<$Res> {
+  factory _$$_LogoutEventCopyWith(
+          _$_LogoutEvent value, $Res Function(_$_LogoutEvent) then) =
+      __$$_LogoutEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StartedCopyWithImpl<$Res>
-    extends _$MainEventCopyWithImpl<$Res, _$_Started>
-    implements _$$_StartedCopyWith<$Res> {
-  __$$_StartedCopyWithImpl(_$_Started _value, $Res Function(_$_Started) _then)
+class __$$_LogoutEventCopyWithImpl<$Res>
+    extends _$MainEventCopyWithImpl<$Res, _$_LogoutEvent>
+    implements _$$_LogoutEventCopyWith<$Res> {
+  __$$_LogoutEventCopyWithImpl(
+      _$_LogoutEvent _value, $Res Function(_$_LogoutEvent) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Started implements _Started {
-  const _$_Started();
-
-  @override
-  String toString() {
-    return 'MainEvent.started()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Started);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function() logout,
-  }) {
-    return started();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function()? logout,
-  }) {
-    return started?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function()? logout,
-    required TResult orElse(),
-  }) {
-    if (started != null) {
-      return started();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_Logout value) logout,
-  }) {
-    return started(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_Logout value)? logout,
-  }) {
-    return started?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_Logout value)? logout,
-    required TResult orElse(),
-  }) {
-    if (started != null) {
-      return started(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Started implements MainEvent {
-  const factory _Started() = _$_Started;
-}
-
-/// @nodoc
-abstract class _$$_LogoutCopyWith<$Res> {
-  factory _$$_LogoutCopyWith(_$_Logout value, $Res Function(_$_Logout) then) =
-      __$$_LogoutCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_LogoutCopyWithImpl<$Res>
-    extends _$MainEventCopyWithImpl<$Res, _$_Logout>
-    implements _$$_LogoutCopyWith<$Res> {
-  __$$_LogoutCopyWithImpl(_$_Logout _value, $Res Function(_$_Logout) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_Logout implements _Logout {
-  const _$_Logout();
+class _$_LogoutEvent implements _LogoutEvent {
+  const _$_LogoutEvent();
 
   @override
   String toString() {
@@ -201,7 +96,7 @@ class _$_Logout implements _Logout {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Logout);
+        (other.runtimeType == runtimeType && other is _$_LogoutEvent);
   }
 
   @override
@@ -210,7 +105,6 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
     required TResult Function() logout,
   }) {
     return logout();
@@ -219,7 +113,6 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
     TResult? Function()? logout,
   }) {
     return logout?.call();
@@ -228,7 +121,6 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -241,8 +133,7 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_Logout value) logout,
+    required TResult Function(_LogoutEvent value) logout,
   }) {
     return logout(this);
   }
@@ -250,8 +141,7 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_Logout value)? logout,
+    TResult? Function(_LogoutEvent value)? logout,
   }) {
     return logout?.call(this);
   }
@@ -259,8 +149,7 @@ class _$_Logout implements _Logout {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_Logout value)? logout,
+    TResult Function(_LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -270,8 +159,8 @@ class _$_Logout implements _Logout {
   }
 }
 
-abstract class _Logout implements MainEvent {
-  const factory _Logout() = _$_Logout;
+abstract class _LogoutEvent implements MainEvent {
+  const factory _LogoutEvent() = _$_LogoutEvent;
 }
 
 /// @nodoc
