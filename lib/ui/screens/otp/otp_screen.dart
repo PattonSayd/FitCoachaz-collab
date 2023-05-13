@@ -156,7 +156,7 @@ class _ConfirmButton extends StatelessWidget {
         state.registerStatus == RegisterStatus.loaded
             ? Navigator.pushReplacementNamed(
                 context,
-                state.isVerified ? AppRoutesName.main : AppRoutesName.email,
+                state.isVerified ? AppRoutesName.tabs : AppRoutesName.email,
               )
             : state.registerStatus == RegisterStatus.error
                 ? showDialog(

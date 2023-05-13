@@ -65,7 +65,7 @@ class RegisterRepositoryImp extends RegisterRepository {
 
   @override
   Future<bool> checkAccountVerification(String uid) async {
-    final rawData = await _service.getUserData(TableKey.users, uid);
+    final rawData = await _service.getDataById(TableKey.users, uid);
     final data = rawData as Map<String, dynamic>;
     return data['isVerified'] ?? false;
   }

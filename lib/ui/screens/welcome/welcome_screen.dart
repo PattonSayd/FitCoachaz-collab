@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                   text: context.localizations.startButtom,
                   style: AppTextStyle.startButton,
                   onPress: () {
-                    Navigator.pushNamed(context, AppRoutesName.main);
+                    Navigator.pushNamed(context, AppRoutesName.tabs);
                   }),
               SizedBox(height: 10.h),
               Row(

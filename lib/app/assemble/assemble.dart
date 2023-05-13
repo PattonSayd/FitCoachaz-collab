@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../ui/bloc/account_name/account_name_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
+import '../../ui/bloc/main/main_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
 import '../../ui/bloc/timer/timer_bloc.dart';
 import 'assemble.config.dart';
@@ -23,6 +24,7 @@ class Assemble {
   EmailBloc get email => getIt.get<EmailBloc>();
   CongratulationBloc get congratulation => getIt.get<CongratulationBloc>();
   SessionBloc get session => getIt.get<SessionBloc>();
+  MainBloc get main => getIt.get<MainBloc>();
 
   const Assemble._();
 }

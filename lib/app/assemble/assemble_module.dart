@@ -1,5 +1,7 @@
+import 'package:fitcoachaz/data/repositories/main_repository_imp.dart';
 import 'package:fitcoachaz/data/repositories/register_repo_imp.dart';
 import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
+import 'package:fitcoachaz/data/services/firebase_storage_service.dart';
 import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
@@ -41,6 +43,10 @@ abstract class AssembleModule {
 
   @injectable
   FirebaseAuthService providerFirebaseAuthService() => FirebaseAuthService();
+
+  @injectable
+  FirebaseStorageService providerFirebaseStorageService() =>
+      FirebaseStorageService();
 
   @injectable
   RegisterRepository providerRegisterRepo(
@@ -96,7 +102,7 @@ abstract class AssembleModule {
       CongratulationBloc(repository: repository);
 
   @injectable
-  SessionRepository providerSessionRepo(
+  SessionRepository providerSessionRepository(
     KeyValueStore sharedPrefs,
     FirestoreService service,
     FirebaseAuthService authService,
@@ -109,6 +115,11 @@ abstract class AssembleModule {
   @singleton
   SessionBloc providerSessionBloc(SessionRepository repository) =>
       SessionBloc(repository: repository);
+
+  @injectable
+  MainRepository providerMainRepository(
+          FirestoreService service, FirebaseStorageService storage) =>
+      MainRepositoryImp(service: service, storage: storage);
 
   @lazySingleton
   MainBloc providerMainBloc(MainRepository repository) =>

@@ -72,7 +72,7 @@ class CongratulationScreen extends StatelessWidget {
                     style: AppTextStyle.startButton,
                     onPress: () {
                       Navigator.pushNamedAndRemoveUntil(
-                          context, AppRoutesName.main, (route) => false);
+                          context, AppRoutesName.tabs, (route) => false);
                     }),
                 SizedBox(height: 40.h),
               ],

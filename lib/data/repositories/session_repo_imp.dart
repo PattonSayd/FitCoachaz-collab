@@ -26,7 +26,7 @@ class SessionRepositoryImp extends SessionRepository {
       final uid =
           await _sharedPrefs.read<String>(TypeStoreKey<String>(KeyStore.uid));
       if (uid != null) {
-        final userData = await _service.getUserData(TableKey.users, uid)
+        final userData = await _service.getDataById(TableKey.users, uid)
             as Map<String, dynamic>;
         final userIsVerified = userData['isVerified'];
         if (userIsVerified != null && userIsVerified) {

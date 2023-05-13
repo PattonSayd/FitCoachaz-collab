@@ -1,5 +1,7 @@
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
+import 'package:fitcoachaz/ui/bloc/main/main_bloc.dart';
+import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -65,7 +67,7 @@ class ScreenFactory {
     );
   }
 
-  static Widget assembleMain() {
+  static Widget assembleTabs() {
     return BlocProvider.value(
       value: assemble.session,
       child: const TabsNavigator(),
@@ -95,6 +97,13 @@ class ScreenFactory {
     return BlocProvider<SessionBloc>.value(
       value: assemble.session,
       child: const SplashScreen(),
+    );
+  }
+
+  static Widget assembleMain() {
+    return BlocProvider.value(
+      value: assemble.main,
+      child: MainScreen(),
     );
   }
 }

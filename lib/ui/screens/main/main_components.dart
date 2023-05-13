@@ -1,13 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitcoachaz/app/extension/build_context.dart';
-import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
-import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
+import 'package:fitcoachaz/data/models/coach.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'package:fitcoachaz/app/extension/build_context.dart';
+import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
+import 'package:shimmer/shimmer.dart';
+
 import '../../../app/resources/app_assets.dart';
+import '../../../data/models/sports.dart';
 import '../../style/app_button_style.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
@@ -117,7 +121,12 @@ class _SearchState extends State<Search> {
 }
 
 class SlideContainer extends StatefulWidget {
-  const SlideContainer({super.key});
+  const SlideContainer({
+    Key? key,
+    required this.sports,
+  }) : super(key: key);
+
+  final List<Sports> sports;
 
   @override
   State<SlideContainer> createState() => _SlideContainerState();
@@ -144,48 +153,49 @@ class _SlideContainerState extends State<SlideContainer> {
             child: Align(
               alignment: Alignment.topCenter,
               child: CarouselSlider(
-                items: images
+                items: widget.sports
                     .map(
-                      (e) => ClipRRect(
+                      (v) => ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children: [
-                            LayoutBuilder(builder: (context, constraints) {
-                              return Image.asset(
-                                e,
-                                fit: BoxFit.cover,
-                                width: context.deviceWidth - 48,
-                              );
-                            }),
-                            Positioned(
-                              bottom: 0,
-                              child: Column(
-                                children: [
-                                  Text('Crossfit',
-                                      style: AppTextStyle.slideCaption),
-                                  SizedBox(height: 3.h),
-                                  OutlinedButton(
-                                    onPressed: () {},
-                                    style: OutlinedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                      ),
-                                      side: const BorderSide(
-                                          width: 1.0, color: AppColors.white),
-                                    ),
-                                    child: FittedBox(
-                                      child: Text(
-                                        'Abune ol',
-                                        style: AppTextStyle.slideButton,
+                            LayoutBuilder(
+                              builder: (context, constraints) {
+                                return CachedNetworkImage(
+                                  imageUrl: v.image,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          Shimmer.fromColors(
+                                    baseColor: Colors.grey.shade300,
+                                    highlightColor: Colors.grey.shade100,
+                                    child: Container(
+                                      alignment: Alignment.topCenter,
+                                      width: context.deviceWidth - 48,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade300,
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 7.h),
-                                ],
-                              ),
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    alignment: Alignment.topCenter,
+                                    width: context.deviceWidth - 48,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            Positioned(
+                              bottom: 30,
+                              child: Text(v.name,
+                                  style: AppTextStyle.slideCaption),
                             ),
                           ],
                         ),
@@ -230,10 +240,10 @@ class _SlideContainerState extends State<SlideContainer> {
 
 class CardView extends StatelessWidget {
   final int index;
-  final List<CardItem> _cardItems;
+  final List<Coach> _coachItems;
   const CardView(
-      {super.key, required this.index, required List<CardItem> cardItems})
-      : _cardItems = cardItems;
+      {super.key, required this.index, required List<Coach> coachItems})
+      : _coachItems = coachItems;
 
   @override
   Widget build(BuildContext context) {
@@ -248,15 +258,42 @@ class CardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            child: Image.asset(
-              _cardItems[index].image,
-              fit: BoxFit.cover,
+          CachedNetworkImage(
+            imageUrl: _coachItems[index].photo,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
+              child: Container(
+                alignment: Alignment.topCenter,
+                width: double.infinity,
+                height: 120,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                ),
+              ),
+            ),
+            imageBuilder: (context, imageProvider) => Container(
+              alignment: Alignment.topCenter,
               width: double.infinity,
               height: 120,
-              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
+          // ClipRRect(
+          //   child: Image.network(
+          //     _coachItems[index].photo,
+          //     fit: BoxFit.cover,
+          //     width: double.infinity,
+          //     height: 120,
+          //     alignment: Alignment.topCenter,
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(
               left: 12,
@@ -266,9 +303,21 @@ class CardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(_cardItems[index].sport, style: AppTextStyle.cardSport),
+                Text(_coachItems[index].sport, style: AppTextStyle.cardSport),
                 const SizedBox(height: 4),
-                Text(_cardItems[index].name, style: AppTextStyle.cardCoachName),
+                RichText(
+                  text: TextSpan(
+                    style: AppTextStyle.cardCoachName,
+                    children: [
+                      TextSpan(
+                        text: '${_coachItems[index].name} ',
+                      ),
+                      TextSpan(
+                        text: _coachItems[index].surname,
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -278,7 +327,7 @@ class CardView extends StatelessWidget {
                       size: 16,
                     ),
                     const SizedBox(width: 2),
-                    Text(_cardItems[index].ranking,
+                    Text('${_coachItems[index].rating}',
                         style: AppTextStyle.cardRanking),
                     const SizedBox(width: 14),
                     const Icon(
@@ -287,7 +336,7 @@ class CardView extends StatelessWidget {
                       size: 16,
                     ),
                     const SizedBox(width: 5),
-                    Text(_cardItems[index].dateTime,
+                    Text(_coachItems[index].workTime,
                         style: AppTextStyle.cardDateTime),
                   ],
                 ),

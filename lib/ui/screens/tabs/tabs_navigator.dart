@@ -1,4 +1,5 @@
 import 'package:fitcoachaz/app/router/app_routes.dart';
+import 'package:fitcoachaz/app/screen_factory.dart/screen_factory.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:fitcoachaz/ui/theme/app_colors.dart';
@@ -46,7 +47,7 @@ class _TabsNavigatorState extends State<TabsNavigator> {
             body: IndexedStack(
               index: selectedIndex,
               children: [
-                MainScreen(),
+                ScreenFactory.assembleMain(),
                 state.maybeWhen(
                     authorized: () => const Center(child: Text("Book Screen")),
                     orElse: () => const SizedBox.shrink()),

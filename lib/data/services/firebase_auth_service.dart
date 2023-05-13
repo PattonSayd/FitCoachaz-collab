@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthService {
-  final auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
   Future<UserCredential> getCredential(AuthCredential credential) async =>
-      await auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
 
   Future<void> verifyNumber({
     String? phoneNumber,
@@ -18,7 +18,7 @@ class FirebaseAuthService {
     int? forceResendingToken,
     MultiFactorSession? multiFactorSession,
   }) async {
-    await auth.verifyPhoneNumber(
+    await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,

@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (context.mounted) {
       context.read<SessionBloc>().state.maybeWhen(
             authorized: () => Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutesName.main, (route) => false),
+                context, AppRoutesName.tabs, (route) => false),
             unauthorized: () =>
                 Navigator.pushReplacementNamed(context, AppRoutesName.welcome),
             orElse: () => const Center(child: CircularProgressIndicator()),

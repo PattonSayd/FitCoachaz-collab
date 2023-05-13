@@ -26,19 +26,24 @@ class FirestoreService {
     await _firestore.collection(table).doc(uid).update(data);
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> getDocumnets(
-    String table,
-    String field,
-    int limit,
-  ) async {
-    return await _firestore.collection(table).where(field).limit(limit).get();
-  }
+  // Future<QuerySnapshot<Map<String, dynamic>>> getDocumnets(
+  //   String table,
+  //   String field,
+  //   int limit,
+  // ) async {
+  //   return await _firestore.collection(table).where(field).limit(limit).get();
+  // }
 
-  Future<Map<String, dynamic>?> getUserData(String table, String uid) async {
+  Future<Map<String, dynamic>?> getDataById(String table, String uid) async {
     return await _firestore
         .collection(table)
         .doc(uid)
         .get()
         .then((v) => v.data());
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getDataByTable(
+      String table) async {
+    return await _firestore.collection(table).get();
   }
 }
