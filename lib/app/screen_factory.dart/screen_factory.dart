@@ -5,6 +5,7 @@ import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/models/coach.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
 import '../../ui/bloc/session/session_bloc.dart';
@@ -14,6 +15,7 @@ import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/register/register_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
 
+import '../../ui/screens/see_all/see_all_screen.dart';
 import '../../ui/screens/splash/splash_screen.dart';
 
 import '../../ui/screens/email/email_screen.dart';
@@ -103,7 +105,11 @@ class ScreenFactory {
   static Widget assembleMain() {
     return BlocProvider.value(
       value: assemble.main,
-      child: MainScreen(),
+      child: const MainScreen(),
     );
+  }
+
+  static Widget assembleSeeAll({required List<Coach> coach}) {
+    return SeeAllScreen(coach: coach);
   }
 }

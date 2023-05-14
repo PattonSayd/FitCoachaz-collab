@@ -1,3 +1,4 @@
+import 'package:fitcoachaz/data/models/coach.dart';
 import 'package:flutter/material.dart';
 
 import '../screen_factory.dart/screen_factory.dart';
@@ -15,6 +16,7 @@ class AppRoutesName {
   static const congratulation = '/congratulation';
   static const tabs = '/tabs';
   static const subscribe = '/subscribe'; // main/subscribe📍
+  static const seeAll = 'main/seeAll'; // main/subscribe📍
 }
 
 class AppRoutes {
@@ -41,6 +43,10 @@ class AppRoutes {
               phoneNumber: args['phoneNumber'],
               verificationId: args['verificationId']),
         );
+      case AppRoutesName.seeAll:
+        final coach = settings.arguments as List<Coach>;
+        return MaterialPageRoute(
+            builder: (context) => ScreenFactory.assembleSeeAll(coach: coach));
       default:
         return MaterialPageRoute(
           builder: (_) => const Text('Navigation error'),

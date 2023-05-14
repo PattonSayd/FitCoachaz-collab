@@ -349,24 +349,3 @@ class CardView extends StatelessWidget {
     );
   }
 }
-
-class ViewAll extends StatelessWidget {
-  const ViewAll({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(context.localizations.trendCoaches,
-            style: AppTextStyle.trendCoaches),
-        TextButton(
-          onPressed: () {},
-          style: AppButtonStyle.textButtonReset,
-          child: Text(context.localizations.seeAllTrendCoaches,
-              style: AppTextStyle.seeAllTrendCoaches),
-        ),
-      ],
-    );
-  }
-}

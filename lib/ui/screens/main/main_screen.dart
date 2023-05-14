@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../bloc/main/main_bloc.dart';
+import '../../style/app_button_style.dart';
+import '../../style/app_text_style.dart';
 import 'main_components.dart';
 
 class CardItem {
@@ -24,30 +26,7 @@ class CardItem {
 }
 
 class MainScreen extends StatelessWidget {
-  MainScreen({super.key});
-  final _cardItems = <CardItem>[
-    CardItem(
-      'İsrafil Rzabəyli',
-      AppAssets.bodybuild,
-      'Fitness',
-      '4.9',
-      '10:00 - 18:00',
-    ),
-    CardItem(
-      'Ismayil Rzabəyli',
-      AppAssets.slideBackground,
-      'Fitness',
-      '4.9',
-      '10:00 - 18:00',
-    ),
-    CardItem(
-      'İsrafil Rzabəyli',
-      AppAssets.welcomeScreen,
-      'Fitness',
-      '4.9',
-      '10:00 - 18:00',
-    ),
-  ];
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +51,24 @@ class MainScreen extends StatelessWidget {
                   const SizedBox(height: 17),
                   SlideContainer(sports: sports),
                   const SizedBox(height: 24),
-                  const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
-                      child: ViewAll()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(context.localizations.trendCoaches,
+                            style: AppTextStyle.trendCoaches),
+                        TextButton(
+                          onPressed: () => Navigator.pushNamed(
+                              context, AppRoutesName.seeAll,
+                              arguments: coaches),
+                          style: AppButtonStyle.textButtonReset,
+                          child: Text(context.localizations.seeAllTrendCoaches,
+                              style: AppTextStyle.seeAllTrendCoaches),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 22),
                   Container(
                     constraints:
@@ -87,7 +81,7 @@ class MainScreen extends StatelessWidget {
                             ? context.deviceWidth * 0.64
                             : 250,
                         shrinkWrap: true,
-                        itemCount: coaches.length,
+                        itemCount: coaches.take(4).length,
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.symmetric(horizontal: 24),
