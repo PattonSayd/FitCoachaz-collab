@@ -11,11 +11,13 @@ abstract class RegisterRepository {
     int? forceResendingToken,
   });
 
-  Future<String?> createCredential(AuthCredential credential);
-  Future<void> setUserIdPrefs(String uid);
+  Future<UserCredential?> createCredentialWithAuth(AuthCredential credential);
   Future<String?> getCredential(PhoneAuthCredential credential);
   Future<String?> getPhoneNumberPrefs(String phoneNumber);
   Future<void> setLimitedTimePrefs(String phoneNumber, DateTime futureTime);
   Future<String?> getLimtedTimePrefs(String phoneNumber);
-  Future<bool> checkAccountVerification(String uid);
+  // Future<bool> checkAccountVerification(String uid);
+  Future<String?> getCurrentUid();
+
+  PhoneAuthCredential phoneCredential(String verificationId, String otpCode);
 }

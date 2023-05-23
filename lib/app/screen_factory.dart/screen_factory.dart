@@ -1,6 +1,6 @@
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
+import 'package:fitcoachaz/ui/bloc/bloc/category_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
-import 'package:fitcoachaz/ui/bloc/main/main_bloc.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,9 @@ import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
 import '../../ui/bloc/session/session_bloc.dart';
 import '../../ui/bloc/timer/timer_bloc.dart';
+import '../../ui/screens/category.dart/category_screen.dart';
 import '../../ui/screens/congratulation/congratulation_screen.dart';
+import '../../ui/screens/notification/notification_screen.dart';
 import '../../ui/screens/profile/profile_screen.dart';
 import '../../ui/screens/register/register_screen.dart';
 import '../../ui/screens/otp/otp_screen.dart';
@@ -30,7 +32,10 @@ class ScreenFactory {
   ScreenFactory._();
 
   static Widget assembleWelcome() {
-    return const WelcomeScreen();
+    return BlocProvider<SessionBloc>.value(
+      value: assemble.session,
+      child: const WelcomeScreen(),
+    );
   }
 
   static Widget assembleProfile() {
@@ -47,8 +52,8 @@ class ScreenFactory {
   }
 
   static Widget assembleOTP({
-    required String phoneNumber,
-    required String verificationId,
+    required final String phoneNumber,
+    required final String verificationId,
   }) {
     return MultiBlocProvider(
       providers: [
@@ -91,15 +96,12 @@ class ScreenFactory {
     );
   }
 
-  static Widget assembleSubscribe() {
-    return const SubscribeScreen();
+  static Widget assembleSubscribe({required final Coach coach}) {
+    return SubscribeScreen(coach: coach);
   }
 
   static Widget assembleSplash() {
-    return BlocProvider<SessionBloc>.value(
-      value: assemble.session,
-      child: const SplashScreen(),
-    );
+    return const SplashScreen();
   }
 
   static Widget assembleMain() {
@@ -109,7 +111,19 @@ class ScreenFactory {
     );
   }
 
-  static Widget assembleSeeAll({required List<Coach> coach}) {
+  static Widget assembleSeeAll({required final List<Coach> coach}) {
     return SeeAllScreen(coach: coach);
+  }
+
+  static Widget assembleNotification() {
+    return const NotificationScreen();
+  }
+
+  static Widget assembleCategory({required final String sport}) {
+    return BlocProvider<CategoryBloc>(
+      lazy: false,
+      create: (context) => assemble.category..add(CategoryEvent.fetch(sport)),
+      child: const CategoryScreen(),
+    );
   }
 }

@@ -1,8 +1,6 @@
 import 'package:fitcoachaz/app/router/app_routes.dart';
 import 'package:fitcoachaz/logger.dart';
-import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,21 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
       ..setVolume(0.0);
   }
 
-  void _playVideo() async {
+  void _playVideo() {
     _controller.play();
-    while (_controller.value.isPlaying) {
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
-    if (context.mounted) {
-      context.read<SessionBloc>().state.maybeWhen(
-            authorized: () => Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutesName.tabs, (route) => false),
-            unauthorized: () =>
-                Navigator.pushReplacementNamed(context, AppRoutesName.welcome),
-            orElse: () => const Center(child: CircularProgressIndicator()),
-          );
-    }
+    Future.delayed(const Duration(milliseconds: 3800), redirec);
   }
+
+  Future<void> redirec() async =>
+      Navigator.pushReplacementNamed(context, AppRoutesName.welcome);
 
   @override
   void dispose() {
@@ -62,11 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
               )
-            : Container(
-                color: Colors.black,
-                // width: 200,
-                // height: 200,
-              ),
+            : Container(color: Colors.black),
       ),
     );
   }

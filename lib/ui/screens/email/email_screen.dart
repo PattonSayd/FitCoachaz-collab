@@ -21,13 +21,14 @@ class EmailScreen extends StatefulWidget {
   State<EmailScreen> createState() => _EmailScreenState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class _EmailScreenState extends State<EmailScreen> with WidgetsBindingObserver {
   final _focusNode = FocusNode();
   final _contoller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         context.read<EmailBloc>().add(EmailUnfocused(email: _contoller.text));
@@ -36,8 +37,31 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        logger.e('SignInController: resumed');
+        context
+            .read<EmailBloc>()
+            .add(const RetrieveDynamicLink(coldState: false));
+
+        break;
+      case AppLifecycleState.inactive:
+        logger.e('SignInController: inactive');
+        break;
+      case AppLifecycleState.paused:
+        logger.e('SignInController: paused');
+        break;
+      case AppLifecycleState.detached:
+        logger.e('SignInController: detached');
+        break;
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     _focusNode.dispose();
     _contoller.dispose();
   }

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/data/repositories/category_repo_imp.dart';
 import 'package:fitcoachaz/data/repositories/main_repository_imp.dart';
 import 'package:fitcoachaz/data/repositories/register_repo_imp.dart';
 import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
@@ -5,6 +7,7 @@ import 'package:fitcoachaz/data/services/firebase_storage_service.dart';
 import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
 import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
+import 'package:fitcoachaz/domain/repositories/category_reposytory.dart';
 import 'package:fitcoachaz/domain/repositories/email_repository.dart';
 import 'package:fitcoachaz/ui/bloc/main/main_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
@@ -20,6 +23,7 @@ import '../../domain/repositories/main_repository.dart';
 import '../../domain/repositories/register_repository.dart';
 import '../../domain/repositories/session_repository.dart';
 import '../../ui/bloc/account_name/account_name_bloc.dart';
+import '../../ui/bloc/bloc/category_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
@@ -40,6 +44,9 @@ abstract class AssembleModule {
 
   @injectable
   FirestoreService providerFirestoreService() => FirestoreService();
+
+  @lazySingleton
+  FirebaseAuth providerFirebase() => FirebaseAuth.instance;
 
   @injectable
   FirebaseAuthService providerFirebaseAuthService() => FirebaseAuthService();
@@ -75,8 +82,9 @@ abstract class AssembleModule {
       EmailRepositoryImp(sharedPrefs: sharedPrefs, service: service);
 
   @injectable
-  EmailBloc providerEmailBloc(EmailRepository repository) =>
-      EmailBloc(repository: repository);
+  EmailBloc providerEmailBloc(
+          EmailRepository repository, KeyValueStore sharedPrefs) =>
+      EmailBloc(repository: repository, sharedPrefs: sharedPrefs);
 
   @injectable
   AccountNameRepository providerAccountNameRepository(
@@ -112,7 +120,7 @@ abstract class AssembleModule {
         service: service,
       );
 
-  @singleton
+  @lazySingleton
   SessionBloc providerSessionBloc(SessionRepository repository) =>
       SessionBloc(repository: repository);
 
@@ -124,4 +132,13 @@ abstract class AssembleModule {
   @lazySingleton
   MainBloc providerMainBloc(MainRepository repository) =>
       MainBloc(repository: repository);
+
+  @injectable
+  CategoryRepository providerCategoryRepository(
+          FirestoreService service, FirebaseStorageService storage) =>
+      CategoryRepositoryImp(service: service, storage: storage);
+
+  @injectable
+  CategoryBloc providerCategoryBloc(CategoryRepository repository) =>
+      CategoryBloc(repository: repository);
 }

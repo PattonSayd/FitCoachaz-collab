@@ -20,7 +20,7 @@ Sports _$SportsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Sports {
-  String get name => throw _privateConstructorUsedError;
+  String get sport => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $SportsCopyWith<$Res> {
   factory $SportsCopyWith(Sports value, $Res Function(Sports) then) =
       _$SportsCopyWithImpl<$Res, Sports>;
   @useResult
-  $Res call({String name, String image});
+  $Res call({String sport, String image});
 }
 
 /// @nodoc
@@ -49,13 +49,13 @@ class _$SportsCopyWithImpl<$Res, $Val extends Sports>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? sport = null,
     Object? image = null,
   }) {
     return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      sport: null == sport
+          ? _value.sport
+          : sport // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -71,7 +71,7 @@ abstract class _$$_SportsCopyWith<$Res> implements $SportsCopyWith<$Res> {
       __$$_SportsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String image});
+  $Res call({String sport, String image});
 }
 
 /// @nodoc
@@ -84,13 +84,13 @@ class __$$_SportsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? sport = null,
     Object? image = null,
   }) {
     return _then(_$_Sports(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      sport: null == sport
+          ? _value.sport
+          : sport // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -103,19 +103,19 @@ class __$$_SportsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Sports implements _Sports {
-  _$_Sports({required this.name, required this.image});
+  _$_Sports({required this.sport, required this.image});
 
   factory _$_Sports.fromJson(Map<String, dynamic> json) =>
       _$$_SportsFromJson(json);
 
   @override
-  final String name;
+  final String sport;
   @override
   final String image;
 
   @override
   String toString() {
-    return 'Sports(name: $name, image: $image)';
+    return 'Sports(sport: $sport, image: $image)';
   }
 
   @override
@@ -123,13 +123,13 @@ class _$_Sports implements _Sports {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Sports &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.sport, sport) || other.sport == sport) &&
             (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, image);
+  int get hashCode => Object.hash(runtimeType, sport, image);
 
   @JsonKey(ignore: true)
   @override
@@ -146,13 +146,13 @@ class _$_Sports implements _Sports {
 }
 
 abstract class _Sports implements Sports {
-  factory _Sports({required final String name, required final String image}) =
+  factory _Sports({required final String sport, required final String image}) =
       _$_Sports;
 
   factory _Sports.fromJson(Map<String, dynamic> json) = _$_Sports.fromJson;
 
   @override
-  String get name;
+  String get sport;
   @override
   String get image;
   @override

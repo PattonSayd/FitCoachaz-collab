@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/app/assemble/assemble.dart';
 import 'package:fitcoachaz/app/config.dart';
 import 'package:fitcoachaz/domain/repositories/register_repository.dart';
 import 'package:fitcoachaz/logger.dart';
@@ -56,9 +57,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       try {
         await _repository.verifyNumber(
           phoneNumber: phoneNumber,
-          verificationCompleted: (PhoneAuthCredential credential) => add(
-              RegisterEvent.onPhoneAuthVerificationComplete(
-                  credential: credential)),
+          verificationCompleted: (PhoneAuthCredential credential) =>
+              add(RegisterEvent.onPhoneAuthVerificationComplete(
+            credential: credential,
+          )),
           verificationFailed: (FirebaseAuthException e) {
             logger.d(e.message, e.code, e.stackTrace);
             add(RegisterEvent.onPhoneAuthError(error: e.code));
@@ -74,7 +76,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           codeAutoRetrievalTimeout: (String verificationId) {
             logger.w(verificationId);
           },
-          timeout: const Duration(seconds: 30),
+          timeout: const Duration(seconds: 50),
           // forceResendingToken: _resendToken,
         );
       } catch (e) {
@@ -103,12 +105,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) {
     emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
     try {
-      final credential = PhoneAuthProvider.credential(
-        verificationId: event.verificationId,
-        smsCode: event.otpCode,
-      );
+      final credential =
+          _repository.phoneCredential(event.verificationId, event.otpCode);
       add(RegisterEvent.onPhoneAuthVerificationComplete(
-          credential: credential));
+        credential: credential,
+      ));
     } catch (e) {
       logger.d(e.toString());
       emit(
@@ -125,14 +126,18 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      final uid = await _repository.createCredential(event.credential);
-      if (uid == null) {
-        throw StateError('User ID is null');
+      final a = assemble.auth.currentUser;
+      final credential =
+          await _repository.createCredentialWithAuth(event.credential);
+      if (credential == null) {
+        throw StateError('User credential is null');
       }
-      await _repository.setUserIdPrefs(uid);
-      final isVerified = await _repository.checkAccountVerification(uid);
-      emit(state.copyWith(
-          registerStatus: RegisterStatus.loaded, isVerified: isVerified));
+      final emailVerified = credential.user?.emailVerified ?? false;
+      if (!emailVerified) {
+        emit(state.copyWith(registerStatus: RegisterStatus.loaded));
+      }
+      // await _repository.setUserIdPrefs(uid);
+      // final isVerified = await _repository.checkAccountVerification(uid);
     } on FirebaseAuthException catch (e) {
       logger.d(e.message, e.code, e.stackTrace);
       final raw = e.code.replaceAll('-', ' ');

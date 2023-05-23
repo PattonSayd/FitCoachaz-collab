@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fitcoachaz/app/router/app_routes.dart';
 import 'package:fitcoachaz/data/models/coach.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,24 +41,27 @@ class ActionAppBar extends StatelessWidget {
               fit: BoxFit.contain,
             ),
             actions: [
-              Align(
-                alignment: Alignment.center,
-                child: Stack(
-                  children: [
-                    SvgPicture.asset(AppAssets.notification),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: SvgPicture.asset(AppAssets.notify),
-                    )
-                  ],
+              GestureDetector(
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoutesName.notification),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Stack(
+                    children: [
+                      SvgPicture.asset(AppAssets.notification),
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: SvgPicture.asset(AppAssets.notify),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
               GestureDetector(
-                onTap: () => context
-                    .read<SessionBloc>()
-                    .add(const SessionEvent.logout()),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoutesName.profile),
                 child: Container(
                   width: 32.w,
                   constraints: const BoxConstraints(
@@ -155,49 +159,54 @@ class _SlideContainerState extends State<SlideContainer> {
               child: CarouselSlider(
                 items: widget.sports
                     .map(
-                      (v) => ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(16)),
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            LayoutBuilder(
-                              builder: (context, constraints) {
-                                return CachedNetworkImage(
-                                  imageUrl: v.image,
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) =>
-                                          Shimmer.fromColors(
-                                    baseColor: Colors.grey.shade300,
-                                    highlightColor: Colors.grey.shade100,
-                                    child: Container(
+                      (v) => GestureDetector(
+                        onTap: () => Navigator.of(context).pushNamed(
+                            AppRoutesName.category,
+                            arguments: v.sport),
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              LayoutBuilder(
+                                builder: (context, constraints) {
+                                  return CachedNetworkImage(
+                                    imageUrl: v.image,
+                                    progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                            Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade300,
+                                      highlightColor: Colors.grey.shade100,
+                                      child: Container(
+                                        alignment: Alignment.topCenter,
+                                        width: context.deviceWidth - 48,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade300,
+                                        ),
+                                      ),
+                                    ),
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
                                       alignment: Alignment.topCenter,
                                       width: context.deviceWidth - 48,
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.shade300,
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    alignment: Alignment.topCenter,
-                                    width: context.deviceWidth - 48,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            Positioned(
-                              bottom: 30,
-                              child: Text(v.name,
-                                  style: AppTextStyle.slideCaption),
-                            ),
-                          ],
+                                  );
+                                },
+                              ),
+                              Positioned(
+                                bottom: 30,
+                                child: Text(v.sport,
+                                    style: AppTextStyle.slideCaption),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -285,15 +294,6 @@ class CardView extends StatelessWidget {
               ),
             ),
           ),
-          // ClipRRect(
-          //   child: Image.network(
-          //     _coachItems[index].photo,
-          //     fit: BoxFit.cover,
-          //     width: double.infinity,
-          //     height: 120,
-          //     alignment: Alignment.topCenter,
-          //   ),
-          // ),
           Padding(
             padding: const EdgeInsets.only(
               left: 12,

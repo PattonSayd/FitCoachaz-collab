@@ -171,7 +171,7 @@ class AppTextStyle {
   static TextStyle get profileScreenTitle => TextStyle(
         color: AppColors.black,
         fontWeight: FontWeight.w400,
-        fontSize: 16.spMin,
+        fontSize: 19.spMin,
         height: 1.63,
         fontFamily: AppFonts.alatsiRegular,
       );

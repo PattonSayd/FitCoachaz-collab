@@ -7,11 +7,11 @@ part of 'sports.dart';
 // **************************************************************************
 
 _$_Sports _$$_SportsFromJson(Map<String, dynamic> json) => _$_Sports(
-      name: json['name'] as String,
+      sport: json['sport'] as String,
       image: json['image'] as String,
     );
 
 Map<String, dynamic> _$$_SportsToJson(_$_Sports instance) => <String, dynamic>{
-      'name': instance.name,
+      'sport': instance.sport,
       'image': instance.image,
     };

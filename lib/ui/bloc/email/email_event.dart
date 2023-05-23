@@ -33,3 +33,12 @@ class EmailSubmitted extends EmailEvent {
   @override
   List<Object> get props => [email];
 }
+
+class RetrieveDynamicLink extends EmailEvent {
+  const RetrieveDynamicLink({required this.coldState});
+
+  final bool coldState;
+
+  @override
+  List<Object> get props => [coldState];
+}

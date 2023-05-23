@@ -21,10 +21,12 @@ class SeeAllScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.brightBlue,
       appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Trend Coaches'),
         backgroundColor: Colors.transparent,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 10),
         child: ListView.separated(
           itemCount: coach.length,
           separatorBuilder: (context, index) => const SizedBox(height: 16),

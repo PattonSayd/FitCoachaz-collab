@@ -6,7 +6,7 @@ part 'sports.g.dart';
 @freezed
 abstract class Sports with _$Sports {
   factory Sports({
-    required final String name,
+    required final String sport,
     required final String image,
   }) = _Sports;
 

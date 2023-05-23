@@ -1,10 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/app/assemble/assemble.dart';
 
 class FirebaseAuthService {
-  final _auth = FirebaseAuth.instance;
+  Future<UserCredential> signInWithCredential(
+    AuthCredential credential,
+  ) async =>
+      await assemble.auth.signInWithCredential(credential);
 
-  Future<UserCredential> getCredential(AuthCredential credential) async =>
-      await _auth.signInWithCredential(credential);
+  Future<String?> getCurrentUid() async {
+    return assemble.auth.currentUser?.uid;
+  }
 
   Future<void> verifyNumber({
     String? phoneNumber,
@@ -18,7 +23,7 @@ class FirebaseAuthService {
     int? forceResendingToken,
     MultiFactorSession? multiFactorSession,
   }) async {
-    await _auth.verifyPhoneNumber(
+    await assemble.auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
@@ -28,4 +33,10 @@ class FirebaseAuthService {
       forceResendingToken: forceResendingToken,
     );
   }
+
+  PhoneAuthCredential phoneCredential(String verificationId, String otpCode) =>
+      PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: otpCode,
+      );
 }

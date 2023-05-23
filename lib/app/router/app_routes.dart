@@ -6,17 +6,19 @@ import '../screen_factory.dart/screen_factory.dart';
 class AppRoutesName {
   AppRoutesName._();
 
-  static const welcome = '/';
+  static const welcome = '/welcome';
   static const register = '/register';
   static const splash = '/splash';
-  static const profile = '/profile';
+  static const profile = 'main/profile';
   static const otp = '/otp';
   static const email = '/email';
   static const accountName = '/account_name';
   static const congratulation = '/congratulation';
   static const tabs = '/tabs';
-  static const subscribe = '/subscribe'; // main/subscribe📍
-  static const seeAll = 'main/seeAll'; // main/subscribe📍
+  static const subscribe = 'main/subscribe'; // main/subscribe📍
+  static const seeAll = 'main/seeAll';
+  static const notification = 'main/notification';
+  static const category = 'main/category';
 }
 
 class AppRoutes {
@@ -29,9 +31,9 @@ class AppRoutes {
     AppRoutesName.accountName: (_) => ScreenFactory.assembleAccountName(),
     AppRoutesName.congratulation: (_) => ScreenFactory.assembleCongratulation(),
     AppRoutesName.tabs: (_) => ScreenFactory.assembleTabs(),
-    AppRoutesName.subscribe: (_) => ScreenFactory.assembleSubscribe(),
     AppRoutesName.splash: (_) => ScreenFactory.assembleSplash(),
     AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
+    AppRoutesName.notification: (_) => ScreenFactory.assembleNotification(),
   };
 
   static Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -47,6 +49,16 @@ class AppRoutes {
         final coach = settings.arguments as List<Coach>;
         return MaterialPageRoute(
             builder: (context) => ScreenFactory.assembleSeeAll(coach: coach));
+      case AppRoutesName.subscribe:
+        var coach = settings.arguments as Coach;
+        return MaterialPageRoute(
+            builder: (context) =>
+                ScreenFactory.assembleSubscribe(coach: coach));
+      case AppRoutesName.category:
+        var sport = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) => ScreenFactory.assembleCategory(sport: sport));
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Text('Navigation error'),

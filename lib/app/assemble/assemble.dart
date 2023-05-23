@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/ui/bloc/session/session_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../ui/bloc/account_name/account_name_bloc.dart';
+import '../../ui/bloc/bloc/category_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/main/main_bloc.dart';
@@ -25,6 +27,8 @@ class Assemble {
   CongratulationBloc get congratulation => getIt.get<CongratulationBloc>();
   SessionBloc get session => getIt.get<SessionBloc>();
   MainBloc get main => getIt.get<MainBloc>();
+  FirebaseAuth get auth => getIt.get<FirebaseAuth>();
+  CategoryBloc get category => getIt.get<CategoryBloc>();
 
   const Assemble._();
 }

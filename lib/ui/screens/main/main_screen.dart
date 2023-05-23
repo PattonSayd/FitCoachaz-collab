@@ -33,7 +33,8 @@ class MainScreen extends StatelessWidget {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
         return state.maybeWhen(
-          orElse: () => const Center(child: CircularProgressIndicator()),
+          orElse: () =>
+              const Center(child: CircularProgressIndicator(strokeWidth: 3)),
           initialized: (sports, coaches) => ActionAppBar(
             body: SingleChildScrollView(
               child: Column(
@@ -87,7 +88,8 @@ class MainScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         itemBuilder: (context, index) => GestureDetector(
                           onTap: () => Navigator.pushNamed(
-                              context, AppRoutesName.profile),
+                              context, AppRoutesName.subscribe,
+                              arguments: coaches[index]),
                           child: CardView(
                             index: index,
                             coachItems: coaches,

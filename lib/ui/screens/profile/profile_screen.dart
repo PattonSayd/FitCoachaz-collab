@@ -22,13 +22,13 @@ class ProfileScreen extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(height: 60.h),
-            //! App Bar
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.spMin),
               child: Row(
                 children: [
-                  const BorderedIconButton(
+                  BorderedIconButton(
                     icon: AppIcons.chevronLeft,
+                    onTap: () => Navigator.pop(context),
                   ),
                   Expanded(
                     child: Text(
@@ -44,7 +44,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 27.h),
-            //! User Avatar
             Hero(
               tag: 'user-avatar',
               child: CircleAvatar(
@@ -54,7 +53,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 11.h),
-            //! User Name
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.spMin),
               child: Text(
@@ -64,8 +62,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 72.h),
             const Divider(),
-            SizedBox(height: 40.h),
-            //! Selections
+            SizedBox(height: 32.h),
             _SelectionListTile(
                 text: 'Hədəflər', icon: AppIcons.targets, onTap: () {}),
             SizedBox(height: 32.h),
@@ -76,7 +73,13 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 32.h),
             _SelectionListTile(
                 text: 'Parametrlər', icon: AppIcons.settings, onTap: () {}),
-            //! Bottom Rectangle Ellipse
+            SizedBox(height: 35.h),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.exit_to_app,
+                  color: AppColors.pink,
+                )),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -100,7 +103,6 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-//! Selection List Tile
 class _SelectionListTile extends StatelessWidget {
   const _SelectionListTile({
     Key? key,
@@ -149,7 +151,6 @@ class _SelectionListTile extends StatelessWidget {
   }
 }
 
-//! Painter for Ellipse
 class CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitcoachaz/app/assemble/assemble.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
+import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,11 +13,60 @@ import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
 import '../../widgets/global_start_button.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WelcomeScreen> createState() => WelcomeScreenState();
+}
+
+class WelcomeScreenState extends State<WelcomeScreen> {
+  bool _isUserAuthenticated = false;
+  StreamSubscription<User?>? _authStateSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _authStateSubscription =
+        assemble.auth.authStateChanges().listen((User? user) {
+      final email = user?.emailVerified ?? false;
+      final name = user?.displayName != null;
+      logger.i(user.toString());
+      setState(() {
+        _isUserAuthenticated = user != null && email && name;
+      });
+      if (_isUserAuthenticated) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutesName.tabs,
+          (route) => false,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    return Visibility(
+      visible: !_isUserAuthenticated,
+      child: const _BuildPlaceholder(),
+    );
+  }
+
+  @override
+  void dispose() {
+    logger.w('dispose');
+    _authStateSubscription?.cancel();
+    super.dispose();
+  }
+}
+
+class _BuildPlaceholder extends StatelessWidget {
+  const _BuildPlaceholder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    logger.w('BuildPlaceholder +++++++++++');
     return SafeArea(
       top: false,
       child: Scaffold(

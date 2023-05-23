@@ -1,14 +1,21 @@
-import 'package:fitcoachaz/app/resources/app_assets.dart';
-import 'package:fitcoachaz/ui/screens/subscribe/subscribe_components.dart';
-import 'package:fitcoachaz/ui/style/app_text_style.dart';
-import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 
+import 'package:fitcoachaz/app/resources/app_assets.dart';
+import 'package:fitcoachaz/data/models/coach.dart';
+import 'package:fitcoachaz/ui/screens/subscribe/subscribe_components.dart';
+import 'package:fitcoachaz/ui/style/app_text_style.dart';
+import 'package:fitcoachaz/ui/theme/app_colors.dart';
+
 class SubscribeScreen extends StatelessWidget {
-  const SubscribeScreen({super.key});
+  const SubscribeScreen({
+    Key? key,
+    required this.coach,
+  }) : super(key: key);
+
+  final Coach coach;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,7 @@ class SubscribeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'İsrafil Rzabəyli',
+                            '${coach.name} ${coach.surname}',
                             style: AppTextStyle.cardCoachName,
                           ),
                           SvgPicture.asset(
@@ -65,7 +72,7 @@ class SubscribeScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 2),
                           Text(
-                            '4.9',
+                            coach.rating.toString(),
                             style: AppTextStyle.cardRanking,
                           ),
                         ],

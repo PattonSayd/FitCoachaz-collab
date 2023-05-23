@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
 import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/domain/repositories/register_repository.dart';
+import 'package:fitcoachaz/logger.dart';
 
 import '../storage/table_key.dart';
 import '../storage/key_store.dart';
@@ -41,14 +42,14 @@ class RegisterRepositoryImp extends RegisterRepository {
       );
 
   @override
-  Future<String?> createCredential(
-    AuthCredential credential,
-  ) async {
-    final authCredential = await _authService.getCredential(credential);
-    if (authCredential.user == null) return null;
+  Future<UserCredential?> createCredentialWithAuth(
+      AuthCredential credential) async {
+    final authCredential = await _authService.signInWithCredential(credential);
+    if (authCredential.user == null) {
+      return null;
+    }
     final uid = authCredential.user!.uid;
     final phone = authCredential.user!.phoneNumber;
-    await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
     final userData = await _service.read(TableKey.users, uid);
     if (!userData.exists) {
       await _service.create(TableKey.users, uid, {
@@ -56,23 +57,23 @@ class RegisterRepositoryImp extends RegisterRepository {
         'phone': phone,
       });
     }
-    return uid;
+    return authCredential;
   }
 
-  @override
-  Future<void> setUserIdPrefs(String uid) async =>
-      await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
+  // @override
+  // Future<void> setUserIdPrefs(String uid) async =>
+  //     await _sharedPrefs.write<String>(TypeStoreKey<String>(KeyStore.uid), uid);
 
-  @override
-  Future<bool> checkAccountVerification(String uid) async {
-    final rawData = await _service.getDataById(TableKey.users, uid);
-    final data = rawData as Map<String, dynamic>;
-    return data['isVerified'] ?? false;
-  }
+  // @override
+  // Future<bool> checkAccountVerification(String uid) async {
+  //   final rawData = await _service.getDataById(TableKey.users, uid);
+  //   final data = rawData as Map<String, dynamic>;
+  //   return data['isVerified'] ?? false;
+  // }
 
   @override
   Future<String?> getCredential(PhoneAuthCredential credential) async {
-    final authCredential = await _authService.getCredential(credential);
+    final authCredential = await _authService.signInWithCredential(credential);
     return authCredential.user?.uid;
   }
 
@@ -93,4 +94,12 @@ class RegisterRepositoryImp extends RegisterRepository {
   @override
   Future<String?> getLimtedTimePrefs(String phoneNumber) async => _sharedPrefs
       .read<String>(TypeStoreKey<String>(KeyStore.limitedTime + phoneNumber));
+
+  @override
+  Future<String?> getCurrentUid() => _authService.getCurrentUid();
+
+  @override
+  PhoneAuthCredential phoneCredential(String verificationId, String otpCode) {
+    return _authService.phoneCredential(verificationId, otpCode);
+  }
 }

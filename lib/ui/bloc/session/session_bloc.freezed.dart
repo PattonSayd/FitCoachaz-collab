@@ -19,6 +19,8 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() emailVerification,
+    required TResult Function() displayNameVerification,
     required TResult Function() authorized,
     required TResult Function() unauthorized,
   }) =>
@@ -26,6 +28,8 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? emailVerification,
+    TResult? Function()? displayNameVerification,
     TResult? Function()? authorized,
     TResult? Function()? unauthorized,
   }) =>
@@ -33,6 +37,8 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? emailVerification,
+    TResult Function()? displayNameVerification,
     TResult Function()? authorized,
     TResult Function()? unauthorized,
     required TResult orElse(),
@@ -41,6 +47,9 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailVerification value) emailVerification,
+    required TResult Function(_DisplayNameVerification value)
+        displayNameVerification,
     required TResult Function(_Authorized value) authorized,
     required TResult Function(_Unauthorized value) unauthorized,
   }) =>
@@ -48,6 +57,8 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailVerification value)? emailVerification,
+    TResult? Function(_DisplayNameVerification value)? displayNameVerification,
     TResult? Function(_Authorized value)? authorized,
     TResult? Function(_Unauthorized value)? unauthorized,
   }) =>
@@ -55,6 +66,8 @@ mixin _$SessionState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_EmailVerification value)? emailVerification,
+    TResult Function(_DisplayNameVerification value)? displayNameVerification,
     TResult Function(_Authorized value)? authorized,
     TResult Function(_Unauthorized value)? unauthorized,
     required TResult orElse(),
@@ -118,6 +131,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() emailVerification,
+    required TResult Function() displayNameVerification,
     required TResult Function() authorized,
     required TResult Function() unauthorized,
   }) {
@@ -128,6 +143,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? emailVerification,
+    TResult? Function()? displayNameVerification,
     TResult? Function()? authorized,
     TResult? Function()? unauthorized,
   }) {
@@ -138,6 +155,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? emailVerification,
+    TResult Function()? displayNameVerification,
     TResult Function()? authorized,
     TResult Function()? unauthorized,
     required TResult orElse(),
@@ -152,6 +171,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailVerification value) emailVerification,
+    required TResult Function(_DisplayNameVerification value)
+        displayNameVerification,
     required TResult Function(_Authorized value) authorized,
     required TResult Function(_Unauthorized value) unauthorized,
   }) {
@@ -162,6 +184,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailVerification value)? emailVerification,
+    TResult? Function(_DisplayNameVerification value)? displayNameVerification,
     TResult? Function(_Authorized value)? authorized,
     TResult? Function(_Unauthorized value)? unauthorized,
   }) {
@@ -172,6 +196,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_EmailVerification value)? emailVerification,
+    TResult Function(_DisplayNameVerification value)? displayNameVerification,
     TResult Function(_Authorized value)? authorized,
     TResult Function(_Unauthorized value)? unauthorized,
     required TResult orElse(),
@@ -185,6 +211,249 @@ class _$_Initial implements _Initial {
 
 abstract class _Initial implements SessionState {
   const factory _Initial() = _$_Initial;
+}
+
+/// @nodoc
+abstract class _$$_EmailVerificationCopyWith<$Res> {
+  factory _$$_EmailVerificationCopyWith(_$_EmailVerification value,
+          $Res Function(_$_EmailVerification) then) =
+      __$$_EmailVerificationCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_EmailVerificationCopyWithImpl<$Res>
+    extends _$SessionStateCopyWithImpl<$Res, _$_EmailVerification>
+    implements _$$_EmailVerificationCopyWith<$Res> {
+  __$$_EmailVerificationCopyWithImpl(
+      _$_EmailVerification _value, $Res Function(_$_EmailVerification) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_EmailVerification implements _EmailVerification {
+  const _$_EmailVerification();
+
+  @override
+  String toString() {
+    return 'SessionState.emailVerification()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_EmailVerification);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() emailVerification,
+    required TResult Function() displayNameVerification,
+    required TResult Function() authorized,
+    required TResult Function() unauthorized,
+  }) {
+    return emailVerification();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? emailVerification,
+    TResult? Function()? displayNameVerification,
+    TResult? Function()? authorized,
+    TResult? Function()? unauthorized,
+  }) {
+    return emailVerification?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? emailVerification,
+    TResult Function()? displayNameVerification,
+    TResult Function()? authorized,
+    TResult Function()? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (emailVerification != null) {
+      return emailVerification();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailVerification value) emailVerification,
+    required TResult Function(_DisplayNameVerification value)
+        displayNameVerification,
+    required TResult Function(_Authorized value) authorized,
+    required TResult Function(_Unauthorized value) unauthorized,
+  }) {
+    return emailVerification(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailVerification value)? emailVerification,
+    TResult? Function(_DisplayNameVerification value)? displayNameVerification,
+    TResult? Function(_Authorized value)? authorized,
+    TResult? Function(_Unauthorized value)? unauthorized,
+  }) {
+    return emailVerification?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_EmailVerification value)? emailVerification,
+    TResult Function(_DisplayNameVerification value)? displayNameVerification,
+    TResult Function(_Authorized value)? authorized,
+    TResult Function(_Unauthorized value)? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (emailVerification != null) {
+      return emailVerification(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EmailVerification implements SessionState {
+  const factory _EmailVerification() = _$_EmailVerification;
+}
+
+/// @nodoc
+abstract class _$$_DisplayNameVerificationCopyWith<$Res> {
+  factory _$$_DisplayNameVerificationCopyWith(_$_DisplayNameVerification value,
+          $Res Function(_$_DisplayNameVerification) then) =
+      __$$_DisplayNameVerificationCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_DisplayNameVerificationCopyWithImpl<$Res>
+    extends _$SessionStateCopyWithImpl<$Res, _$_DisplayNameVerification>
+    implements _$$_DisplayNameVerificationCopyWith<$Res> {
+  __$$_DisplayNameVerificationCopyWithImpl(_$_DisplayNameVerification _value,
+      $Res Function(_$_DisplayNameVerification) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_DisplayNameVerification implements _DisplayNameVerification {
+  const _$_DisplayNameVerification();
+
+  @override
+  String toString() {
+    return 'SessionState.displayNameVerification()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DisplayNameVerification);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() emailVerification,
+    required TResult Function() displayNameVerification,
+    required TResult Function() authorized,
+    required TResult Function() unauthorized,
+  }) {
+    return displayNameVerification();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? emailVerification,
+    TResult? Function()? displayNameVerification,
+    TResult? Function()? authorized,
+    TResult? Function()? unauthorized,
+  }) {
+    return displayNameVerification?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? emailVerification,
+    TResult Function()? displayNameVerification,
+    TResult Function()? authorized,
+    TResult Function()? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (displayNameVerification != null) {
+      return displayNameVerification();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailVerification value) emailVerification,
+    required TResult Function(_DisplayNameVerification value)
+        displayNameVerification,
+    required TResult Function(_Authorized value) authorized,
+    required TResult Function(_Unauthorized value) unauthorized,
+  }) {
+    return displayNameVerification(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailVerification value)? emailVerification,
+    TResult? Function(_DisplayNameVerification value)? displayNameVerification,
+    TResult? Function(_Authorized value)? authorized,
+    TResult? Function(_Unauthorized value)? unauthorized,
+  }) {
+    return displayNameVerification?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_EmailVerification value)? emailVerification,
+    TResult Function(_DisplayNameVerification value)? displayNameVerification,
+    TResult Function(_Authorized value)? authorized,
+    TResult Function(_Unauthorized value)? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (displayNameVerification != null) {
+      return displayNameVerification(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DisplayNameVerification implements SessionState {
+  const factory _DisplayNameVerification() = _$_DisplayNameVerification;
 }
 
 /// @nodoc
@@ -226,6 +495,8 @@ class _$_Authorized implements _Authorized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() emailVerification,
+    required TResult Function() displayNameVerification,
     required TResult Function() authorized,
     required TResult Function() unauthorized,
   }) {
@@ -236,6 +507,8 @@ class _$_Authorized implements _Authorized {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? emailVerification,
+    TResult? Function()? displayNameVerification,
     TResult? Function()? authorized,
     TResult? Function()? unauthorized,
   }) {
@@ -246,6 +519,8 @@ class _$_Authorized implements _Authorized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? emailVerification,
+    TResult Function()? displayNameVerification,
     TResult Function()? authorized,
     TResult Function()? unauthorized,
     required TResult orElse(),
@@ -260,6 +535,9 @@ class _$_Authorized implements _Authorized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailVerification value) emailVerification,
+    required TResult Function(_DisplayNameVerification value)
+        displayNameVerification,
     required TResult Function(_Authorized value) authorized,
     required TResult Function(_Unauthorized value) unauthorized,
   }) {
@@ -270,6 +548,8 @@ class _$_Authorized implements _Authorized {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailVerification value)? emailVerification,
+    TResult? Function(_DisplayNameVerification value)? displayNameVerification,
     TResult? Function(_Authorized value)? authorized,
     TResult? Function(_Unauthorized value)? unauthorized,
   }) {
@@ -280,6 +560,8 @@ class _$_Authorized implements _Authorized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_EmailVerification value)? emailVerification,
+    TResult Function(_DisplayNameVerification value)? displayNameVerification,
     TResult Function(_Authorized value)? authorized,
     TResult Function(_Unauthorized value)? unauthorized,
     required TResult orElse(),
@@ -334,6 +616,8 @@ class _$_Unauthorized implements _Unauthorized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() emailVerification,
+    required TResult Function() displayNameVerification,
     required TResult Function() authorized,
     required TResult Function() unauthorized,
   }) {
@@ -344,6 +628,8 @@ class _$_Unauthorized implements _Unauthorized {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? emailVerification,
+    TResult? Function()? displayNameVerification,
     TResult? Function()? authorized,
     TResult? Function()? unauthorized,
   }) {
@@ -354,6 +640,8 @@ class _$_Unauthorized implements _Unauthorized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? emailVerification,
+    TResult Function()? displayNameVerification,
     TResult Function()? authorized,
     TResult Function()? unauthorized,
     required TResult orElse(),
@@ -368,6 +656,9 @@ class _$_Unauthorized implements _Unauthorized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_EmailVerification value) emailVerification,
+    required TResult Function(_DisplayNameVerification value)
+        displayNameVerification,
     required TResult Function(_Authorized value) authorized,
     required TResult Function(_Unauthorized value) unauthorized,
   }) {
@@ -378,6 +669,8 @@ class _$_Unauthorized implements _Unauthorized {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_EmailVerification value)? emailVerification,
+    TResult? Function(_DisplayNameVerification value)? displayNameVerification,
     TResult? Function(_Authorized value)? authorized,
     TResult? Function(_Unauthorized value)? unauthorized,
   }) {
@@ -388,6 +681,8 @@ class _$_Unauthorized implements _Unauthorized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_EmailVerification value)? emailVerification,
+    TResult Function(_DisplayNameVerification value)? displayNameVerification,
     TResult Function(_Authorized value)? authorized,
     TResult Function(_Unauthorized value)? unauthorized,
     required TResult orElse(),

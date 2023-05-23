@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitcoachaz/data/models/coach.dart';
-import 'package:fitcoachaz/data/models/sports.dart';
-import 'package:fitcoachaz/data/services/firebase_storage_service.dart';
-import 'package:fitcoachaz/data/services/firestore_service.dart';
+import 'package:fitcoachaz/data/storage/table_key.dart';
 
-import '../../domain/repositories/main_repository.dart';
-import '../storage/table_key.dart';
+import '../../domain/repositories/category_reposytory.dart';
+import '../services/firebase_storage_service.dart';
+import '../services/firestore_service.dart';
 
-class MainRepositoryImp extends MainRepository {
-  MainRepositoryImp({
+class CategoryRepositoryImp extends CategoryRepository {
+  CategoryRepositoryImp({
     required final FirestoreService service,
     required final FirebaseStorageService storage,
   })  : _service = service,
@@ -18,18 +17,12 @@ class MainRepositoryImp extends MainRepository {
   final FirebaseStorageService _storage;
 
   @override
-  Future<List<Sports>> getSports() async {
-    final sportsData = await _service.getDataByTable(TableKey.sports);
-    return await _fetchDataWithImages<Sports>(
-      sportsData,
-      'image',
-      (data) => Sports.fromJson(data),
+  Future<List<Coach>> getDataByCategory(String sport) async {
+    final coachesData = await _service.getDataByCategory(
+      TableKey.coaches,
+      'sport',
+      sport,
     );
-  }
-
-  @override
-  Future<List<Coach>> getCoaches() async {
-    final coachesData = await _service.getDataByTable(TableKey.coaches);
     return await _fetchDataWithImages<Coach>(
       coachesData,
       'photo',
