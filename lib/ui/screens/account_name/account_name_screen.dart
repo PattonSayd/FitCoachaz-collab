@@ -129,15 +129,17 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
                 },
                 buildWhen: (p, c) => p.status != c.status,
                 builder: (context, state) {
-                  return GlobalButton(
-                    onPressed: state.status.isInitial
-                        ? () {
-                            context
-                                .read<AccountNameBloc>()
-                                .add(FormsSubmittedEvent());
-                          }
-                        : null,
-                    child: _buildButtonChild(context, state.status),
+                  return Align(
+                    child: GlobalButton(
+                      onPressed: state.status.isInitial
+                          ? () {
+                              context
+                                  .read<AccountNameBloc>()
+                                  .add(FormsSubmittedEvent());
+                            }
+                          : null,
+                      child: _buildButtonChild(context, state.status),
+                    ),
                   );
                 },
               ),

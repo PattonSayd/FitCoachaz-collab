@@ -30,7 +30,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     _authStateSubscription =
         assemble.auth.authStateChanges().listen((User? user) {
       final email = user?.emailVerified ?? false;
-      final name = user?.displayName != null;
+      final name = user?.displayName != null && user?.displayName != '';
       logger.i(user.toString());
       setState(() {
         _isUserAuthenticated = user != null && email && name;

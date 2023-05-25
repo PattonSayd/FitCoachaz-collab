@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitcoachaz/app/router/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fitcoachaz/data/models/coach.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../bloc/bloc/category_bloc.dart';
@@ -26,7 +28,12 @@ class CategoryScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
           ),
           body: state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
+            initial: () => Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: AppColors.bright,
+                size: 40,
+              ),
+            ),
             completed: (coaches) => Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 10),
@@ -53,7 +60,9 @@ class CategoryScreen extends StatelessWidget {
                     color: Colors.transparent,
                     borderRadius: const BorderRadius.all(Radius.circular(6)),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.of(context).pushNamed(
+                          AppRoutesName.subscribe,
+                          arguments: coaches[index]),
                       child: Row(
                         children: [
                           CachedNetworkImage(

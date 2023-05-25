@@ -6,13 +6,9 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:fitcoachaz/app/assemble/assemble.dart';
-import 'package:fitcoachaz/data/storage/sharedPrefs/key_value_store.dart';
-import 'package:fitcoachaz/data/storage/sharedPrefs/shared_prefs.dart';
 import 'package:fitcoachaz/domain/repositories/email_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 import 'package:flutter/services.dart';
-
-import '../../../data/services/firebase_dynamic_links_services.dart';
 
 part 'email_event.dart';
 part 'email_state.dart';
@@ -21,9 +17,7 @@ part 'email_state.dart';
 class EmailBloc extends Bloc<EmailEvent, EmailState> {
   EmailBloc({
     required final EmailRepository repository,
-    required final KeyValueStore sharedPrefs,
   })  : _repository = repository,
-        _sharedPrefs = sharedPrefs,
         super(const EmailState.initial()) {
     on<EmailChanged>(_onEmailChanged);
     on<EmailUnfocused>(_onEmailUnfocused);
@@ -32,7 +26,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   final EmailRepository _repository;
-  final KeyValueStore _sharedPrefs;
 
   FutureOr<void> _onEmailChanged(
     EmailChanged event,
@@ -63,24 +56,17 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     EmailSubmitted event,
     Emitter<EmailState> emit,
   ) async {
-    // emit(const EmailState.loading());
+    emit(const EmailState.loading());
     try {
-      var acs = ActionCodeSettings(
-        url: 'https://fitcoachaz.page.link/emailredirect',
-        handleCodeInApp: true,
-        iOSBundleId: 'com.example.fitcoachaz',
-        androidPackageName: 'com.example.fitcoachaz',
-        androidMinimumVersion: '12',
-      );
-
-      await assemble.auth
-          .sendSignInLinkToEmail(
-            email: event.email,
-            actionCodeSettings: acs,
-          )
+      final email = event.email.trim();
+      await _repository
+          .sendEmailVerification(email)
           .catchError((onError) =>
               logger.wtf('Error sending email verification $onError'))
-          .then((value) => logger.wtf('Successfully sent email verification'));
+          .then((value) {
+        logger.wtf('Successfully sent email verification');
+        emit(EmailState.sendEmailSuccess(email));
+      });
 
       FirebaseDynamicLinks.instance.onLink.listen((event) {
         logger.wtf('${event.link}');
@@ -88,40 +74,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         logger.wtf('onLink.onError[$error]');
       });
 
-      // final cred =
-      //     FirebaseAuth.instance.isSignInWithEmailLink(dyn!.link.toString());.
+      await _repository.setEmailPrefs(email);
 
-      await _sharedPrefs.write<String>(
-          TypeStoreKey<String>('EMAIL'), event.email);
-
-      // retrieveDynamicLinkAndSignIn(true);
       add(const RetrieveDynamicLink(coldState: true));
 
-      // if (true) {
-      //   try {
-      //     final userCredential = await FirebaseAuth.instance
-      //         .signInWithEmailLink(email: event.email, emailLink: event.email);
-
-      //     final emailAddress = userCredential.user?.email;
-
-      //     print('Successfully signed in with email link!');
-      //   } catch (error) {
-      //     print('Error signing in with email link.');
-      //   }
-      // }
-
-      // final a = assemble.auth.currentUser;
-
-      // final d = assemble.auth.currentUser;
-
       // await Future.delayed(const Duration(seconds: 5));
-
-      // final uid = await _repository.getUserId();
-      // if (uid == null) {
-      //   throw StateError('User ID is null');
-      // }
-      // await _repository.saveEmail(uid, event.email);
-      // emit(const EmailState.success());
     } on FirebaseException catch (e) {
       if (e.code == 'not-found') {
         emit(const EmailState.error('Sorry, there was a technical error'));
@@ -136,25 +93,19 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     }
   }
 
-  // FutureOr<void> _onRetrieveDynamicLink(
-  //   RetrieveDynamicLink event,
-  //   Emitter<EmailState> emit,
-  // ) {}
-
   Future<void> _onRetrieveDynamicLink(
     RetrieveDynamicLink event,
     Emitter<EmailState> emit,
   ) async {
     try {
-      String email =
-          await _sharedPrefs.read<String>(TypeStoreKey<String>('EMAIL')) ?? '';
-
+      final email = await _repository.getEmailPrefs();
       if (email.isEmpty) {
         logger.w('email is empty');
       }
 
       PendingDynamicLinkData? dynamicLinkData;
-      await Future.delayed(const Duration(seconds: 3));
+      // await Future.delayed(const Duration(seconds: 3));
+
       Uri? deepLink;
       if (event.coldState) {
         dynamicLinkData = await FirebaseDynamicLinks.instance.getInitialLink();
@@ -167,6 +118,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
 
       logger.w('deepLink => $deepLink');
+
       if (deepLink != null) {
         bool validLink =
             assemble.auth.isSignInWithEmailLink(deepLink.toString());
@@ -189,18 +141,44 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
           }
         }
 
-        await _sharedPrefs.write<String>(TypeStoreKey<String>('EMAIL'), '');
+        await _repository.setEmailPrefs(null);
+        final phoneCredential = await _repository.getCredential();
+
+        if (phoneCredential == null) {
+          logger.d('No phone credential');
+        }
 
         if (validLink) {
-          final userCredential = await assemble.auth.signInWithEmailLink(
-            email: email,
-            emailLink: deepLink.toString(),
-            //navigation
-          );
-          if (userCredential.user != null) {
-            logger.w('retrieveDynamicLinkAndSignIn');
+          // final emailCredential =
+          //     await FirebaseAuth.instance.signInWithEmailLink(
+          //   email: email,
+          //   emailLink: deepLink.toString(),
+          // );
+
+          final authCredential = EmailAuthProvider.credentialWithLink(
+              email: email, emailLink: deepLink.toString());
+          try {
+            await assemble.auth.currentUser?.linkWithCredential(authCredential);
+            const a = 1;
+          } catch (error) {
+            logger.i("Error linking emailLink credential.");
+          }
+
+          // final linkedUser =
+          //     phoneCredential?.user?.linkWithCredential(emailCredential);
+
+          final emailAddress = assemble.auth.currentUser?.email;
+
+          if (emailAddress != null) {
+            logger.w('Successfully signed in with email link!');
+            final credential = assemble.auth.currentUser;
+            if (credential == null) {
+              throw StateError('User is null');
+            }
+            await _repository.saveUserCredential(credential);
+            emit(const EmailState.success());
           } else {
-            logger.d('userCredential.user is [${userCredential.user}]');
+            logger.d('Error signing in with email link.');
           }
         } else {
           logger.d('Link is not valid');

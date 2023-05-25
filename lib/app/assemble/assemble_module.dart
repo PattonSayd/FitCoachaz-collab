@@ -78,13 +78,18 @@ abstract class AssembleModule {
   EmailRepository providerEmailRepository(
     KeyValueStore sharedPrefs,
     FirestoreService service,
+    FirebaseAuthService auth,
   ) =>
-      EmailRepositoryImp(sharedPrefs: sharedPrefs, service: service);
+      EmailRepositoryImp(
+        sharedPrefs: sharedPrefs,
+        service: service,
+        auth: auth,
+      );
 
   @injectable
   EmailBloc providerEmailBloc(
           EmailRepository repository, KeyValueStore sharedPrefs) =>
-      EmailBloc(repository: repository, sharedPrefs: sharedPrefs);
+      EmailBloc(repository: repository);
 
   @injectable
   AccountNameRepository providerAccountNameRepository(
@@ -109,20 +114,20 @@ abstract class AssembleModule {
           CongratulationRepository repository) =>
       CongratulationBloc(repository: repository);
 
-  @injectable
-  SessionRepository providerSessionRepository(
-    KeyValueStore sharedPrefs,
-    FirestoreService service,
-    FirebaseAuthService authService,
-  ) =>
-      SessionRepositoryImp(
-        sharedPrefs: sharedPrefs,
-        service: service,
-      );
+  // @injectable
+  // SessionRepository providerSessionRepository(
+  //   KeyValueStore sharedPrefs,
+  //   FirestoreService service,
+  //   FirebaseAuthService authService,
+  // ) =>
+  //     SessionRepositoryImp(
+  //       sharedPrefs: sharedPrefs,
+  //       service: service,
+  //     );
 
-  @lazySingleton
-  SessionBloc providerSessionBloc(SessionRepository repository) =>
-      SessionBloc(repository: repository);
+  // @lazySingleton
+  // SessionBloc providerSessionBloc(SessionRepository repository) =>
+  //     SessionBloc(repository: repository);
 
   @injectable
   MainRepository providerMainRepository(

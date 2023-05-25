@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fitcoachaz/app/assemble/assemble.dart';
 import 'package:fitcoachaz/ui/formz/account_name/name_formz.dart';
 import 'package:fitcoachaz/ui/formz/account_name/surname_formz.dart';
 import 'package:formz/formz.dart';
@@ -87,7 +88,7 @@ class AccountNameBloc extends Bloc<AccountNameEvent, AccountNameState> {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
     try {
-      final uid = await _repository.getUserId();
+      final uid = assemble.auth.currentUser?.uid;
       if (uid == null) {
         throw StateError('User ID is null');
       }

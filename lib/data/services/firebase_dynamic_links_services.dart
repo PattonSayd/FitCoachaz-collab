@@ -1,16 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
-//     FirebaseDynamicLinks.instance.onLink.listen((event) {
-//       logger.wtf('${event.link}');
-//     }).onError((error) {
-//       logger.wtf('onLink.onError[$error]');
-//     });
+import '../../app/assemble/assemble.dart';
 
 class FirebaseDynamicLinksServices {
-  // late Stream<PendingDynamicLinkData> dynamicLinkStream;
-
   var acs = ActionCodeSettings(
+    // androidInstallApp: false,
     url: 'https://fitcoachaz.page.link/emailredirect',
     handleCodeInApp: true,
     iOSBundleId: 'com.example.fitcoachaz',

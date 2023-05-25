@@ -42,7 +42,7 @@ class MainRepositoryImp extends MainRepository {
     String field,
     T Function(Map<String, dynamic>) fromJson,
   ) async {
-    return await Future.wait(docs.docs.map((doc) async {
+    return Future.wait(docs.docs.map((doc) async {
       final url = await _storage.createReference(doc, field);
       final data = doc.data();
       data[field] = url;

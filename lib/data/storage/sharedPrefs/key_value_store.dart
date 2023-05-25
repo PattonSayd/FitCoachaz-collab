@@ -3,8 +3,6 @@ abstract class KeyValueStore {
 
   Future<void> init();
 
-  // Future<void> get isInit async => await init();
-
   Future<T?> read<T>(TypeStoreKey<T> typedStoreKey);
 
   Future<void> write<T>(TypeStoreKey<T> typedStoreKey, T? value);

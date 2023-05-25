@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/data/services/firebase_auth_service.dart';
 import 'package:fitcoachaz/data/services/firestore_service.dart';
 import 'package:fitcoachaz/domain/repositories/register_repository.dart';
-import 'package:fitcoachaz/logger.dart';
 
 import '../storage/table_key.dart';
 import '../storage/key_store.dart';
@@ -41,21 +40,33 @@ class RegisterRepositoryImp extends RegisterRepository {
         forceResendingToken: forceResendingToken,
       );
 
+  // @override
+  // Future<UserCredential?> createCredentialWithAuth(
+  //     AuthCredential credential) async {
+  //   final authCredential = await _authService.signInWithCredential(credential);
+  //   if (authCredential.user == null) {
+  //     return null;
+  //   }
+  //   final uid = authCredential.user!.uid;
+  //   final phone = authCredential.user!.phoneNumber;
+  //   final userData = await _service.read(TableKey.users, uid);
+  //   if (!userData.exists) {
+  //     await _service.create(TableKey.users, uid, {
+  //       'uid': uid,
+  //       'phone': phone,
+  //     });
+  //   }
+  //   return authCredential;
+  // }
+
   @override
   Future<UserCredential?> createCredentialWithAuth(
       AuthCredential credential) async {
     final authCredential = await _authService.signInWithCredential(credential);
+    // authCredential.additionalUserInfo.isNewUser;
+    // _sharedPrefs.write<AuthCredential>(TypeStoreKey('credent'), credential);
     if (authCredential.user == null) {
       return null;
-    }
-    final uid = authCredential.user!.uid;
-    final phone = authCredential.user!.phoneNumber;
-    final userData = await _service.read(TableKey.users, uid);
-    if (!userData.exists) {
-      await _service.create(TableKey.users, uid, {
-        'uid': uid,
-        'phone': phone,
-      });
     }
     return authCredential;
   }

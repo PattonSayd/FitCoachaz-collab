@@ -1,6 +1,7 @@
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/bloc/category_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
+import 'package:fitcoachaz/ui/screens/email/email_sent_successful_screen.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,10 +33,7 @@ class ScreenFactory {
   ScreenFactory._();
 
   static Widget assembleWelcome() {
-    return BlocProvider<SessionBloc>.value(
-      value: assemble.session,
-      child: const WelcomeScreen(),
-    );
+    return const WelcomeScreen();
   }
 
   static Widget assembleProfile() {
@@ -75,10 +73,7 @@ class ScreenFactory {
   }
 
   static Widget assembleTabs() {
-    return BlocProvider.value(
-      value: assemble.session,
-      child: const TabsNavigator(),
-    );
+    return const TabsNavigator();
   }
 
   static Widget assembleAccountName() {
@@ -124,6 +119,12 @@ class ScreenFactory {
       lazy: false,
       create: (context) => assemble.category..add(CategoryEvent.fetch(sport)),
       child: const CategoryScreen(),
+    );
+  }
+
+  static Widget assembleSendEmailSuccess({required String email}) {
+    return EmailSentSuccessfulScreen(
+      email: email,
     );
   }
 }

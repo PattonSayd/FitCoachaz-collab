@@ -168,6 +168,9 @@ class _EmailScreenState extends State<EmailScreen> with WidgetsBindingObserver {
         context: context,
         builder: (context) => NotificationWindow(alertText: state.error!),
       );
+    } else if (state.status == EmailStatus.sendEmailSuccess) {
+      Navigator.pushNamed(context, AppRoutesName.sendEmailSuccess,
+          arguments: state.email);
     }
   }
 }

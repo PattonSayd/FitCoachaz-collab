@@ -25,7 +25,7 @@ class Assemble {
   TimerBloc get timer => getIt.get<TimerBloc>();
   EmailBloc get email => getIt.get<EmailBloc>();
   CongratulationBloc get congratulation => getIt.get<CongratulationBloc>();
-  SessionBloc get session => getIt.get<SessionBloc>();
+  // SessionBloc get session => getIt.get<SessionBloc>();
   MainBloc get main => getIt.get<MainBloc>();
   FirebaseAuth get auth => getIt.get<FirebaseAuth>();
   CategoryBloc get category => getIt.get<CategoryBloc>();

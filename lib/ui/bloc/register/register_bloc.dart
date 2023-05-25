@@ -126,7 +126,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      final a = assemble.auth.currentUser;
       final credential =
           await _repository.createCredentialWithAuth(event.credential);
       if (credential == null) {

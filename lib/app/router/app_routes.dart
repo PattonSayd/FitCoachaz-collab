@@ -12,6 +12,7 @@ class AppRoutesName {
   static const profile = 'main/profile';
   static const otp = '/otp';
   static const email = '/email';
+  static const sendEmailSuccess = '/sendEmailSuccess';
   static const accountName = '/account_name';
   static const congratulation = '/congratulation';
   static const tabs = '/tabs';
@@ -58,7 +59,11 @@ class AppRoutes {
         var sport = settings.arguments as String;
         return MaterialPageRoute(
             builder: (context) => ScreenFactory.assembleCategory(sport: sport));
-
+      case AppRoutesName.sendEmailSuccess:
+        var email = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) =>
+                ScreenFactory.assembleSendEmailSuccess(email: email));
       default:
         return MaterialPageRoute(
           builder: (_) => const Text('Navigation error'),

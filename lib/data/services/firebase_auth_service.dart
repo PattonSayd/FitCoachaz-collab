@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitcoachaz/app/assemble/assemble.dart';
 
+import '../../app/config.dart';
+
 class FirebaseAuthService {
   Future<UserCredential> signInWithCredential(
     AuthCredential credential,
@@ -39,4 +41,11 @@ class FirebaseAuthService {
         verificationId: verificationId,
         smsCode: otpCode,
       );
+
+  Future<void> sendEmailVerification(String email) async {
+    await assemble.auth.sendSignInLinkToEmail(
+      email: email,
+      actionCodeSettings: acs,
+    );
+  }
 }

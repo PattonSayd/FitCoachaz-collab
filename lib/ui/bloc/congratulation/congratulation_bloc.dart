@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fitcoachaz/app/assemble/assemble.dart';
 import 'package:fitcoachaz/domain/repositories/congratulation_repository.dart';
 import 'package:fitcoachaz/logger.dart';
 
@@ -26,7 +27,7 @@ class CongratulationBloc
   ) async {
     const CongratulationState.loading();
     try {
-      final uid = await _repository.getUserId();
+      final uid = assemble.auth.currentUser?.uid;
       if (uid == null) return;
       final name = await _repository.getUserName(uid);
       emit(CongratulationState.success(name));
