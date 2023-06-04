@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SearchEvent {
-  String get query => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String query) search,
+    required TResult Function() clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String query)? search,
+    TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? search,
+    TResult Function()? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ClearSearchEvent value) clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ClearSearchEvent value)? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SearchEvent value)? search,
+    TResult Function(_ClearSearchEvent value)? clear,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SearchEventCopyWith<SearchEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $SearchEventCopyWith<$Res> {
   factory $SearchEventCopyWith(
           SearchEvent value, $Res Function(SearchEvent) then) =
       _$SearchEventCopyWithImpl<$Res, SearchEvent>;
-  @useResult
-  $Res call({String query});
 }
 
 /// @nodoc
@@ -73,28 +72,13 @@ class _$SearchEventCopyWithImpl<$Res, $Val extends SearchEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? query = null,
-  }) {
-    return _then(_value.copyWith(
-      query: null == query
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_SearchEventCopyWith<$Res>
-    implements $SearchEventCopyWith<$Res> {
+abstract class _$$_SearchEventCopyWith<$Res> {
   factory _$$_SearchEventCopyWith(
           _$_SearchEvent value, $Res Function(_$_SearchEvent) then) =
       __$$_SearchEventCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String query});
 }
@@ -155,6 +139,7 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String query) search,
+    required TResult Function() clear,
   }) {
     return search(query);
   }
@@ -163,6 +148,7 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String query)? search,
+    TResult? Function()? clear,
   }) {
     return search?.call(query);
   }
@@ -171,6 +157,7 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? search,
+    TResult Function()? clear,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -183,6 +170,7 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ClearSearchEvent value) clear,
   }) {
     return search(this);
   }
@@ -191,6 +179,7 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ClearSearchEvent value)? clear,
   }) {
     return search?.call(this);
   }
@@ -199,6 +188,7 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SearchEvent value)? search,
+    TResult Function(_ClearSearchEvent value)? clear,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -211,12 +201,112 @@ class _$_SearchEvent implements _SearchEvent {
 abstract class _SearchEvent implements SearchEvent {
   const factory _SearchEvent(final String query) = _$_SearchEvent;
 
-  @override
   String get query;
-  @override
   @JsonKey(ignore: true)
   _$$_SearchEventCopyWith<_$_SearchEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ClearSearchEventCopyWith<$Res> {
+  factory _$$_ClearSearchEventCopyWith(
+          _$_ClearSearchEvent value, $Res Function(_$_ClearSearchEvent) then) =
+      __$$_ClearSearchEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ClearSearchEventCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$_ClearSearchEvent>
+    implements _$$_ClearSearchEventCopyWith<$Res> {
+  __$$_ClearSearchEventCopyWithImpl(
+      _$_ClearSearchEvent _value, $Res Function(_$_ClearSearchEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ClearSearchEvent implements _ClearSearchEvent {
+  const _$_ClearSearchEvent();
+
+  @override
+  String toString() {
+    return 'SearchEvent.clear()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_ClearSearchEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String query) search,
+    required TResult Function() clear,
+  }) {
+    return clear();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String query)? search,
+    TResult? Function()? clear,
+  }) {
+    return clear?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String query)? search,
+    TResult Function()? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ClearSearchEvent value) clear,
+  }) {
+    return clear(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ClearSearchEvent value)? clear,
+  }) {
+    return clear?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SearchEvent value)? search,
+    TResult Function(_ClearSearchEvent value)? clear,
+    required TResult orElse(),
+  }) {
+    if (clear != null) {
+      return clear(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ClearSearchEvent implements SearchEvent {
+  const factory _ClearSearchEvent() = _$_ClearSearchEvent;
 }
 
 /// @nodoc

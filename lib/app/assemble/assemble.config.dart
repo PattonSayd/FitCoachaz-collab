@@ -107,7 +107,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => assembleModule.providerMainBloc(gh<_i8.MainRepository>()));
     gh.factory<_i18.RegisterBloc>(() =>
         assembleModule.providerRegisterBloc(gh<_i9.RegisterRepository>()));
-    gh.factory<_i19.SearchBloc>(
+    gh.lazySingleton<_i19.SearchBloc>(
         () => assembleModule.providerSearchBloc(gh<_i10.SearchRepository>()));
     gh.factory<_i20.AccountNameBloc>(() => assembleModule
         .provideerAccountNameBloc(gh<_i13.AccountNameRepository>()));

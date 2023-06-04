@@ -19,6 +19,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchEvent>(
       (event, emit) => event.map(
         search: (event) => _onSearch(event, emit),
+        clear: (_) => _onClear(emit),
       ),
     );
   }
@@ -44,5 +45,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           words[i][0].toUpperCase() + words[i].substring(1).toLowerCase();
     }
     return words.join(' ').trim();
+  }
+
+  void _onClear(Emitter<SearchState> emit) {
+    emit(const SearchState.initial());
   }
 }

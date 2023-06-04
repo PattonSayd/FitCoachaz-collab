@@ -1,6 +1,8 @@
+import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/search/search_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -55,6 +57,9 @@ class _AnimatedAppBarWidgetState extends State<AnimatedAppBarWidget> {
 
   _listenToSearchController() {
     controller.addListener(() {
+      if (controller.text.isEmpty) {
+        context.read<SearchBloc>().add(const SearchEvent.clear());
+      }
       if (controller.text.length > 1) return;
       setState(() {
         showClearBtn = controller.text.isNotEmpty;

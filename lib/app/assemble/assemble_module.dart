@@ -33,7 +33,7 @@ import '../../ui/screens/main/appbar_state.dart';
 
 @module
 abstract class AssembleModule {
-  @injectable
+  @factory
   Ticker providerTicker() => const Ticker();
 
   @singleton
@@ -44,20 +44,20 @@ abstract class AssembleModule {
     return prefs;
   }
 
-  @injectable
+  @factory
   FirestoreService providerFirestoreService() => FirestoreService();
 
   @lazySingleton
   FirebaseAuth providerFirebase() => FirebaseAuth.instance;
 
-  @injectable
+  @factory
   FirebaseAuthService providerFirebaseAuthService() => FirebaseAuthService();
 
-  @injectable
+  @factory
   FirebaseStorageService providerFirebaseStorageService() =>
       FirebaseStorageService();
 
-  @injectable
+  @factory
   RegisterRepository providerRegisterRepo(
     KeyValueStore sharedPrefs,
     FirestoreService service,
@@ -69,14 +69,14 @@ abstract class AssembleModule {
         authService: authService,
       );
 
-  @injectable
+  @factory
   RegisterBloc providerRegisterBloc(RegisterRepository repository) =>
       RegisterBloc(repository: repository);
 
-  @injectable
+  @factory
   TimerBloc providerTimerBloc(Ticker ticker) => TimerBloc(ticker: ticker);
 
-  @injectable
+  @factory
   EmailRepository providerEmailRepository(
     KeyValueStore sharedPrefs,
     FirestoreService service,
@@ -88,30 +88,30 @@ abstract class AssembleModule {
         auth: auth,
       );
 
-  @injectable
+  @factory
   EmailBloc providerEmailBloc(
           EmailRepository repository, KeyValueStore sharedPrefs) =>
       EmailBloc(repository: repository);
 
-  @injectable
+  @factory
   AccountNameRepository providerAccountNameRepository(
     KeyValueStore sharedPrefs,
     FirestoreService service,
   ) =>
       AccountNameRepositoryImp(sharedPrefs: sharedPrefs, service: service);
 
-  @injectable
+  @factory
   AccountNameBloc provideerAccountNameBloc(AccountNameRepository repository) =>
       AccountNameBloc(repository: repository);
 
-  @injectable
+  @factory
   CongratulationRepository providerCongratulationRepository(
     KeyValueStore sharedPrefs,
     FirestoreService service,
   ) =>
       CongratulationRepositoryImp(sharedPrefs: sharedPrefs, service: service);
 
-  @injectable
+  @factory
   CongratulationBloc providerCongratulationBloc(
           CongratulationRepository repository) =>
       CongratulationBloc(repository: repository);
@@ -131,7 +131,7 @@ abstract class AssembleModule {
   // SessionBloc providerSessionBloc(SessionRepository repository) =>
   //     SessionBloc(repository: repository);
 
-  @injectable
+  @factory
   MainRepository providerMainRepository(
           FirestoreService service, FirebaseStorageService storage) =>
       MainRepositoryImp(service: service, storage: storage);
@@ -140,19 +140,19 @@ abstract class AssembleModule {
   MainBloc providerMainBloc(MainRepository repository) =>
       MainBloc(repository: repository);
 
-  @injectable
+  @factory
   CategoryRepository providerCategoryRepository(
           FirestoreService service, FirebaseStorageService storage) =>
       CategoryRepositoryImp(service: service, storage: storage);
 
-  @injectable
+  @factory
   CategoryBloc providerCategoryBloc(CategoryRepository repository) =>
       CategoryBloc(repository: repository);
 
   @lazySingleton
   ShowAppBarState providerShowAppBarState() => ShowAppBarState();
 
-  @injectable
+  @factory
   SearchRepository providerSearchRepository(
     FirestoreService service,
     FirebaseStorageService storage,
@@ -162,7 +162,7 @@ abstract class AssembleModule {
         storage: storage,
       );
 
-  @factory
+  @lazySingleton
   SearchBloc providerSearchBloc(SearchRepository repository) =>
       SearchBloc(repository: repository);
 }
