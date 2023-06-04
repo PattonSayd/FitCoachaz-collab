@@ -49,4 +49,21 @@ class FirestoreService {
       String table) async {
     return await _firestore.collection(table).get();
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> search(
+    String table,
+    String field,
+    String query,
+  ) async {
+    return await _firestore
+        .collection(table)
+        .where(field, isGreaterThanOrEqualTo: query)
+        .where(field, isLessThanOrEqualTo: '$query\uf8ff')
+        .get();
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getCollection(
+      String table) async {
+    return await _firestore.collection(table).get();
+  }
 }

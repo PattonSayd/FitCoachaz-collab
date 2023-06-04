@@ -12,6 +12,7 @@ _$_Coach _$$_CoachFromJson(Map<String, dynamic> json) => _$_Coach(
       photo: json['photo'] as String,
       sport: json['sport'] as String,
       rating: (json['rating'] as num?)?.toDouble(),
+      searchKeys: json['searchKeys'] as String?,
       workTime: json['work_time'] as String,
     );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$$_CoachToJson(_$_Coach instance) => <String, dynamic>{
       'photo': instance.photo,
       'sport': instance.sport,
       'rating': instance.rating,
+      'searchKeys': instance.searchKeys,
       'work_time': instance.workTime,
     };

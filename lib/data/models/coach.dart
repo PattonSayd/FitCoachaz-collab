@@ -11,6 +11,7 @@ abstract class Coach with _$Coach {
     required final String photo,
     required final String sport,
     required final double? rating,
+    required final String? searchKeys,
     // ignore: invalid_annotation_target
     @JsonKey(name: 'work_time') required final String workTime,
   }) = _Coach;

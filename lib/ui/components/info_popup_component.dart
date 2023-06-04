@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 
-class NotificationWindow extends StatelessWidget {
-  const NotificationWindow({
+class UnifiedInfoPopup extends StatelessWidget {
+  const UnifiedInfoPopup({
     Key? key,
     this.alertText,
   }) : super(key: key);

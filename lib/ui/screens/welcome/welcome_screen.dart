@@ -5,13 +5,13 @@ import 'package:fitcoachaz/app/assemble/assemble.dart';
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
 import 'package:fitcoachaz/logger.dart';
+import 'package:fitcoachaz/ui/components/start_button_component.dart';
 import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
-import '../../widgets/global_start_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -66,7 +66,7 @@ class _BuildPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.w('BuildPlaceholder +++++++++++');
+    logger.w('BuildPlaceholder');
     return SafeArea(
       top: false,
       child: Scaffold(
@@ -93,7 +93,7 @@ class _BuildPlaceholder extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 47.h),
-              GlobalStartButton(
+              StartButtonComponent(
                   text: context.localizations.startButtom,
                   style: AppTextStyle.startButton,
                   onPress: () {

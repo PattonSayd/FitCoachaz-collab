@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/repositories/email_repository.dart';
 import '../services/firebase_auth_service.dart';

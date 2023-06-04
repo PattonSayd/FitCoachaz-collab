@@ -11,23 +11,25 @@ import 'package:fitcoachaz/domain/repositories/category_reposytory.dart';
 import 'package:fitcoachaz/domain/repositories/email_repository.dart';
 import 'package:fitcoachaz/ui/bloc/main/main_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/timer/timer_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/repositories/account_name_repo_imp.dart';
 import '../../data/repositories/email_repo_imp.dart';
-import '../../data/repositories/session_repo_imp.dart';
+import '../../data/repositories/search_repo_imp.dart';
 import '../../domain/repositories/account_name_repository.dart';
 import '../../data/repositories/congratulation_repo_imp.dart';
 import '../../domain/repositories/congratulation_repository.dart';
 import '../../domain/repositories/main_repository.dart';
 import '../../domain/repositories/register_repository.dart';
-import '../../domain/repositories/session_repository.dart';
+import '../../domain/repositories/search_repository.dart';
 import '../../ui/bloc/account_name/account_name_bloc.dart';
-import '../../ui/bloc/bloc/category_bloc.dart';
+import '../../ui/bloc/category/category_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
 import '../../ui/bloc/register/register_bloc.dart';
-import '../../ui/bloc/session/session_bloc.dart';
+import '../../ui/bloc/search/search_bloc.dart';
+import '../../ui/screens/main/appbar_state.dart';
 
 @module
 abstract class AssembleModule {
@@ -146,4 +148,21 @@ abstract class AssembleModule {
   @injectable
   CategoryBloc providerCategoryBloc(CategoryRepository repository) =>
       CategoryBloc(repository: repository);
+
+  @lazySingleton
+  ShowAppBarState providerShowAppBarState() => ShowAppBarState();
+
+  @injectable
+  SearchRepository providerSearchRepository(
+    FirestoreService service,
+    FirebaseStorageService storage,
+  ) =>
+      SearchRepositoryImpl(
+        service: service,
+        storage: storage,
+      );
+
+  @factory
+  SearchBloc providerSearchBloc(SearchRepository repository) =>
+      SearchBloc(repository: repository);
 }

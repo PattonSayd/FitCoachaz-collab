@@ -9,8 +9,8 @@ import 'package:fitcoachaz/ui/bloc/email/email_bloc.dart';
 
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
-import '../../widgets/global_button.dart';
-import '../../widgets/notification_window.dart';
+import '../../components/button_component.dart';
+import '../../components/info_popup_component.dart';
 
 class EmailScreen extends StatefulWidget {
   const EmailScreen({
@@ -120,7 +120,7 @@ class _EmailScreenState extends State<EmailScreen> with WidgetsBindingObserver {
                     buildWhen: (prev, cnt) => prev.status != cnt.status,
                     builder: (context, state) {
                       logger.i(state);
-                      return GlobalButton(
+                      return UnifiedButton(
                         onPressed: state.status == EmailStatus.valid
                             ? () => _onSubmitted(context, _contoller.text)
                             : null,
@@ -166,7 +166,7 @@ class _EmailScreenState extends State<EmailScreen> with WidgetsBindingObserver {
     } else if (state.status == EmailStatus.error) {
       showDialog(
         context: context,
-        builder: (context) => NotificationWindow(alertText: state.error!),
+        builder: (context) => UnifiedInfoPopup(alertText: state.error!),
       );
     } else if (state.status == EmailStatus.sendEmailSuccess) {
       Navigator.pushNamed(context, AppRoutesName.sendEmailSuccess,

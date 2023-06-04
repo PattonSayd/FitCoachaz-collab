@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/app_colors.dart';
 
-class GlobalStartButton extends StatelessWidget {
+class StartButtonComponent extends StatelessWidget {
   final String text;
   final VoidCallback onPress;
   final TextStyle style;
-  const GlobalStartButton(
+  const StartButtonComponent(
       {super.key,
       required this.text,
       required this.onPress,

@@ -31,7 +31,7 @@ class _TabsNavigatorState extends State<TabsNavigator> {
           index: selectedIndex,
           children: [
             ScreenFactory.assembleMain(),
-            const Center(child: Text("Book Screen")),
+            const Center(child: Text("Bookong Screen")),
             const Center(child: Text("Profile Screen")),
           ],
         ),
@@ -51,7 +51,7 @@ class _TabsNavigatorState extends State<TabsNavigator> {
   List<Widget> _buildBottomNavBarItems() {
     List<BottomNavBarItem> items = [
       BottomNavBarItem(AppAssets.homeTab),
-      BottomNavBarItem(AppAssets.bookmarkTab),
+      BottomNavBarItem(AppAssets.searchTab),
       BottomNavBarItem(AppAssets.profileTab),
     ];
 

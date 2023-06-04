@@ -24,7 +24,8 @@ mixin _$Coach {
   String get surname => throw _privateConstructorUsedError;
   String get photo => throw _privateConstructorUsedError;
   String get sport => throw _privateConstructorUsedError;
-  double? get rating =>
+  double? get rating => throw _privateConstructorUsedError;
+  String? get searchKeys =>
       throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'work_time')
   String get workTime => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $CoachCopyWith<$Res> {
       String photo,
       String sport,
       double? rating,
+      String? searchKeys,
       @JsonKey(name: 'work_time') String workTime});
 }
 
@@ -66,6 +68,7 @@ class _$CoachCopyWithImpl<$Res, $Val extends Coach>
     Object? photo = null,
     Object? sport = null,
     Object? rating = freezed,
+    Object? searchKeys = freezed,
     Object? workTime = null,
   }) {
     return _then(_value.copyWith(
@@ -89,6 +92,10 @@ class _$CoachCopyWithImpl<$Res, $Val extends Coach>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      searchKeys: freezed == searchKeys
+          ? _value.searchKeys
+          : searchKeys // ignore: cast_nullable_to_non_nullable
+              as String?,
       workTime: null == workTime
           ? _value.workTime
           : workTime // ignore: cast_nullable_to_non_nullable
@@ -109,6 +116,7 @@ abstract class _$$_CoachCopyWith<$Res> implements $CoachCopyWith<$Res> {
       String photo,
       String sport,
       double? rating,
+      String? searchKeys,
       @JsonKey(name: 'work_time') String workTime});
 }
 
@@ -126,6 +134,7 @@ class __$$_CoachCopyWithImpl<$Res> extends _$CoachCopyWithImpl<$Res, _$_Coach>
     Object? photo = null,
     Object? sport = null,
     Object? rating = freezed,
+    Object? searchKeys = freezed,
     Object? workTime = null,
   }) {
     return _then(_$_Coach(
@@ -149,6 +158,10 @@ class __$$_CoachCopyWithImpl<$Res> extends _$CoachCopyWithImpl<$Res, _$_Coach>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      searchKeys: freezed == searchKeys
+          ? _value.searchKeys
+          : searchKeys // ignore: cast_nullable_to_non_nullable
+              as String?,
       workTime: null == workTime
           ? _value.workTime
           : workTime // ignore: cast_nullable_to_non_nullable
@@ -166,6 +179,7 @@ class _$_Coach implements _Coach {
       required this.photo,
       required this.sport,
       required this.rating,
+      required this.searchKeys,
       @JsonKey(name: 'work_time') required this.workTime});
 
   factory _$_Coach.fromJson(Map<String, dynamic> json) =>
@@ -181,6 +195,8 @@ class _$_Coach implements _Coach {
   final String sport;
   @override
   final double? rating;
+  @override
+  final String? searchKeys;
 // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'work_time')
@@ -188,7 +204,7 @@ class _$_Coach implements _Coach {
 
   @override
   String toString() {
-    return 'Coach(name: $name, surname: $surname, photo: $photo, sport: $sport, rating: $rating, workTime: $workTime)';
+    return 'Coach(name: $name, surname: $surname, photo: $photo, sport: $sport, rating: $rating, searchKeys: $searchKeys, workTime: $workTime)';
   }
 
   @override
@@ -201,14 +217,16 @@ class _$_Coach implements _Coach {
             (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.sport, sport) || other.sport == sport) &&
             (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.searchKeys, searchKeys) ||
+                other.searchKeys == searchKeys) &&
             (identical(other.workTime, workTime) ||
                 other.workTime == workTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, surname, photo, sport, rating, workTime);
+  int get hashCode => Object.hash(
+      runtimeType, name, surname, photo, sport, rating, searchKeys, workTime);
 
   @JsonKey(ignore: true)
   @override
@@ -231,6 +249,7 @@ abstract class _Coach implements Coach {
       required final String photo,
       required final String sport,
       required final double? rating,
+      required final String? searchKeys,
       @JsonKey(name: 'work_time') required final String workTime}) = _$_Coach;
 
   factory _Coach.fromJson(Map<String, dynamic> json) = _$_Coach.fromJson;
@@ -245,6 +264,8 @@ abstract class _Coach implements Coach {
   String get sport;
   @override
   double? get rating;
+  @override
+  String? get searchKeys;
   @override // ignore: invalid_annotation_target
   @JsonKey(name: 'work_time')
   String get workTime;
