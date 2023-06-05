@@ -10,6 +10,7 @@ class AppRoutesName {
   static const register = '/register';
   static const splash = '/splash';
   static const profile = 'main/profile';
+  static const bodyParameters = 'main/profile/bodyParameters';
   static const otp = '/otp';
   static const email = '/email';
   static const sendEmailSuccess = '/sendEmailSuccess';
@@ -35,6 +36,7 @@ class AppRoutes {
     AppRoutesName.splash: (_) => ScreenFactory.assembleSplash(),
     AppRoutesName.profile: (_) => ScreenFactory.assembleProfile(),
     AppRoutesName.notification: (_) => ScreenFactory.assembleNotification(),
+    AppRoutesName.bodyParameters: (_) => ScreenFactory.assembleBodyParameters(),
   };
 
   static Route<Object> onGenerateRoute(RouteSettings settings) {

@@ -1,4 +1,3 @@
-import 'package:fitcoachaz/logger.dart';
 import 'package:fitcoachaz/ui/bloc/search/search_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

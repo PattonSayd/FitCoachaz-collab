@@ -37,7 +37,7 @@ class App extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            initialRoute: AppRoutesName.tabs,
+            initialRoute: AppRoutesName.bodyParameters,
             routes: AppRoutes.routes,
             onGenerateRoute: AppRoutes.onGenerateRoute,
           );
