@@ -24,6 +24,7 @@ import '../../domain/repositories/main_repository.dart';
 import '../../domain/repositories/register_repository.dart';
 import '../../domain/repositories/search_repository.dart';
 import '../../ui/bloc/account_name/account_name_bloc.dart';
+import '../../ui/bloc/body_parameters/body_parameters_bloc.dart';
 import '../../ui/bloc/category/category_bloc.dart';
 import '../../ui/bloc/congratulation/congratulation_bloc.dart';
 import '../../ui/bloc/email/email_bloc.dart';
@@ -165,4 +166,7 @@ abstract class AssembleModule {
   @lazySingleton
   SearchBloc providerSearchBloc(SearchRepository repository) =>
       SearchBloc(repository: repository);
+
+  @factory
+  BodyParametersBloc providerBodyParameters() => BodyParametersBloc();
 }

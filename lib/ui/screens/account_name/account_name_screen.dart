@@ -10,8 +10,8 @@ import 'package:formz/formz.dart';
 import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
-import '../../components/button_component.dart';
-import '../../components/info_popup_component.dart';
+import '../../widgets/button_component.dart';
+import '../../widgets/info_popup_component.dart';
 
 class AccountNameScreen extends StatefulWidget {
   const AccountNameScreen({super.key});
@@ -130,7 +130,7 @@ class _AccountNameScreenState extends State<AccountNameScreen> {
                 buildWhen: (p, c) => p.status != c.status,
                 builder: (context, state) {
                   return Align(
-                    child: UnifiedButton(
+                    child: ButtonComponent(
                       onPressed: state.status.isInitial
                           ? () {
                               context

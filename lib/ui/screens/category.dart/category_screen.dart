@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../bloc/category/category_bloc.dart';
-import '../../components/card_componet.dart';
+import '../../widgets/card_componet.dart';
 import '../../theme/app_colors.dart';
 
 class CategoryScreen extends StatelessWidget {

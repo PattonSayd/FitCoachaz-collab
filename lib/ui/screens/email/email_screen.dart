@@ -9,8 +9,8 @@ import 'package:fitcoachaz/ui/bloc/email/email_bloc.dart';
 
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
-import '../../components/button_component.dart';
-import '../../components/info_popup_component.dart';
+import '../../widgets/button_component.dart';
+import '../../widgets/info_popup_component.dart';
 
 class EmailScreen extends StatefulWidget {
   const EmailScreen({
@@ -120,7 +120,7 @@ class _EmailScreenState extends State<EmailScreen> with WidgetsBindingObserver {
                     buildWhen: (prev, cnt) => prev.status != cnt.status,
                     builder: (context, state) {
                       logger.i(state);
-                      return UnifiedButton(
+                      return ButtonComponent(
                         onPressed: state.status == EmailStatus.valid
                             ? () => _onSubmitted(context, _contoller.text)
                             : null,

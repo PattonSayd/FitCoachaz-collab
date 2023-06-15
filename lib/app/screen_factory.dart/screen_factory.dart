@@ -1,8 +1,9 @@
 import 'package:fitcoachaz/ui/bloc/account_name/account_name_bloc.dart';
+import 'package:fitcoachaz/ui/bloc/body_parameters/body_parameters_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/category/category_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/congratulation/congratulation_bloc.dart';
 import 'package:fitcoachaz/ui/bloc/search/search_bloc.dart';
-import 'package:fitcoachaz/ui/screens/body_parameters/body_parameters.dart';
+import 'package:fitcoachaz/ui/screens/body_parameters/body_parameters_screen.dart';
 import 'package:fitcoachaz/ui/screens/email/email_sent_successful_screen.dart';
 import 'package:fitcoachaz/ui/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -135,6 +136,9 @@ class ScreenFactory {
   }
 
   static Widget assembleBodyParameters() {
-    return BodyParameters();
+    return BlocProvider<BodyParametersBloc>(
+      create: (context) => assemble.bodyParam,
+      child: const BodyParametersScreen(),
+    );
   }
 }

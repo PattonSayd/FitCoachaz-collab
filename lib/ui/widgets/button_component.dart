@@ -1,12 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theme/app_colors.dart';
 
-class UnifiedButton extends StatelessWidget {
+class ButtonComponent extends StatelessWidget {
   final void Function()? onPressed;
   final Widget? child;
 
-  const UnifiedButton({
+  const ButtonComponent({
     Key? key,
     required this.onPressed,
     this.child,

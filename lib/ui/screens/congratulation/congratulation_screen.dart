@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/app/resources/app_assets.dart';
-import 'package:fitcoachaz/ui/components/start_button_component.dart';
+import 'package:fitcoachaz/ui/widgets/start_button_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

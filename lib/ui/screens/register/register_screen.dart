@@ -11,8 +11,8 @@ import 'package:formz/formz.dart';
 import '../../../app/router/app_routes.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
-import '../../components/button_component.dart';
-import '../../components/info_popup_component.dart';
+import '../../widgets/button_component.dart';
+import '../../widgets/info_popup_component.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -128,7 +128,7 @@ class ConfirmButton extends StatelessWidget {
       buildWhen: (pre, curr) => pre.submissionStatus != curr.submissionStatus,
       builder: (context, state) {
         logger.i('BUILDER $state -> hasCode: ${state.hashCode}');
-        return UnifiedButton(
+        return ButtonComponent(
           onPressed: state.submissionStatus == FormzSubmissionStatus.initial
               ? () {
                   context.read<RegisterBloc>().add(RegisterEvent.sendOTPToPhone(

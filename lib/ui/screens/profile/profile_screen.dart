@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../app/resources/app_icons.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
-import '../../components/bordered_icon_button.dart';
+import '../../widgets/bordered_icon_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({

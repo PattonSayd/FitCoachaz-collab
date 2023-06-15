@@ -6,7 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../app/assemble/assemble.dart';
 import '../../../logger.dart';
 import '../../bloc/search/search_bloc.dart';
-import '../../components/card_componet.dart';
+import '../../widgets/card_componet.dart';
 import '../../theme/app_colors.dart';
 import 'advertising_widget.dart';
 import 'animated_appbar_widget.dart';

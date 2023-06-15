@@ -13,8 +13,8 @@ import '../../../app/router/app_routes.dart';
 import '../../bloc/register/register_bloc.dart';
 import '../../style/app_text_style.dart';
 import '../../theme/app_colors.dart';
-import '../../components/button_component.dart';
-import '../../components/info_popup_component.dart';
+import '../../widgets/button_component.dart';
+import '../../widgets/info_popup_component.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({
@@ -174,7 +174,7 @@ class _ConfirmButton extends StatelessWidget {
           previous.submissionStatus != current.submissionStatus,
       builder: (context, state) {
         logger.i(state);
-        return UnifiedButton(
+        return ButtonComponent(
           onPressed: state.submissionStatus == FormzSubmissionStatus.initial
               ? () => context.read<RegisterBloc>().add(
                     RegisterEvent.verifySentOTP(
