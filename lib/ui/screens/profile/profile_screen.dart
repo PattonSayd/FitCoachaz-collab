@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fitcoachaz/app/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,7 +70,9 @@ class ProfileScreen extends StatelessWidget {
             _SelectionListTile(
                 text: 'Bədən Parametrləri',
                 icon: AppIcons.bodySettings,
-                onTap: () {}),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutesName.bodyParameters);
+                }),
             SizedBox(height: 32.h),
             _SelectionListTile(
                 text: 'Parametrlər', icon: AppIcons.settings, onTap: () {}),
@@ -117,35 +120,38 @@ class _SelectionListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.spMin),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 24.spMin,
-            backgroundColor: AppColors.lightPink.withOpacity(0.42),
-            child: SvgPicture.asset(
-              icon,
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.spMin),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 24.spMin,
+              backgroundColor: AppColors.lightPink.withOpacity(0.42),
+              child: SvgPicture.asset(
+                icon,
+                width: 24.spMin,
+                height: 24.spMin,
+                color: AppColors.black,
+              ),
+            ),
+            SizedBox(width: 24.spMin),
+            Expanded(
+              child: Text(
+                text,
+                style: AppTextStyle.profileScreenListItem,
+              ),
+            ),
+            SizedBox(width: 24.spMin),
+            SvgPicture.asset(
+              AppIcons.chevronRight,
               width: 24.spMin,
               height: 24.spMin,
               color: AppColors.black,
             ),
-          ),
-          SizedBox(width: 24.spMin),
-          Expanded(
-            child: Text(
-              text,
-              style: AppTextStyle.profileScreenListItem,
-            ),
-          ),
-          SizedBox(width: 24.spMin),
-          SvgPicture.asset(
-            AppIcons.chevronRight,
-            width: 24.spMin,
-            height: 24.spMin,
-            color: AppColors.black,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

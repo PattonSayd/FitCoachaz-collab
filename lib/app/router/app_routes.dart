@@ -68,7 +68,11 @@ class AppRoutes {
                 ScreenFactory.assembleSendEmailSuccess(email: email));
       default:
         return MaterialPageRoute(
-          builder: (_) => const Text('Navigation error'),
+          builder: (_) => const Scaffold(
+            body: Center(
+              child: Text('Navigation error'),
+            ),
+          ),
         );
     }
   }

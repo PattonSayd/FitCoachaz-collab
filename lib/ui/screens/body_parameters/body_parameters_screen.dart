@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fitcoachaz/app/extension/build_context.dart';
 import 'package:fitcoachaz/ui/widgets/button_component.dart';
-import 'package:fitcoachaz/ui/theme/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../style/app_text_style.dart';
@@ -18,6 +17,27 @@ class BodyParametersScreen extends StatefulWidget {
 }
 
 class _BodyParametersScreenState extends State<BodyParametersScreen> {
+  void initState() {
+    super.initState();
+
+    final state = context.read<BodyParametersBloc>().state;
+
+    final listParameters = [
+      MetricScrollLines(
+        caption: 'I was in born',
+        focusedIndex: state.born.focusedIndex,
+        startPoint: state.born.startPoint,
+        initialItem: state.born.focusedIndex - state.born.startPoint,
+        length: state.born.length,
+        onSelectedItemChanged: (value) => context
+            .read<BodyParametersBloc>()
+            .add(BodyParametersEvent.focusedBornIndex(
+              focusedIndex: value + state.born.startPoint,
+            )),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = context.read<BodyParametersBloc>().state;
